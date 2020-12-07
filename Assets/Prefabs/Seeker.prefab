@@ -139,7 +139,6 @@ GameObject:
   - component: {fileID: 980994882548128733}
   - component: {fileID: 8695914710498174818}
   - component: {fileID: 5810321180093013678}
-  - component: {fileID: 4196216303013456172}
   - component: {fileID: 9147609134643830100}
   - component: {fileID: 6047727353592269860}
   m_Layer: 0
@@ -266,22 +265,6 @@ MonoBehaviour:
   m_BehaviorName: Seeker
   TeamId: 0
   m_UseChildSensors: 1
---- !u!114 &4196216303013456172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2999620061528783770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88b6042bc9a5d4aa58d931eae49442e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
 --- !u!114 &9147609134643830100
 MonoBehaviour:
   m_ObjectHideFlags: 0
