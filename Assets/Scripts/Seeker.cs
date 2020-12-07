@@ -40,6 +40,9 @@ namespace Assets.Scripts
         {
             actionsOut[0] = 0f;
             actionsOut[1] = 0f;
+            actionsOut[2] = 0f;
+            actionsOut[3] = 0f;
+            actionsOut[4] = 0f;
 
             if (Input.GetKey(KeyCode.UpArrow))
             {
@@ -48,37 +51,55 @@ namespace Assets.Scripts
             }
             else if (Input.GetKey(KeyCode.DownArrow))
             {
-                actionsOut[0] = 1f;
+                actionsOut[1] = 1f;
             }
             else if (Input.GetKey(KeyCode.LeftArrow))
             {
-                actionsOut[1] = 1f;
+                actionsOut[2] = 1f;
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
-                actionsOut[1] = 2f;
+                actionsOut[3] = 2f;
+            }
+            else if (Input.GetKey(KeyCode.A))
+            {
+                actionsOut[4] = 1f;
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                actionsOut[4] = -1f;
             }
         }
 
         public override void OnActionReceived(float[] vectorAction)
         {
-            if (vectorAction[0] == 0 & vectorAction[1] == 0)
+            if (vectorAction[0] > 0.5f)
             {
-                AddReward(-0.001f);
-                return;
+                Vector3 rightVelocity = new Vector3(movementSpeed * vectorAction[0], 0f, 0f);
+                rb.AddForce(rightVelocity, ForceMode.VelocityChange);
+            }
+            if (vectorAction[1] > 0.5f)
+            {
+                Vector3 leftVelocity = new Vector3(-movementSpeed * vectorAction[1], 0f, 0f);
+                rb.AddForce(leftVelocity, ForceMode.VelocityChange);
+            }
+            if (vectorAction[2] > 0.5f)
+            {
+                Vector3 leftVelocity = new Vector3(0f, 0f, movementSpeed * vectorAction[2]);
+                rb.AddForce(leftVelocity, ForceMode.VelocityChange);
+            }
+            if (vectorAction[3] > 0.5f)
+            {
+                Vector3 leftVelocity = new Vector3(0f, 0f, -movementSpeed * vectorAction[3]);
+                rb.AddForce(leftVelocity, ForceMode.VelocityChange);
             }
 
-            if (vectorAction[0] != 0)
+            if (vectorAction[4] != 0f)
             {
-                Vector3 translation = transform.forward * movementSpeed * (vectorAction[0] * 2 - 3) * Time.deltaTime;
-                transform.Translate(translation, Space.World);
+                //float rotation = rotationSpeed * (vectorAction[4] * 2 - 3) * Time.deltaTime;
+                transform.Rotate(0f, (vectorAction[4] * rotationSpeed) * Time.deltaTime, 0f);
             }
 
-            if (vectorAction[1] != 0)
-            {
-                float rotation = rotationSpeed * (vectorAction[1] * 2 - 3) * Time.deltaTime;
-                transform.Rotate(0, rotation, 0);
-            }
         }
 
 

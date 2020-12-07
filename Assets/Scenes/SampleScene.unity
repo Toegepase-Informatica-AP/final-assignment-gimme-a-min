@@ -344,6 +344,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 6509455928480033910, guid: 7b7a632885099eb41a5ab4337ab532a8,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
     - target: {fileID: 9163476825642012595, guid: 7b7a632885099eb41a5ab4337ab532a8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1939,6 +1944,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 6509455928480033910, guid: 7b7a632885099eb41a5ab4337ab532a8,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 126
       objectReference: {fileID: 0}
     - target: {fileID: 9163476825642012595, guid: 7b7a632885099eb41a5ab4337ab532a8,
         type: 3}
@@ -5175,6 +5185,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 6509455928480033910, guid: 7b7a632885099eb41a5ab4337ab532a8,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
     - target: {fileID: 9163476825642012595, guid: 7b7a632885099eb41a5ab4337ab532a8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5412,28 +5427,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5810321180093013678, guid: 5e350004349bd6443866fdb563a9dd39,
         type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5810321180093013678, guid: 5e350004349bd6443866fdb563a9dd39,
+        type: 3}
       propertyPath: m_BehaviorType
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5810321180093013678, guid: 5e350004349bd6443866fdb563a9dd39,
         type: 3}
       propertyPath: m_BrainParameters.VectorActionSize.Array.data[0]
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5810321180093013678, guid: 5e350004349bd6443866fdb563a9dd39,
         type: 3}
       propertyPath: m_BrainParameters.VectorActionSize.Array.data[1]
-      value: 3
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5810321180093013678, guid: 5e350004349bd6443866fdb563a9dd39,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5810321180093013678, guid: 5e350004349bd6443866fdb563a9dd39,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.data[3]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5810321180093013678, guid: 5e350004349bd6443866fdb563a9dd39,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.data[4]
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6047727353592269860, guid: 5e350004349bd6443866fdb563a9dd39,
         type: 3}
       propertyPath: movementSpeed
-      value: 100
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6047727353592269860, guid: 5e350004349bd6443866fdb563a9dd39,
         type: 3}
       propertyPath: rotationSpeed
-      value: 100
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7309597885023492544, guid: 5e350004349bd6443866fdb563a9dd39,
         type: 3}
@@ -5513,6 +5548,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 6509455928480033910, guid: 7b7a632885099eb41a5ab4337ab532a8,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 126
       objectReference: {fileID: 0}
     - target: {fileID: 9163476825642012595, guid: 7b7a632885099eb41a5ab4337ab532a8,
         type: 3}
