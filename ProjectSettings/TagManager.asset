@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Wall
+  - HideWall
+  - JailWall
+  - Jail
+  - JailFloor
+  - Seeker
+  - ServingPlate
   layers:
   - Default
   - TransparentFX
