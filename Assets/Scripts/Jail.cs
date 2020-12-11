@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-   public class Prison : MonoBehaviour
+   public class Jail : MonoBehaviour
     {
     }
 }

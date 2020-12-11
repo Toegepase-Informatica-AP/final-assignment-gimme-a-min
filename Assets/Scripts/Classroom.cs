@@ -19,7 +19,7 @@ namespace Assets.Scripts
         public Seeker seekerPrefab;
         public Player playerPrefab;
 
-        private Prison prison;
+        private Jail jail;
 
         private GameObject players;
         private GameObject playerSpawnLocations;
@@ -28,7 +28,7 @@ namespace Assets.Scripts
 
         private void OnEnable()
         {
-            prison = transform.GetComponentInChildren<Prison>();
+            jail = transform.GetComponentInChildren<Jail>();
             players = transform.Find("Players").gameObject;
             seekers = transform.Find("Seekers").gameObject;
             playerSpawnLocations = transform.Find("PlayerSpawnLocations").gameObject;
@@ -71,7 +71,7 @@ namespace Assets.Scripts
         private SpawnLocation GetRandomSpawnLocation(MovingObjectTypes type)
         {
             IEnumerable<SpawnLocation> locations;
-            switch (type)
+                switch (type)
             {
                 case MovingObjectTypes.SEEKER:
                     locations = seekerSpawnLocations.transform.GetComponentsInChildren<SpawnLocation>();
@@ -80,11 +80,9 @@ namespace Assets.Scripts
                     locations = playerSpawnLocations.transform.GetComponentsInChildren<SpawnLocation>();
                     break;
                 default:
-                    // Zou nooit kunnen.
                     locations = null;
                     break;
             }
-
             locations = locations.Where(x => !x.IsUsed);
             int randomIndex = Random.Range(0, locations.Count());
             SpawnLocation randomlyPicked = locations.ElementAt(randomIndex);
@@ -101,7 +99,7 @@ namespace Assets.Scripts
                 seeker.transform.localPosition = GetAvailableSpawnLocation(MovingObjectTypes.SEEKER);
                 seeker.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
 
-                seeker.transform.SetParent(seekerSpawnLocations.transform);
+                seeker.transform.SetParent(seekers.transform);
             }
         }
 
@@ -115,7 +113,7 @@ namespace Assets.Scripts
                 seeker.transform.localPosition = GetAvailableSpawnLocation(MovingObjectTypes.PLAYER);
                 seeker.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
 
-                seeker.transform.SetParent(playerSpawnLocations.transform);
+                seeker.transform.SetParent(players.transform);
             }
         }
     }
