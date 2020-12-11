@@ -68,11 +68,11 @@ namespace Assets.Scripts
 
         private void PositionController()
         {
-            float headHeight = Mathf.Clamp(headObject.transform.localPosition.y, 1, 2);
+            float headHeight = Mathf.Clamp(headObject.transform.localPosition.y, 2, 3);
             characterController.height = headHeight;
 
             Vector3 newCenter = Vector3.zero;
-            newCenter.y = characterController.height / 2;
+            newCenter.y = characterController.height / 4;
             newCenter.y += characterController.skinWidth;
 
             newCenter.x = headObject.transform.localPosition.x;
