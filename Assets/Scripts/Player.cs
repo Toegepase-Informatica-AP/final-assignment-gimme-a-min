@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Assets.Scripts
 {
 
-    public class Player : Agent
+    public class Player : MovingObject
     {
         // Start is called before the first frame update
         void Start()
