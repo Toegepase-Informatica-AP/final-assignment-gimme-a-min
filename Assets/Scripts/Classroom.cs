@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -37,11 +36,11 @@ namespace Assets.Scripts
 
         public void ClearEnvironment()
         {
-            foreach(Transform player in players.transform)
+            foreach (Transform player in players.transform)
             {
                 Destroy(player.gameObject);
             }
-            foreach(Transform seeker in seekers.transform)
+            foreach (Transform seeker in seekers.transform)
             {
                 Destroy(seeker.gameObject);
             }
@@ -71,7 +70,7 @@ namespace Assets.Scripts
         private SpawnLocation GetRandomSpawnLocation(MovingObjectTypes type)
         {
             IEnumerable<SpawnLocation> locations;
-                switch (type)
+            switch (type)
             {
                 case MovingObjectTypes.SEEKER:
                     locations = seekerSpawnLocations.transform.GetComponentsInChildren<SpawnLocation>();

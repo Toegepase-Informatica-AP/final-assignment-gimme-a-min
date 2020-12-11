@@ -1,5 +1,4 @@
-﻿using Unity.MLAgents;
-using Unity.MLAgents.Sensors;
+﻿using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -29,7 +28,7 @@ namespace Assets.Scripts
                     // Blijf punten toevoegen zolang een speler in zijn zicht is.
                     AddReward(0.001f);
 
-                    var player = hit.transform.gameObject.GetComponent<Player>();
+                    Player player = hit.transform.gameObject.GetComponent<Player>();
 
                     if (player != null)
                     {
@@ -74,11 +73,12 @@ namespace Assets.Scripts
 
         private void OnCollisionEnter(Collision collision)
         {
-            var collObject = collision.transform;
+            Transform collObject = collision.transform;
 
             if (collObject.CompareTag("Jail") && hasPlayerGrabbed)
             {
                 hasPlayerGrabbed = false;
+                collObject.transform.gameObject.GetComponent<Player>().IsJailed = true;
                 AddReward(1f);
                 playersCaptured++;
                 // TODO: logica van student in gevangenis te zetten.
@@ -93,6 +93,7 @@ namespace Assets.Scripts
                 if (!hasPlayerGrabbed)
                 {
                     hasPlayerGrabbed = true;
+                    collObject.transform.gameObject.GetComponent<Player>().IsGrabbed = true;
                     AddReward(0.1f);
                     // TODO: logica van student vast te nemen.
                 }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DoorGrabbable : OVRGrabbable
 {
@@ -20,7 +18,7 @@ public class DoorGrabbable : OVRGrabbable
 
     public void Update()
     {
-        if(Vector3.Distance(handler.position, transform.position) > 0.4f)
+        if (Vector3.Distance(handler.position, transform.position) > 0.4f)
         {
             grabbedBy.ForceRelease(this);
         }

@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Unity.MLAgents;
+﻿using Unity.MLAgents;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Assets.Scripts
 {
@@ -30,14 +24,16 @@ namespace Assets.Scripts
 
         protected virtual void FixedUpdate()
         {
-            var x = movementSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
-            var z = movementSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
+            float x = movementSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
+            float z = movementSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
             transform.Translate(x, 0f, z, Space.World);
 
             float angle = Mathf.Atan2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * Mathf.Rad2Deg;
 
             if (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f)
+            {
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            }
         }
 
         public override void Heuristic(float[] actionsOut)

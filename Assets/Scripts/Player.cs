@@ -1,22 +1,24 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Unity.MLAgents;
-using UnityEngine;
-using Random = UnityEngine.Random;
-
-namespace Assets.Scripts
+﻿namespace Assets.Scripts
 {
 
     public class Player : MovingObject
     {
-        private bool isJailed = false;
-        private bool isGrabbed = false;
+        public bool IsJailed { get; set; }
+        public bool IsGrabbed { get; set; }
 
         public override void Initialize()
         {
             base.Initialize();
+        }
+
+        protected override void FixedUpdate()
+        {
+            base.FixedUpdate();
+
+            if (!IsGrabbed && !IsJailed)
+            {
+                AddReward(0.001f);
+            }
         }
     }
 }
