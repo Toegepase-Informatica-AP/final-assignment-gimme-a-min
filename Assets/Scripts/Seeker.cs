@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.MLAgents;
+﻿using Unity.MLAgents;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -12,7 +10,7 @@ namespace Assets.Scripts
         public float rotationSpeed = 5f;
 
         private Classroom classroom;
-        private Rigidbody body;
+        private Rigidbody rbody;
         private Player player;
 
         public override void Initialize()
@@ -20,16 +18,15 @@ namespace Assets.Scripts
             base.Initialize();
             classroom = GetComponentInParent<Classroom>();
             player = GetComponentInParent<Player>();
-            body = GetComponent<Rigidbody>();
-            body.angularVelocity = Vector3.zero;
-            body.velocity = Vector3.zero;
-            body.angularDrag = 50;
+            rbody = GetComponent<Rigidbody>();
+            rbody.angularVelocity = Vector3.zero;
+            rbody.velocity = Vector3.zero;
+            rbody.angularDrag = 50;
         }
 
         private void FixedUpdate()
         {
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit))
+            if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit))
             {
                 Debug.Log(hit.transform.tag);
                 Debug.Log(hit.transform.CompareTag("Wall"));
@@ -76,22 +73,22 @@ namespace Assets.Scripts
             if (vectorAction[0] > 0.5f)
             {
                 Vector3 rightVelocity = new Vector3(movementSpeed * vectorAction[0], 0f, 0f);
-                body.AddForce(rightVelocity, ForceMode.VelocityChange);
+                rbody.AddForce(rightVelocity, ForceMode.VelocityChange);
             }
             if (vectorAction[1] > 0.5f)
             {
                 Vector3 leftVelocity = new Vector3(-movementSpeed * vectorAction[1], 0f, 0f);
-                body.AddForce(leftVelocity, ForceMode.VelocityChange);
+                rbody.AddForce(leftVelocity, ForceMode.VelocityChange);
             }
             if (vectorAction[2] > 0.5f)
             {
                 Vector3 leftVelocity = new Vector3(0f, 0f, movementSpeed * vectorAction[2]);
-                body.AddForce(leftVelocity, ForceMode.VelocityChange);
+                rbody.AddForce(leftVelocity, ForceMode.VelocityChange);
             }
             if (vectorAction[3] > 0.5f)
             {
                 Vector3 leftVelocity = new Vector3(0f, 0f, -movementSpeed * vectorAction[3]);
-                body.AddForce(leftVelocity, ForceMode.VelocityChange);
+                rbody.AddForce(leftVelocity, ForceMode.VelocityChange);
             }
 
             if (vectorAction[4] != 0f)
@@ -99,6 +96,17 @@ namespace Assets.Scripts
                 //float rotation = rotationSpeed * (vectorAction[4] * 2 - 3) * Time.deltaTime;
                 transform.Rotate(0f, (vectorAction[4] * rotationSpeed) * Time.deltaTime, 0f);
             }
+        }
+
+        // D'Haese code
+        // URL: https://ddhaese.github.io/ML-Agents/gedragingen-van-de-agent-en-de-andere-spelobjecten.html#obelix.cs
+        public override void OnEpisodeBegin()
+        {
+            transform.localPosition = new Vector3(-22f, 1.5f, 22f);
+            transform.localRotation = Quaternion.Euler(0f, 225f, 0f);
+
+            rbody.angularVelocity = Vector3.zero;
+            rbody.velocity = Vector3.zero;
         }
     }
 }
