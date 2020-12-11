@@ -18,6 +18,8 @@ TagManager:
   - SeekerSpawnLocations
   - PlayerSpawnLocation
   - SeekerSpawnLocation
+  - GrabbableHandle
+  - Door
   layers:
   - Default
   - TransparentFX
