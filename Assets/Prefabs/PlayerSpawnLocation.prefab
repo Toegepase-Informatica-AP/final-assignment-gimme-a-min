@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 716033838738506833}
   - component: {fileID: 5436112602611312756}
   - component: {fileID: 5356155712806879145}
+  - component: {fileID: 605520205107047851}
   m_Layer: 0
   m_Name: PlayerSpawnLocation
   m_TagString: Untagged
@@ -88,8 +89,20 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8760810202540603806}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &605520205107047851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8760810202540603806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55ba53d239ba4cf4eafc7477e6274af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Unity.MLAgents;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.Scripts
 {
@@ -13,6 +14,7 @@ namespace Assets.Scripts
         [Header("Settings")]
         public float movementSpeed = 2f;
         public float rotationSpeed = 5f;
+        public List<SpawnLocation> spawnLocations;
 
         protected Classroom classroom;
         protected Rigidbody rbody;
@@ -109,5 +111,34 @@ namespace Assets.Scripts
                 transform.Rotate(0f, (vectorAction[4] * rotationSpeed) * Time.deltaTime, 0f);
             }
         }
+
+        // D'Haese code
+        // URL: https://ddhaese.github.io/ML-Agents/gedragingen-van-de-agent-en-de-andere-spelobjecten.html#obelix.cs
+        public override void OnEpisodeBegin()
+        {
+            transform.localPosition = SetSpawnLocation();
+            transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+
+            rbody.angularVelocity = Vector3.zero;
+            rbody.velocity = Vector3.zero;
+        }
+
+        private Vector3 SetSpawnLocation()
+        {
+            SpawnLocation spawnLocation = GetRandomSpawnLocation();
+            spawnLocation.IsUsed = true;
+            Vector3 pos = spawnLocation.transform.position;
+            return new Vector3(pos.x, pos.y, pos.z);
+        }
+
+        private SpawnLocation GetRandomSpawnLocation()
+        {
+            IEnumerable<SpawnLocation> locations = spawnLocations.Where(x => !x.IsUsed);
+            int randomIndex = Random.Range(0, locations.Count());
+            SpawnLocation randomlyPicked = locations.ElementAt(randomIndex);
+            return randomlyPicked;
+        }
+
+        
     }
 }
