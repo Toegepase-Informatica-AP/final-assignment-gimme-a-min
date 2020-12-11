@@ -5,7 +5,13 @@ namespace Assets.Scripts
 {
     public class Seeker : MovingObject
     {
+        protected Player player;
 
+        public override void Initialize()
+        {
+            base.Initialize();
+            player = GetComponentInParent<Player>();
+        }
 
         // D'Haese code
         // URL: https://ddhaese.github.io/ML-Agents/gedragingen-van-de-agent-en-de-andere-spelobjecten.html#obelix.cs

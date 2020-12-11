@@ -16,13 +16,11 @@ namespace Assets.Scripts
 
         protected Classroom classroom;
         protected Rigidbody rbody;
-        protected Player player;
 
         public override void Initialize()
         {
             base.Initialize();
             classroom = GetComponentInParent<Classroom>();
-            player = GetComponentInParent<Player>();
             rbody = GetComponent<Rigidbody>();
             rbody.angularVelocity = Vector3.zero;
             rbody.velocity = Vector3.zero;

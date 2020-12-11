@@ -8,16 +8,23 @@ namespace Assets.Scripts
 
     public class Player : MovingObject
     {
-        // Start is called before the first frame update
-        void Start()
+        protected Seeker seeker;
+
+        public override void Initialize()
         {
-        
+            base.Initialize();
+            seeker = GetComponentInParent<Seeker>();
         }
 
-        // Update is called once per frame
-        void Update()
+        // D'Haese code
+        // URL: https://ddhaese.github.io/ML-Agents/gedragingen-van-de-agent-en-de-andere-spelobjecten.html#obelix.cs
+        public override void OnEpisodeBegin()
         {
-        
+            transform.localPosition = new Vector3(0f, 1.5f, 0f);
+            transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+
+            rbody.angularVelocity = Vector3.zero;
+            rbody.velocity = Vector3.zero;
         }
     }
 }
