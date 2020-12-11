@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 4634111}
   m_Layer: 0
   m_Name: Players
-  m_TagString: Untagged
+  m_TagString: Players
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -896,6 +896,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6297a5a01e0bae44a86a0625cc617b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seekerCount: 1
+  playerCount: 5
+  seekerPrefab: {fileID: 6047727353592269860, guid: 5e350004349bd6443866fdb563a9dd39,
+    type: 3}
+  playerPrefab: {fileID: 8751755552253914574, guid: 58efdf929cc651848bb5ba6e8121233c,
+    type: 3}
 --- !u!1 &152692531
 GameObject:
   m_ObjectHideFlags: 0
@@ -2385,8 +2391,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 543450652623825634}
   - {fileID: 1028267577}
-  - {fileID: 1076202762}
   m_Father: {fileID: 138865684}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2641,7 +2647,7 @@ GameObject:
   - component: {fileID: 560491416}
   m_Layer: 0
   m_Name: Seekers
-  m_TagString: Untagged
+  m_TagString: Seekers
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3726,7 +3732,7 @@ GameObject:
   - component: {fileID: 903611242}
   m_Layer: 0
   m_Name: PlayerSpawnLocations
-  m_TagString: Untagged
+  m_TagString: PlayerSpawnLocations
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4136,6 +4142,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Table
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7b0b2c3fc6adb6e4881dc00056c9042f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Grabbable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b0b2c3fc6adb6e4881dc00056c9042f, type: 3}
 --- !u!4 &1028267577 stripped
@@ -4326,13 +4337,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stoel
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5c4b7f98315c5cf46b5e22c904376bc5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Grabbable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c4b7f98315c5cf46b5e22c904376bc5, type: 3}
---- !u!4 &1076202762 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 1076202761}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1081163793
 GameObject:
   m_ObjectHideFlags: 0
@@ -4344,7 +4355,7 @@ GameObject:
   - component: {fileID: 1081163794}
   m_Layer: 0
   m_Name: SeekerSpawnLocations
-  m_TagString: Untagged
+  m_TagString: SeekerSpawnLocations
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5937,7 +5948,7 @@ PrefabInstance:
     - target: {fileID: 7833150466484096459, guid: e343614cafaeee94ab4b1057b3791892,
         type: 3}
       propertyPath: m_Name
-      value: Wall (7)
+      value: DoorWall
       objectReference: {fileID: 0}
     - target: {fileID: 7833150466484096460, guid: e343614cafaeee94ab4b1057b3791892,
         type: 3}
@@ -8543,6 +8554,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 521923098757512958}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &543450652623825634 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5c4b7f98315c5cf46b5e22c904376bc5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1076202761}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &845561472283710016
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8974,7 +8991,7 @@ PrefabInstance:
     - target: {fileID: 7833150466484096459, guid: e343614cafaeee94ab4b1057b3791892,
         type: 3}
       propertyPath: m_Name
-      value: Wall (5)
+      value: DoorWall
       objectReference: {fileID: 0}
     - target: {fileID: 7833150466484096460, guid: e343614cafaeee94ab4b1057b3791892,
         type: 3}

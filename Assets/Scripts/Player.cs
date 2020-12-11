@@ -11,12 +11,9 @@ namespace Assets.Scripts
 
     public class Player : MovingObject
     {
-        private Seeker seeker;
-
         public override void Initialize()
         {
             base.Initialize();
-            seeker = GetComponentInParent<Seeker>();
         }
     }
 }

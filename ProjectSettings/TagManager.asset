@@ -11,6 +11,13 @@ TagManager:
   - JailFloor
   - Seeker
   - ServingPlate
+  - Grabbable
+  - Seekers
+  - Players
+  - PlayerSpawnLocations
+  - SeekerSpawnLocations
+  - PlayerSpawnLocation
+  - SeekerSpawnLocation
   layers:
   - Default
   - TransparentFX
