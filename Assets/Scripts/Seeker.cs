@@ -26,7 +26,6 @@ namespace Assets.Scripts
             body.angularDrag = 50;
         }
 
-
         private void FixedUpdate()
         {
             RaycastHit hit;
@@ -36,8 +35,6 @@ namespace Assets.Scripts
                 Debug.Log(hit.transform.CompareTag("Wall"));
             }
         }
-
-
 
         public override void Heuristic(float[] actionsOut)
         {
@@ -62,7 +59,7 @@ namespace Assets.Scripts
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
-                actionsOut[3] = 2f;
+                actionsOut[3] = 1f;
             }
             else if (Input.GetKey(KeyCode.A))
             {
