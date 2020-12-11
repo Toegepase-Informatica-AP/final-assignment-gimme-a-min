@@ -30,12 +30,6 @@ namespace Assets.Scripts
 
         protected virtual void FixedUpdate()
         {
-            if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit))
-            {
-                Debug.Log(hit.transform.tag);
-                Debug.Log(hit.transform.CompareTag("Wall"));
-            }
-
             var x = movementSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
             var z = movementSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
             transform.Translate(x, 0f, z, Space.World);

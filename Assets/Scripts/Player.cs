@@ -11,6 +11,9 @@ namespace Assets.Scripts
 
     public class Player : MovingObject
     {
+        private bool isJailed = false;
+        private bool isGrabbed = false;
+
         public override void Initialize()
         {
             base.Initialize();

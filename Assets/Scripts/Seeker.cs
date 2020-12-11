@@ -18,6 +18,26 @@ namespace Assets.Scripts
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
+
+            if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit))
+            {
+                Debug.Log(hit.transform.tag);
+                Debug.Log(hit.transform.CompareTag("Wall"));
+
+                if (hit.transform.CompareTag("Player"))
+                {
+                    // Blijf punten toevoegen zolang een speler in zijn zicht is.
+                    AddReward(0.001f);
+
+                    var player = hit.transform.gameObject.GetComponent<Player>();
+
+                    if (player != null)
+                    {
+                        // Blijf speler afstraffen zolang hij in het zicht van een seeker is.
+                        player.AddReward(-0.001f);
+                    }
+                }
+            }
         }
 
         public override void CollectObservations(VectorSensor sensor)
