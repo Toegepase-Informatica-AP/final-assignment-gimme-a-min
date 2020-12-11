@@ -23,6 +23,7 @@ namespace Assets.Scripts
             body = GetComponent<Rigidbody>();
             body.angularVelocity = Vector3.zero;
             body.velocity = Vector3.zero;
+            body.angularDrag = 50;
         }
 
 
