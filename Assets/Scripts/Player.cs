@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.MLAgents;
 using UnityEngine;
 
 namespace Assets.Scripts
 {
 
-    public class Player : MonoBehaviour
+    public class Player : Agent
     {
         // Start is called before the first frame update
         void Start()
