@@ -12,7 +12,7 @@ namespace Assets.Scripts
         public float rotationSpeed = 5f;
 
         private Classroom classroom;
-        private Rigidbody rb;
+        private Rigidbody body;
         private Player player;
 
         public override void Initialize()
@@ -20,7 +20,9 @@ namespace Assets.Scripts
             base.Initialize();
             classroom = GetComponentInParent<Classroom>();
             player = GetComponentInParent<Player>();
-            rb = GetComponent<Rigidbody>();
+            body = GetComponent<Rigidbody>();
+            body.angularVelocity = Vector3.zero;
+            body.velocity = Vector3.zero;
         }
 
 
@@ -76,22 +78,22 @@ namespace Assets.Scripts
             if (vectorAction[0] > 0.5f)
             {
                 Vector3 rightVelocity = new Vector3(movementSpeed * vectorAction[0], 0f, 0f);
-                rb.AddForce(rightVelocity, ForceMode.VelocityChange);
+                body.AddForce(rightVelocity, ForceMode.VelocityChange);
             }
             if (vectorAction[1] > 0.5f)
             {
                 Vector3 leftVelocity = new Vector3(-movementSpeed * vectorAction[1], 0f, 0f);
-                rb.AddForce(leftVelocity, ForceMode.VelocityChange);
+                body.AddForce(leftVelocity, ForceMode.VelocityChange);
             }
             if (vectorAction[2] > 0.5f)
             {
                 Vector3 leftVelocity = new Vector3(0f, 0f, movementSpeed * vectorAction[2]);
-                rb.AddForce(leftVelocity, ForceMode.VelocityChange);
+                body.AddForce(leftVelocity, ForceMode.VelocityChange);
             }
             if (vectorAction[3] > 0.5f)
             {
                 Vector3 leftVelocity = new Vector3(0f, 0f, -movementSpeed * vectorAction[3]);
-                rb.AddForce(leftVelocity, ForceMode.VelocityChange);
+                body.AddForce(leftVelocity, ForceMode.VelocityChange);
             }
 
             if (vectorAction[4] != 0f)
@@ -99,10 +101,6 @@ namespace Assets.Scripts
                 //float rotation = rotationSpeed * (vectorAction[4] * 2 - 3) * Time.deltaTime;
                 transform.Rotate(0f, (vectorAction[4] * rotationSpeed) * Time.deltaTime, 0f);
             }
-
         }
-
-
-
     }
 }
