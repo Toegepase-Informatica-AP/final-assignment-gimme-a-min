@@ -27,10 +27,9 @@ namespace Assets.Scripts
 
         public override void OnActionReceived(float[] vectorAction)
         {
-            if (!IsGrabbed && !IsJailed)
+            if (!IsGrabbed)
             {
                 base.OnActionReceived(vectorAction);
-                AddReward(-0.1f);
             }
         }
     }

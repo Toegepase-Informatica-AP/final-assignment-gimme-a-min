@@ -104,8 +104,15 @@ namespace Assets.Scripts
                 if (!hasPlayerGrabbed)
                 {
                     hasPlayerGrabbed = true;
+
                     player = collObject.gameObject.GetComponent<Player>();
+                    if (player != null)
+                    {
+                        player.IsGrabbed = true;
+                    }
+
                     AddReward(0.1f);
+
                     // TODO: logica van student vast te nemen.
                 }
                 else
