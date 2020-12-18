@@ -1,4 +1,5 @@
-﻿using Unity.MLAgents.Sensors;
+﻿using System.Timers;
+using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -6,23 +7,27 @@ namespace Assets.Scripts
     public class Seeker : MovingObject
     {
         private bool hasPlayerGrabbed;
-        private int playersCaptured;
-        private int playerCount;
+        public int playersCaptured;
+        public int playerCount;
+        public static Player player = null;
 
         public override void Initialize()
         {
             base.Initialize();
+            playerCount = 1;
         }
 
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
 
+            if (!player.IsGrabbed && !player.IsJailed)
+            {
+                GrabThePlayer();
+            }
+
             if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit))
             {
-                Debug.Log(hit.transform.tag);
-                Debug.Log(hit.transform.CompareTag("Wall"));
-
                 if (hit.transform.CompareTag("Player"))
                 {
                     // Blijf punten toevoegen zolang een speler in zijn zicht is.
@@ -36,6 +41,17 @@ namespace Assets.Scripts
                         player.AddReward(-0.001f);
                     }
                 }
+            }
+
+            Debug.Log("Count Players: " + playerCount);
+            Debug.Log("Captured: " + playersCaptured);
+        }
+
+        private void GrabThePlayer()
+        {
+            if (player != null)
+            {
+                player.transform.localPosition = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
             }
         }
 
@@ -78,22 +94,17 @@ namespace Assets.Scripts
             if (collObject.CompareTag("Jail") && hasPlayerGrabbed)
             {
                 hasPlayerGrabbed = false;
-                collObject.transform.gameObject.GetComponent<Player>().IsJailed = true;
                 AddReward(1f);
                 playersCaptured++;
+                EndEpisodeOnPlayersCapturedReachEnd();
                 // TODO: logica van student in gevangenis te zetten.
-                if (playersCaptured == playerCount)
-                {
-                    // Eindig episode als alle players worden gevangen.
-                    EndEpisode();
-                }
             }
-            else if (collObject.CompareTag("Player"))
+            if (collObject.CompareTag("Player"))
             {
                 if (!hasPlayerGrabbed)
                 {
                     hasPlayerGrabbed = true;
-                    collObject.transform.gameObject.GetComponent<Player>().IsGrabbed = true;
+                    player = collObject.gameObject.GetComponent<Player>();
                     AddReward(0.1f);
                     // TODO: logica van student vast te nemen.
                 }
@@ -111,7 +122,7 @@ namespace Assets.Scripts
             else if (collObject.CompareTag("HideWall"))
             {
                 // Kleine beloning om tegen de muur te plakken voor stealthy actions.
-                AddReward(0.001f);
+                // AddReward(0.001f);
             }
             else if (collObject.CompareTag("Grabbable"))
             {
@@ -121,6 +132,16 @@ namespace Assets.Scripts
             else
             {
                 // Ignore
+                return;
+            }
+        }
+
+        private void EndEpisodeOnPlayersCapturedReachEnd()
+        {
+            if (playersCaptured >= playerCount)
+            {
+                // Eindig episode als alle players worden gevangen.
+                EndEpisode();
             }
         }
     }

@@ -20,6 +20,7 @@ TagManager:
   - SeekerSpawnLocation
   - GrabbableHandle
   - Door
+  - Raam
   layers:
   - Default
   - TransparentFX

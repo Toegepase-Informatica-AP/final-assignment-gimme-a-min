@@ -332,7 +332,7 @@ GameObject:
   - component: {fileID: 3117530030752240545}
   m_Layer: 0
   m_Name: DoorV6
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -346,7 +346,7 @@ Transform:
   m_GameObject: {fileID: 3117530030742757473}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.38, y: 0.7995796, z: 1.16}
-  m_LocalScale: {x: 2.4827363, y: 2.4827363, z: 2.4827363}
+  m_LocalScale: {x: 1.5853016, y: 1.5853016, z: 1.5853016}
   m_Children:
   - {fileID: 3280110552577897954}
   - {fileID: 2638710797559683128}
@@ -737,7 +737,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0.009848297, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -19.657192, y: 0.008999998, z: 17.834541}
+  m_ConnectedAnchor: {x: -20.379677, y: 0.008999998, z: 17.73182}
   m_UseSpring: 0
   m_Spring:
     spring: 0
@@ -750,8 +750,8 @@ HingeJoint:
     freeSpin: 0
   m_UseLimits: 1
   m_Limits:
-    min: -160
-    max: 160
+    min: -120
+    max: 120
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0

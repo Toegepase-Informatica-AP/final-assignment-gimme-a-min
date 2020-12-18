@@ -1,4 +1,5 @@
-﻿using Unity.MLAgents;
+﻿using System.Timers;
+using Unity.MLAgents;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -12,6 +13,7 @@ namespace Assets.Scripts
         protected Classroom classroom;
         protected Rigidbody rbody;
 
+
         public override void Initialize()
         {
             base.Initialize();
@@ -20,8 +22,10 @@ namespace Assets.Scripts
             rbody.angularVelocity = Vector3.zero;
             rbody.velocity = Vector3.zero;
             rbody.angularDrag = 50;
+
         }
 
+        // Source: https://gamedev.stackexchange.com/questions/149283/unity-player-movement-rotation-breaks-the-movement
         protected virtual void FixedUpdate()
         {
             float x = movementSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
