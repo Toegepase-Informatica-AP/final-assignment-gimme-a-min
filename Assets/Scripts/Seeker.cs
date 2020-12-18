@@ -9,7 +9,7 @@ namespace Assets.Scripts
         private bool hasPlayerGrabbed;
         public int playersCaptured;
         public int playerCount;
-        public static Player player = null;
+        public Player player = null;
 
         public override void Initialize()
         {
@@ -21,9 +21,9 @@ namespace Assets.Scripts
         {
             base.FixedUpdate();
 
-            if (!player.IsGrabbed && !player.IsJailed)
+            if (player.IsGrabbed && !player.IsJailed)
             {
-                GrabThePlayer();
+                TransportPlayer();
             }
 
             if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit))
@@ -47,7 +47,7 @@ namespace Assets.Scripts
             Debug.Log("Captured: " + playersCaptured);
         }
 
-        private void GrabThePlayer()
+        private void TransportPlayer()
         {
             if (player != null)
             {
@@ -96,7 +96,8 @@ namespace Assets.Scripts
                 hasPlayerGrabbed = false;
                 AddReward(1f);
                 playersCaptured++;
-                EndEpisodeOnPlayersCapturedReachEnd();
+                player = null;
+                EndEpisodeLogic();
                 // TODO: logica van student in gevangenis te zetten.
             }
             if (collObject.CompareTag("Player"))
@@ -143,7 +144,7 @@ namespace Assets.Scripts
             }
         }
 
-        private void EndEpisodeOnPlayersCapturedReachEnd()
+        private void EndEpisodeLogic()
         {
             if (playersCaptured >= playerCount)
             {
