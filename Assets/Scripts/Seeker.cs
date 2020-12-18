@@ -85,6 +85,7 @@ namespace Assets.Scripts
             playersCaptured = 0;
             hasPlayerGrabbed = false;
             playerCount = classroom.playerCount;
+            player = null;
         }
 
         private void OnCollisionEnter(Collision collision)
