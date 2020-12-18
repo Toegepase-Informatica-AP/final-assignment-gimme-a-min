@@ -7,16 +7,6 @@ namespace Assets.Scripts
         private Player player = null;
         private Seeker seeker = null;
 
-        public void Initialize()
-        {
-            seeker = transform.GetComponentInParent<Seeker>();
-        }
-
-        protected void FixedUpdate()
-        {
-            PutPlayerInJail();
-        }
-
         private void OnCollisionEnter(Collision collision)
         {
             Transform collObject = collision.transform;
@@ -24,6 +14,22 @@ namespace Assets.Scripts
             if (collObject.CompareTag("Player"))
             {
                 player = collObject.gameObject.GetComponent<Player>();
+
+                if (player.CapturedBy.capturedPlayer)
+                {
+                    seeker = player.CapturedBy;
+                }
+
+                if (seeker != null)
+                {
+                    PutPlayerInJail();
+                    seeker.AddReward(1f);
+                    seeker.HasPlayerGrabbed = false;
+                    seeker.capturedPlayer = null;
+                    seeker.EndEpisodeLogic();
+                    seeker = null;
+                    player = null;
+                }
             }
         }
 
@@ -31,8 +37,9 @@ namespace Assets.Scripts
         {
             if (player != null && !player.IsJailed)
             {
-                player.IsJailed = true;
                 player.transform.localPosition = new Vector3(transform.position.x, transform.position.y + 5, transform.position.z);
+                player.IsJailed = true;
+                player.IsGrabbed = false;
                 seeker.playersCaptured++;
             }
         }

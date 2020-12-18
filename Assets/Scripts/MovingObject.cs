@@ -16,7 +16,6 @@ namespace Assets.Scripts
 
         public override void Initialize()
         {
-            base.Initialize();
             classroom = GetComponentInParent<Classroom>();
             rbody = GetComponent<Rigidbody>();
             rbody.angularVelocity = Vector3.zero;
@@ -38,14 +37,6 @@ namespace Assets.Scripts
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
             }
         }
-
-        public override void OnEpisodeBegin()
-        {
-            base.OnEpisodeBegin();
-            classroom = GetComponentInParent<Classroom>();
-
-        }
-
 
         public override void Heuristic(float[] actionsOut)
         {

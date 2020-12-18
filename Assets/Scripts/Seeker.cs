@@ -6,10 +6,11 @@ namespace Assets.Scripts
 {
     public class Seeker : MovingObject
     {
-        private bool hasPlayerGrabbed;
         public int playersCaptured;
         public int playerCount;
-        public Player player = null;
+        public Player capturedPlayer = null;
+
+        public bool HasPlayerGrabbed { get; set; }
 
         public override void Initialize()
         {
@@ -21,7 +22,7 @@ namespace Assets.Scripts
         {
             base.FixedUpdate();
 
-            if (player != null && player.IsGrabbed && !player.IsJailed)
+            if (capturedPlayer != null && capturedPlayer.IsGrabbed && !capturedPlayer.IsJailed)
             {
                 TransportPlayer();
             }
@@ -42,16 +43,13 @@ namespace Assets.Scripts
                     }
                 }
             }
-
-            Debug.Log("Count Players: " + playerCount);
-            Debug.Log("Captured: " + playersCaptured);
         }
 
         private void TransportPlayer()
         {
-            if (player != null)
+            if (capturedPlayer != null)
             {
-                player.transform.localPosition = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
+                capturedPlayer.transform.localPosition = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
             }
         }
 
@@ -59,7 +57,7 @@ namespace Assets.Scripts
         {
             base.CollectObservations(sensor);
 
-            sensor.AddObservation(hasPlayerGrabbed);
+            sensor.AddObservation(HasPlayerGrabbed);
         }
 
         public override void OnActionReceived(float[] vectorAction)
@@ -75,43 +73,37 @@ namespace Assets.Scripts
 
         public override void OnEpisodeBegin()
         {
-            base.OnEpisodeBegin();
+            classroom = GetComponentInParent<Classroom>();
 
-            classroom.ClearEnvironment();
-            classroom.ResetSpawnSettings();
-            classroom.SpawnPlayers();
-            classroom.SpawnSeekers();
+            if (classroom != null)
+            {
+                classroom.ClearEnvironment();
+                classroom.ResetSpawnSettings();
+                classroom.SpawnPlayers();
+                classroom.SpawnSeekers();
+                playerCount = classroom.playerCount;
+            }
 
             playersCaptured = 0;
-            hasPlayerGrabbed = false;
-            playerCount = classroom.playerCount;
-            player = null;
-            Debug.Log("Episode begins!!!!!!!!");
+            HasPlayerGrabbed = false;
+            capturedPlayer = null;
         }
 
         private void OnCollisionEnter(Collision collision)
         {
             Transform collObject = collision.transform;
 
-            if (collObject.CompareTag("Jail") && hasPlayerGrabbed)
-            {
-                hasPlayerGrabbed = false;
-                AddReward(1f);
-                playersCaptured++;
-                player = null;
-                EndEpisodeLogic();
-                // TODO: logica van student in gevangenis te zetten.
-            }
             if (collObject.CompareTag("Player"))
             {
-                if (!hasPlayerGrabbed)
+                if (!HasPlayerGrabbed)
                 {
-                    hasPlayerGrabbed = true;
+                    HasPlayerGrabbed = true;
 
-                    player = collObject.gameObject.GetComponent<Player>();
-                    if (player != null)
+                    capturedPlayer = collObject.gameObject.GetComponent<Player>();
+                    if (capturedPlayer != null)
                     {
-                        player.IsGrabbed = true;
+                        capturedPlayer.IsGrabbed = true;
+                        capturedPlayer.CapturedBy = this;
                     }
 
                     AddReward(0.1f);
@@ -146,7 +138,7 @@ namespace Assets.Scripts
             }
         }
 
-        private void EndEpisodeLogic()
+        public void EndEpisodeLogic()
         {
             if (playersCaptured >= playerCount)
             {

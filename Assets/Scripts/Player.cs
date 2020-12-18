@@ -8,6 +8,7 @@ namespace Assets.Scripts
     {
         public bool IsJailed { get; set; } = false;
         public bool IsGrabbed { get; set; } = false;
+        public Seeker CapturedBy { get; set; } = null;
 
         public override void Initialize()
         {
@@ -22,7 +23,6 @@ namespace Assets.Scripts
             {
                 AddReward(0.001f);
             }
-            //Debug.Log(GetCumulativeReward().ToString("f3"));
         }
 
         public override void OnActionReceived(float[] vectorAction)
