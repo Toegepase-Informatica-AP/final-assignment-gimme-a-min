@@ -20,7 +20,6 @@ namespace Assets.Scripts
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            EndEpisodeLogic();
 
             if (player != null && player.IsGrabbed && !player.IsJailed)
             {

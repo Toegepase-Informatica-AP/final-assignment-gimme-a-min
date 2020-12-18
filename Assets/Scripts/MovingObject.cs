@@ -39,6 +39,14 @@ namespace Assets.Scripts
             }
         }
 
+        public override void OnEpisodeBegin()
+        {
+            base.OnEpisodeBegin();
+            classroom = GetComponentInParent<Classroom>();
+
+        }
+
+
         public override void Heuristic(float[] actionsOut)
         {
             actionsOut[0] = 0f;

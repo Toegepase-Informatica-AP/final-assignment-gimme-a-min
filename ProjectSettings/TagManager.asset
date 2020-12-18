@@ -21,6 +21,7 @@ TagManager:
   - GrabbableHandle
   - Door
   - Raam
+  - Classroom
   layers:
   - Default
   - TransparentFX
