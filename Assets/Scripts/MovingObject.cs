@@ -26,6 +26,7 @@ namespace Assets.Scripts
         // Source: https://gamedev.stackexchange.com/questions/149283/unity-player-movement-rotation-breaks-the-movement
         protected virtual void FixedUpdate()
         {
+            transform.Rotate(0, 45, 0);
             float x = movementSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
             float z = movementSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
             transform.Translate(x, 0f, z, Space.World);
@@ -98,7 +99,6 @@ namespace Assets.Scripts
 
             if (vectorAction[4] != 0f)
             {
-                //float rotation = rotationSpeed * (vectorAction[4] * 2 - 3) * Time.deltaTime;
                 transform.Rotate(0f, (vectorAction[4] * rotationSpeed) * Time.deltaTime, 0f);
             }
         }

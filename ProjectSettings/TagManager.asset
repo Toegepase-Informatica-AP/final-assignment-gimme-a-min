@@ -22,6 +22,8 @@ TagManager:
   - Door
   - Raam
   - Classroom
+  - Floor
+  - OutOfBound
   layers:
   - Default
   - TransparentFX
