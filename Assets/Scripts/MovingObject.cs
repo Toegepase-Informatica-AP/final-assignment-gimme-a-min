@@ -22,7 +22,6 @@ namespace Assets.Scripts
             rbody.angularVelocity = Vector3.zero;
             rbody.velocity = Vector3.zero;
             rbody.angularDrag = 50;
-
         }
 
         // Source: https://gamedev.stackexchange.com/questions/149283/unity-player-movement-rotation-breaks-the-movement

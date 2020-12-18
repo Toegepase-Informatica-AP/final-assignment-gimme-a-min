@@ -20,8 +20,9 @@ namespace Assets.Scripts
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
+            EndEpisodeLogic();
 
-            if (player.IsGrabbed && !player.IsJailed)
+            if (player != null && player.IsGrabbed && !player.IsJailed)
             {
                 TransportPlayer();
             }
@@ -86,6 +87,7 @@ namespace Assets.Scripts
             hasPlayerGrabbed = false;
             playerCount = classroom.playerCount;
             player = null;
+            Debug.Log("Episode begins!!!!!!!!");
         }
 
         private void OnCollisionEnter(Collision collision)
