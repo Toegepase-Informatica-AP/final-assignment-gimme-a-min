@@ -29,19 +29,21 @@ namespace Assets.Scripts
                 TransportPlayer();
             }
 
-            if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit))
+            if (Physics.Raycast(transform.position, transform.right, out RaycastHit hit))
             {
                 if (hit.transform.CompareTag("Player") && !HasPlayerGrabbed)
                 {
+                    var reward = 0.001f;
+                    
                     // Blijf punten toevoegen zolang een speler in zijn zicht is.
-                    AddReward(0.001f);
+                    AddReward(reward);
 
                     Player player = hit.transform.gameObject.GetComponent<Player>();
 
                     if (player != null)
                     {
                         // Blijf speler afstraffen zolang hij in het zicht van een seeker is.
-                        player.AddReward(-0.001f);
+                        player.AddReward(-reward);
                     }
                 }
             }
@@ -52,7 +54,7 @@ namespace Assets.Scripts
         {
             if (capturedPlayer != null)
             {
-                capturedPlayer.transform.position = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
+                capturedPlayer.transform.position = new Vector3(transform.position.x -1, transform.position.y, transform.position.z);
             }
         }
 
@@ -109,6 +111,7 @@ namespace Assets.Scripts
                     {
                         capturedPlayer.IsGrabbed = true;
                         capturedPlayer.CapturedBy = this;
+                        capturedPlayer.AddReward(-1f);
                     }
 
                     AddReward(0.1f);

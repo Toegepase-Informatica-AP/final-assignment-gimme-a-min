@@ -259,9 +259,9 @@ MonoBehaviour:
     VectorActionSize: 0200000002000000020000000200000002000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: d9bceeb4d04dab7419cc87a200071613, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
-  m_BehaviorType: 1
+  m_BehaviorType: 0
   m_BehaviorName: Seeker
   TeamId: 1
   m_UseChildSensors: 1
