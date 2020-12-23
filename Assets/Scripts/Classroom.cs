@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,6 +13,8 @@ namespace Assets.Scripts
 
     public class Classroom : MonoBehaviour
     {
+        public TextMeshPro seekerReward;
+
         public int seekerCount = 1;
         public int playerCount = 5;
 
@@ -27,12 +30,26 @@ namespace Assets.Scripts
 
         private void OnEnable()
         {
+            
             jail = transform.GetComponentInChildren<Jail>();
             players = transform.Find("Players").gameObject;
             seekers = transform.Find("Seekers").gameObject;
             playerSpawnLocations = transform.Find("PlayerSpawnLocations").gameObject;
             seekerSpawnLocations = transform.Find("SeekerSpawnLocations").gameObject;
         }
+
+        private void FixedUpdate()
+        {
+            var seekerRewardText = 0f;
+
+            foreach (var seeker in seekers.transform.GetComponentsInChildren<Seeker>())
+            {
+                seekerRewardText += seeker.GetCumulativeReward();
+            }
+
+            seekerReward.text = seekerRewardText.ToString("f3");
+        }
+
 
         public void ClearEnvironment()
         {

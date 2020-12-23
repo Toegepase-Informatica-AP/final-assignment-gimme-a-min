@@ -1,4 +1,5 @@
 ﻿using System.Timers;
+using TMPro;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
@@ -18,9 +19,9 @@ namespace Assets.Scripts
             playerCount = 1;
         }
 
+
         protected override void FixedUpdate()
         {
-
             base.FixedUpdate();
 
             if (capturedPlayer != null && capturedPlayer.IsGrabbed && !capturedPlayer.IsJailed)
@@ -30,7 +31,7 @@ namespace Assets.Scripts
 
             if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit))
             {
-                if (hit.transform.CompareTag("Player"))
+                if (hit.transform.CompareTag("Player") && !HasPlayerGrabbed)
                 {
                     // Blijf punten toevoegen zolang een speler in zijn zicht is.
                     AddReward(0.001f);
@@ -44,13 +45,14 @@ namespace Assets.Scripts
                     }
                 }
             }
+            
         }
 
         private void TransportPlayer()
         {
             if (capturedPlayer != null)
             {
-                capturedPlayer.transform.localPosition = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
+                capturedPlayer.transform.position = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
             }
         }
 
@@ -110,7 +112,6 @@ namespace Assets.Scripts
                     }
 
                     AddReward(0.1f);
-
                 }
                 else
                 {
