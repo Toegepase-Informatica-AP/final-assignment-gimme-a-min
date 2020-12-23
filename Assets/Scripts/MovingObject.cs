@@ -72,7 +72,6 @@ namespace Assets.Scripts
 
         public override void OnActionReceived(float[] vectorAction)
         {
-
             ObjectRotation();
 
             RequestDecision();
