@@ -90,8 +90,10 @@ namespace Assets.Scripts
             capturedPlayer = null;
         }
 
-        private void OnCollisionEnter(Collision collision)
+        protected override void OnCollisionEnter(Collision collision)
         {
+            base.OnCollisionEnter(collision);
+            
             Transform collObject = collision.transform;
 
             if (collObject.CompareTag("Player"))
@@ -115,16 +117,6 @@ namespace Assets.Scripts
                     // Afstraffen voor tegen een Player te botsen als die er al eentje vast heeft?
                     AddReward(-0.05f);
                 }
-            }
-            else if (collObject.CompareTag("Wall"))
-            {
-                // Afstraffen om tegen de buitenste muren te botsen.
-                AddReward(-0.05f);
-            }
-            else if (collObject.CompareTag("HideWall"))
-            {
-                // Kleine beloning om tegen de muur te plakken voor stealthy actions.
-                // AddReward(0.001f);
             }
             else if (collObject.CompareTag("Grabbable"))
             {

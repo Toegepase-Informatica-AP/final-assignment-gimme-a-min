@@ -116,5 +116,26 @@ namespace Assets.Scripts
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
             }
         }
+
+        protected virtual void OnCollisionEnter(Collision collision)
+        {
+            Transform collObject = collision.transform;
+
+            if (collObject.CompareTag("Wall"))
+            {
+                // Afstraffen om tegen de buitenste muren te botsen.
+                AddReward(-0.05f);
+            }
+            else if (collObject.CompareTag("HideWall"))
+            {
+                // Kleine beloning om tegen de muur te plakken voor stealthy actions.
+                // AddReward(0.001f);
+            }
+            else
+            {
+                // Ignore
+                return;
+            }
+        }
     }
 }

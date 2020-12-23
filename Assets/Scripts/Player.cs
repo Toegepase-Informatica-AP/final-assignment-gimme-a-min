@@ -10,10 +10,6 @@ namespace Assets.Scripts
         public bool IsGrabbed { get; set; } = false;
         public Seeker CapturedBy { get; set; } = null;
 
-        public override void Initialize()
-        {
-            base.Initialize();
-        }
 
         protected override void FixedUpdate()
         {
