@@ -297,6 +297,9 @@ MonoBehaviour:
   MaxStep: 0
   movementSpeed: 1
   rotationSpeed: 300
+  playersCaptured: 0
+  playerCount: 0
+  capturedPlayer: {fileID: 0}
 --- !u!1 &8694890750489996307
 GameObject:
   m_ObjectHideFlags: 0

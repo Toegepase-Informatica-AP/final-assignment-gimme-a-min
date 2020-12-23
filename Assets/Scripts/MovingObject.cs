@@ -31,21 +31,12 @@ namespace Assets.Scripts
                 EndEpisode();
             }
 
-            transform.Rotate(0, 45, 0);
-            float x = movementSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
-            float z = movementSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
-            transform.Translate(x, 0f, z, Space.World);
-
-            float angle = Mathf.Atan2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * Mathf.Rad2Deg;
-
-            if (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f)
-            {
-                transform.rotation = Quaternion.Euler(0f, angle, 0f);
-            }
         }
 
         public override void Heuristic(float[] actionsOut)
         {
+            ObjectRotation();
+
             actionsOut[0] = 0f;
             actionsOut[1] = 0f;
             actionsOut[2] = 0f;
@@ -81,6 +72,10 @@ namespace Assets.Scripts
 
         public override void OnActionReceived(float[] vectorAction)
         {
+
+            ObjectRotation();
+
+            RequestDecision();
             if (vectorAction[0] > 0.5f)
             {
                 Vector3 rightVelocity = new Vector3(movementSpeed * vectorAction[0], 0f, 0f);
@@ -105,6 +100,20 @@ namespace Assets.Scripts
             if (vectorAction[4] != 0f)
             {
                 transform.Rotate(0f, (vectorAction[4] * rotationSpeed) * Time.deltaTime, 0f);
+            }
+        }
+
+        private void ObjectRotation()
+        {
+            float x = movementSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
+            float z = movementSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
+            transform.Translate(x, 0f, z, Space.World);
+
+            float angle = Mathf.Atan2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * Mathf.Rad2Deg;
+
+            if (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f)
+            {
+                transform.rotation = Quaternion.Euler(0f, angle, 0f);
             }
         }
     }

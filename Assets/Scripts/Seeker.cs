@@ -20,6 +20,7 @@ namespace Assets.Scripts
 
         protected override void FixedUpdate()
         {
+
             base.FixedUpdate();
 
             if (capturedPlayer != null && capturedPlayer.IsGrabbed && !capturedPlayer.IsJailed)
@@ -108,7 +109,6 @@ namespace Assets.Scripts
 
                     AddReward(0.1f);
 
-                    // TODO: logica van student vast te nemen.
                 }
                 else
                 {
