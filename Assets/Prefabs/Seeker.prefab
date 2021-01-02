@@ -259,7 +259,7 @@ MonoBehaviour:
     VectorActionSize: 0200000002000000020000000200000002000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: ce151493344f49f46b2ffdd89c83f896, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Seeker
@@ -297,8 +297,6 @@ MonoBehaviour:
   MaxStep: 0
   movementSpeed: 1
   rotationSpeed: 300
-  playersCaptured: 0
-  playerCount: 0
   capturedPlayer: {fileID: 0}
 --- !u!1 &8694890750489996307
 GameObject:
