@@ -289,7 +289,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seekerReward: {fileID: 560037810}
   seekerCount: 1
-  playerCount: 3
+  playerCount: 1
   seekerPrefab: {fileID: 6047727353592269860, guid: 5e350004349bd6443866fdb563a9dd39,
     type: 3}
   playerPrefab: {fileID: 8751755552253914574, guid: 58efdf929cc651848bb5ba6e8121233c,
@@ -1292,7 +1292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seekerReward: {fileID: 1220654878}
   seekerCount: 1
-  playerCount: 3
+  playerCount: 1
   seekerPrefab: {fileID: 6047727353592269860, guid: 5e350004349bd6443866fdb563a9dd39,
     type: 3}
   playerPrefab: {fileID: 8751755552253914574, guid: 58efdf929cc651848bb5ba6e8121233c,
@@ -12618,7 +12618,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seekerReward: {fileID: 215862578}
   seekerCount: 1
-  playerCount: 3
+  playerCount: 1
   seekerPrefab: {fileID: 6047727353592269860, guid: 5e350004349bd6443866fdb563a9dd39,
     type: 3}
   playerPrefab: {fileID: 8751755552253914574, guid: 58efdf929cc651848bb5ba6e8121233c,
@@ -15229,7 +15229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seekerReward: {fileID: 1119036176}
   seekerCount: 1
-  playerCount: 3
+  playerCount: 1
   seekerPrefab: {fileID: 6047727353592269860, guid: 5e350004349bd6443866fdb563a9dd39,
     type: 3}
   playerPrefab: {fileID: 8751755552253914574, guid: 58efdf929cc651848bb5ba6e8121233c,
