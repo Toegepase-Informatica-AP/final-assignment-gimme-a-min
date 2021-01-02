@@ -29,6 +29,13 @@ namespace Assets.Scripts
 
         protected override void OnCollisionEnter(Collision collision)
         {
+            if (!IsJailed)
+            {
+                Transform collObject = collision.transform;
+
+                if (collObject.CompareTag("JailFloor"))
+                    EndEpisode();
+            }
             if (!IsGrabbed && !IsJailed)
             {
                 base.OnCollisionEnter(collision);
