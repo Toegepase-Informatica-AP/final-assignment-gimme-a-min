@@ -6,9 +6,9 @@ namespace Assets.Scripts
 
     public class Player : MovingObject
     {
-        public bool IsJailed { get; set; } = false;
-        public bool IsGrabbed { get; set; } = false;
-        public Seeker CapturedBy { get; set; } = null;
+        public bool IsJailed { get; set; }
+        public bool IsGrabbed { get; set; }
+        public Seeker CapturedBy { get; set; }
         public override void CollectObservations(VectorSensor sensor)
         {
             base.CollectObservations(sensor);

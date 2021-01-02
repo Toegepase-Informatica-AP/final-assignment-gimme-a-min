@@ -16,7 +16,6 @@ namespace Assets.Scripts
         public override void Initialize()
         {
             classroom = GetComponentInParent<Classroom>();
-            jailFloor = classroom.transform.Find("JailFloor").gameObject;
             rbody = GetComponent<Rigidbody>();
             rbody.angularVelocity = Vector3.zero;
             rbody.velocity = Vector3.zero;

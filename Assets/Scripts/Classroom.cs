@@ -116,6 +116,7 @@ namespace Assets.Scripts
 
         public void SpawnSeekers()
         {
+            seekers.transform.SetParent(transform);
             // Moet het aantal gevraagde seekers spawnen, maar ook rekening houden met hoeveel spawnplaatsen er effectief zijn.
             for (int i = 0; i < seekerCount && i < seekerSpawnLocations.transform.GetComponentsInChildren<SpawnLocation>().Length; i++)
             {
@@ -123,7 +124,9 @@ namespace Assets.Scripts
 
                 seeker.transform.localPosition = GetAvailableSpawnLocation(MovingObjectTypes.SEEKER);
                 seeker.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-                seeker.GetComponent<Seeker>().PlayerCount = playerCount;
+                var component = seeker.GetComponent<Seeker>();
+                component.PlayerCount = playerCount;
+                component.HasPlayerGrabbed = false;
 
                 seeker.transform.SetParent(seekers.transform);
             }
@@ -131,6 +134,8 @@ namespace Assets.Scripts
 
         public void SpawnPlayers()
         {
+            players.transform.SetParent(transform);
+
             // Moet het aantal gevraagde seekers spawnen, maar ook rekening houden met hoeveel spawnplaatsen er effectief zijn.
             for (int i = 0; i < playerCount && i < playerSpawnLocations.transform.GetComponentsInChildren<SpawnLocation>().Length; i++)
             {
@@ -138,6 +143,9 @@ namespace Assets.Scripts
 
                 seeker.transform.localPosition = GetAvailableSpawnLocation(MovingObjectTypes.PLAYER);
                 seeker.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+                var component = seeker.GetComponent<Player>();
+                component.IsGrabbed = false;
+                component.IsJailed = false;
 
                 seeker.transform.SetParent(players.transform);
             }

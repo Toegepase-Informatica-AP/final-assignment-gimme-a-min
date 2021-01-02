@@ -5,11 +5,11 @@ namespace Assets.Scripts
 {
     public class Seeker : MovingObject
     {
-        public Player capturedPlayer = null;
-
+        public Player CapturedPlayer { get; set; }
         public bool HasPlayerGrabbed { get; set; }
         public int PlayerCount { get; set; }
         public int PlayersCaptured { get; set; }
+
         public override void CollectObservations(VectorSensor sensor)
         {
             base.CollectObservations(sensor);
@@ -21,7 +21,7 @@ namespace Assets.Scripts
         {
             base.FixedUpdate();
 
-            if (capturedPlayer != null && capturedPlayer.IsGrabbed && !capturedPlayer.IsJailed)
+            if (CapturedPlayer != null && CapturedPlayer.IsGrabbed && !CapturedPlayer.IsJailed)
             {
                 TransportPlayer();
             }
@@ -48,9 +48,9 @@ namespace Assets.Scripts
 
         private void TransportPlayer()
         {
-            if (capturedPlayer != null)
+            if (CapturedPlayer != null)
             {
-                capturedPlayer.transform.position = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
+                CapturedPlayer.transform.position = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
             }
         }
 
@@ -80,7 +80,7 @@ namespace Assets.Scripts
 
             PlayersCaptured = 0;
             HasPlayerGrabbed = false;
-            capturedPlayer = null;
+            CapturedPlayer = null;
         }
 
         protected override void OnCollisionEnter(Collision collision)
@@ -95,12 +95,12 @@ namespace Assets.Scripts
                 {
                     HasPlayerGrabbed = true;
 
-                    capturedPlayer = collObject.gameObject.GetComponent<Player>();
-                    if (capturedPlayer != null && !capturedPlayer.IsJailed)
+                    CapturedPlayer = collObject.gameObject.GetComponent<Player>();
+                    if (CapturedPlayer != null && !CapturedPlayer.IsJailed)
                     {
-                        capturedPlayer.IsGrabbed = true;
-                        capturedPlayer.CapturedBy = this;
-                        capturedPlayer.AddReward(-1f);
+                        CapturedPlayer.IsGrabbed = true;
+                        CapturedPlayer.CapturedBy = this;
+                        CapturedPlayer.AddReward(-1f);
                         AddReward(0.1f);
                     }
                 }
@@ -140,7 +140,7 @@ namespace Assets.Scripts
             PlayersCaptured++;
             AddReward(1f);
             HasPlayerGrabbed = false;
-            capturedPlayer = null;
+            CapturedPlayer = null;
             EndEpisodeLogic();
         }
     }

@@ -35,7 +35,7 @@ namespace Assets.Scripts
                 {
                     if (seeker.HasPlayerGrabbed)
                     {
-                        player = seeker.capturedPlayer;
+                        player = seeker.CapturedPlayer;
                         PerformCapturingProcedure();
                     }
                 }
