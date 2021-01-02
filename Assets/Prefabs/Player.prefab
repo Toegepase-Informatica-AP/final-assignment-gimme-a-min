@@ -281,7 +281,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  movementSpeed: 2
+  movementSpeed: 20
   rotationSpeed: 75
 --- !u!114 &8751755552253914573
 MonoBehaviour:
