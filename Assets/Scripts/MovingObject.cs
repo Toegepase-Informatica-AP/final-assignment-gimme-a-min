@@ -1,5 +1,4 @@
-﻿using System.Timers;
-using Unity.MLAgents;
+﻿using Unity.MLAgents;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -30,6 +29,8 @@ namespace Assets.Scripts
                 EndEpisode();
             }
 
+            ObjectRotation();
+            RequestDecision();
         }
 
         public override void Heuristic(float[] actionsOut)
@@ -71,9 +72,6 @@ namespace Assets.Scripts
 
         public override void OnActionReceived(float[] vectorAction)
         {
-            ObjectRotation();
-
-            RequestDecision();
             if (vectorAction[0] > 0.5f)
             {
                 Vector3 rightVelocity = new Vector3(movementSpeed * vectorAction[0], 0f, 0f);

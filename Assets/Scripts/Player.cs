@@ -1,8 +1,4 @@
-﻿
-using System;
-using UnityEngine;
-
-namespace Assets.Scripts
+﻿namespace Assets.Scripts
 {
 
     public class Player : MovingObject
@@ -10,7 +6,6 @@ namespace Assets.Scripts
         public bool IsJailed { get; set; } = false;
         public bool IsGrabbed { get; set; } = false;
         public Seeker CapturedBy { get; set; } = null;
-
 
         protected override void FixedUpdate()
         {

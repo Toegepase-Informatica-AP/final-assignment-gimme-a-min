@@ -36,9 +36,9 @@ namespace Assets.Scripts
 
         private void FixedUpdate()
         {
-            var seekerRewardText = 0f;
+            float seekerRewardText = 0f;
 
-            foreach (var seeker in seekers.transform.GetComponentsInChildren<Seeker>())
+            foreach (Seeker seeker in seekers.transform.GetComponentsInChildren<Seeker>())
             {
                 seekerRewardText += seeker.GetCumulativeReward();
             }

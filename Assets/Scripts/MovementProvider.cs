@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -24,12 +20,12 @@ namespace Assets.Scripts
             headObject = GetComponent<XRRig>().cameraGameObject;
         }
 
-        void Start()
+        private void Start()
         {
             PositionController();
         }
 
-        void Update()
+        private void Update()
         {
             PositionController();
             CheckForControllerInput();

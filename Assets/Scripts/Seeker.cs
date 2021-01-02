@@ -1,6 +1,4 @@
-﻿using System.Timers;
-using TMPro;
-using Unity.MLAgents.Sensors;
+﻿using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -12,12 +10,6 @@ namespace Assets.Scripts
         public bool HasPlayerGrabbed { get; set; }
         public int PlayerCount { get; set; }
         public int PlayersCaptured { get; set; }
-
-        public override void Initialize()
-        {
-            base.Initialize();
-        }
-
 
         protected override void FixedUpdate()
         {
@@ -32,8 +24,8 @@ namespace Assets.Scripts
             {
                 if (hit.transform.CompareTag("Player") && !HasPlayerGrabbed)
                 {
-                    var reward = 0.001f;
-                    
+                    float reward = 0.001f;
+
                     // Blijf punten toevoegen zolang een speler in zijn zicht is.
                     AddReward(reward);
 
@@ -46,14 +38,13 @@ namespace Assets.Scripts
                     }
                 }
             }
-            
         }
 
         private void TransportPlayer()
         {
             if (capturedPlayer != null)
             {
-                capturedPlayer.transform.position = new Vector3(transform.position.x -1, transform.position.y, transform.position.z);
+                capturedPlayer.transform.position = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
             }
         }
 
@@ -96,7 +87,7 @@ namespace Assets.Scripts
         protected override void OnCollisionEnter(Collision collision)
         {
             base.OnCollisionEnter(collision);
-            
+
             Transform collObject = collision.transform;
 
             if (collObject.CompareTag("Player"))

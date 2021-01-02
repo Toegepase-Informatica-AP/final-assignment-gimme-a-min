@@ -11,8 +11,9 @@ namespace Assets.Scripts
         {
             Transform collObject = collision.transform;
 
-            if (collObject.CompareTag("LeftEye") || collObject.CompareTag("RightEye")){
-                    collObject = collObject.parent;
+            if (collObject.CompareTag("LeftEye") || collObject.CompareTag("RightEye"))
+            {
+                collObject = collObject.parent;
             }
 
             if (collObject.CompareTag("Player"))
@@ -21,8 +22,8 @@ namespace Assets.Scripts
 
                 if (player != null && player.CapturedBy != null)
                 {
-                        seeker = player.CapturedBy;
-                        PerformCapturingProcedure();
+                    seeker = player.CapturedBy;
+                    PerformCapturingProcedure();
                 }
             }
 
@@ -30,7 +31,7 @@ namespace Assets.Scripts
             {
                 seeker = collObject.gameObject.GetComponent<Seeker>();
 
-                if (seeker != null )
+                if (seeker != null)
                 {
                     if (seeker.HasPlayerGrabbed)
                     {
