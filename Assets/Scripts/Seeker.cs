@@ -21,11 +21,6 @@ namespace Assets.Scripts
         {
             base.FixedUpdate();
 
-            if (HasPlayerGrabbed)
-            {
-                RequestDecision();
-            }
-
             if (CapturedPlayer != null && CapturedPlayer.IsGrabbed && !CapturedPlayer.IsJailed)
             {
                 TransportPlayer();
@@ -56,7 +51,7 @@ namespace Assets.Scripts
         {
             if (CapturedPlayer != null)
             {
-                CapturedPlayer.transform.position = new Vector3(transform.position.x , transform.position.y + 2, transform.position.z);
+                CapturedPlayer.transform.position = new Vector3(transform.position.x - 1, transform.position.y + 2, transform.position.z);
             }
         }
 
