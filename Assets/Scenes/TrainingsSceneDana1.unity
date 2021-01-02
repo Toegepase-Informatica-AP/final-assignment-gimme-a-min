@@ -276,7 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seekerReward: {fileID: 1220654878}
   seekerCount: 1
-  playerCount: 2
+  playerCount: 1
   seekerPrefab: {fileID: 6047727353592269860, guid: 5e350004349bd6443866fdb563a9dd39,
     type: 3}
   playerPrefab: {fileID: 8751755552253914574, guid: 58efdf929cc651848bb5ba6e8121233c,
@@ -1410,7 +1410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seekerReward: {fileID: 203281683}
   seekerCount: 1
-  playerCount: 2
+  playerCount: 1
   seekerPrefab: {fileID: 6047727353592269860, guid: 5e350004349bd6443866fdb563a9dd39,
     type: 3}
   playerPrefab: {fileID: 8751755552253914574, guid: 58efdf929cc651848bb5ba6e8121233c,
@@ -3457,7 +3457,7 @@ PrefabInstance:
     - target: {fileID: 7309597885023492544, guid: 5e350004349bd6443866fdb563a9dd39,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.94
+      value: 6.18
       objectReference: {fileID: 0}
     - target: {fileID: 7309597885023492544, guid: 5e350004349bd6443866fdb563a9dd39,
         type: 3}
@@ -3467,7 +3467,7 @@ PrefabInstance:
     - target: {fileID: 7309597885023492544, guid: 5e350004349bd6443866fdb563a9dd39,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.57
+      value: -10.99
       objectReference: {fileID: 0}
     - target: {fileID: 7309597885023492544, guid: 5e350004349bd6443866fdb563a9dd39,
         type: 3}
@@ -3477,7 +3477,7 @@ PrefabInstance:
     - target: {fileID: 7309597885023492544, guid: 5e350004349bd6443866fdb563a9dd39,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.38268343
+      value: -0.0023314925
       objectReference: {fileID: 0}
     - target: {fileID: 7309597885023492544, guid: 5e350004349bd6443866fdb563a9dd39,
         type: 3}
@@ -3487,7 +3487,7 @@ PrefabInstance:
     - target: {fileID: 7309597885023492544, guid: 5e350004349bd6443866fdb563a9dd39,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.92387956
+      value: 0.99999726
       objectReference: {fileID: 0}
     - target: {fileID: 7309597885023492544, guid: 5e350004349bd6443866fdb563a9dd39,
         type: 3}
@@ -3502,7 +3502,7 @@ PrefabInstance:
     - target: {fileID: 7309597885023492544, guid: 5e350004349bd6443866fdb563a9dd39,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 45
+      value: -0.26700002
       objectReference: {fileID: 0}
     - target: {fileID: 7309597885023492544, guid: 5e350004349bd6443866fdb563a9dd39,
         type: 3}

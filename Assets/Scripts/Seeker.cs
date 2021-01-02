@@ -56,7 +56,7 @@ namespace Assets.Scripts
         {
             if (CapturedPlayer != null)
             {
-                CapturedPlayer.transform.position = new Vector3(transform.position.x -1 , transform.position.y, transform.position.z);
+                CapturedPlayer.transform.position = new Vector3(transform.position.x , transform.position.y + 2, transform.position.z);
             }
         }
 
