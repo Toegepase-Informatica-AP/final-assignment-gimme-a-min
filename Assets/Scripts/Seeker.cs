@@ -35,13 +35,14 @@ namespace Assets.Scripts
                     // Blijf punten toevoegen zolang een speler in zijn zicht is.
                     AddReward(reward);
 
-                    Player player = hit.transform.gameObject.GetComponent<Player>();
+                    // TODO: eens nakijken of we dit wel willen.
+                    //Player player = hit.transform.gameObject.GetComponent<Player>();
 
-                    if (player != null)
-                    {
-                        // Blijf speler afstraffen zolang hij in het zicht van een seeker is.
-                        player.AddReward(-reward);
-                    }
+                    //if (player != null)
+                    //{
+                    //    // Blijf speler afstraffen zolang hij in het zicht van een seeker is.
+                    //    player.AddReward(-reward);
+                    //}
                 }
             }
         }
