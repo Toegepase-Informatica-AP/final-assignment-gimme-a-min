@@ -21,8 +21,6 @@ namespace Assets.Scripts
         public Seeker seekerPrefab;
         public Player playerPrefab;
 
-        private Jail jail;
-
         private GameObject players;
         private GameObject playerSpawnLocations;
         private GameObject seekers;
@@ -30,8 +28,6 @@ namespace Assets.Scripts
 
         private void OnEnable()
         {
-            
-            jail = transform.GetComponentInChildren<Jail>();
             players = transform.Find("Players").gameObject;
             seekers = transform.Find("Seekers").gameObject;
             playerSpawnLocations = transform.Find("PlayerSpawnLocations").gameObject;
@@ -114,6 +110,7 @@ namespace Assets.Scripts
 
                 seeker.transform.localPosition = GetAvailableSpawnLocation(MovingObjectTypes.SEEKER);
                 seeker.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+                seeker.GetComponent<Seeker>().PlayerCount = playerCount;
 
                 seeker.transform.SetParent(seekers.transform);
             }

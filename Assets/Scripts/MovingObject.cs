@@ -13,7 +13,6 @@ namespace Assets.Scripts
         protected Classroom classroom;
         protected Rigidbody rbody;
 
-
         public override void Initialize()
         {
             classroom = GetComponentInParent<Classroom>();

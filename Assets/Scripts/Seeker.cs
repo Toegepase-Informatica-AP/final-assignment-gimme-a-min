@@ -7,16 +7,15 @@ namespace Assets.Scripts
 {
     public class Seeker : MovingObject
     {
-        public int playersCaptured;
-        public int playerCount;
         public Player capturedPlayer = null;
 
         public bool HasPlayerGrabbed { get; set; }
+        public int PlayerCount { get; set; }
+        public int PlayersCaptured { get; set; }
 
         public override void Initialize()
         {
             base.Initialize();
-            playerCount = 1;
         }
 
 
@@ -86,10 +85,10 @@ namespace Assets.Scripts
                 classroom.ResetSpawnSettings();
                 classroom.SpawnPlayers();
                 classroom.SpawnSeekers();
-                playerCount = classroom.playerCount;
+                PlayerCount = classroom.playerCount;
             }
 
-            playersCaptured = 0;
+            PlayersCaptured = 0;
             HasPlayerGrabbed = false;
             capturedPlayer = null;
         }
@@ -107,14 +106,13 @@ namespace Assets.Scripts
                     HasPlayerGrabbed = true;
 
                     capturedPlayer = collObject.gameObject.GetComponent<Player>();
-                    if (capturedPlayer != null)
+                    if (capturedPlayer != null && !capturedPlayer.IsJailed)
                     {
                         capturedPlayer.IsGrabbed = true;
                         capturedPlayer.CapturedBy = this;
                         capturedPlayer.AddReward(-1f);
+                        AddReward(0.1f);
                     }
-
-                    AddReward(0.1f);
                 }
                 else
                 {
@@ -136,11 +134,20 @@ namespace Assets.Scripts
 
         public void EndEpisodeLogic()
         {
-            if (playersCaptured >= playerCount)
+            if (PlayersCaptured >= PlayerCount)
             {
                 // Eindig episode als alle players worden gevangen.
                 EndEpisode();
             }
+        }
+
+        public void ClearCapturedPlayer()
+        {
+            PlayersCaptured++;
+            AddReward(1f);
+            HasPlayerGrabbed = false;
+            capturedPlayer = null;
+            EndEpisodeLogic();
         }
     }
 }

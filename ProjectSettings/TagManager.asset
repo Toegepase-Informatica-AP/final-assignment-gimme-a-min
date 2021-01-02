@@ -24,6 +24,8 @@ TagManager:
   - Classroom
   - Floor
   - OutOfBound
+  - RightEye
+  - LeftEye
   layers:
   - Default
   - TransparentFX

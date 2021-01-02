@@ -7,106 +7,61 @@ namespace Assets.Scripts
         private Player player = null;
         private Seeker seeker = null;
 
-        private void OnCollisionEnter(Collision collision)
-        {
-            Transform collObject = collision.transform;
-
-            if (collObject.CompareTag("Player"))
-            {
-                player = collObject.gameObject.GetComponent<Player>();
-
-                if (player.CapturedBy.capturedPlayer)
-                {
-                    seeker = player.CapturedBy;
-                }
-
-                if (seeker != null)
-                {
-                    PutPlayerInJail();
-                    seeker.AddReward(1f);
-                    seeker.HasPlayerGrabbed = false;
-                    seeker.capturedPlayer = null;
-                    seeker.EndEpisodeLogic();
-                    seeker = null;
-                    player = null;
-                }
-            }
-            if (collObject.CompareTag("Seeker"))
-            {
-                seeker = collObject.gameObject.GetComponent<Seeker>();
-
-                if (seeker.HasPlayerGrabbed)
-                {
-                    player = seeker.capturedPlayer;
-                }
-
-                if (seeker != null)
-                {
-                    PutPlayerInJail();
-                    seeker.AddReward(1f);
-                    seeker.HasPlayerGrabbed = false;
-                    seeker.capturedPlayer = null;
-                    seeker.EndEpisodeLogic();
-                    seeker = null;
-                    player = null;
-                }
-            }
-        }
-
         private void OnTriggerEnter(Collider collision)
         {
             Transform collObject = collision.transform;
 
+            if (collObject.CompareTag("LeftEye") || collObject.CompareTag("RightEye")){
+                    collObject = collObject.parent;
+            }
+
             if (collObject.CompareTag("Player"))
             {
                 player = collObject.gameObject.GetComponent<Player>();
 
-                if (player.CapturedBy.capturedPlayer)
+                if (player != null && player.CapturedBy != null)
                 {
-                    seeker = player.CapturedBy;
-                }
-
-                if (seeker != null)
-                {
-                    PutPlayerInJail();
-                    seeker.AddReward(1f);
-                    seeker.HasPlayerGrabbed = false;
-                    seeker.capturedPlayer = null;
-                    seeker.EndEpisodeLogic();
-                    seeker = null;
-                    player = null;
+                        seeker = player.CapturedBy;
+                        PerformCapturingProcedure();
                 }
             }
+
             if (collObject.CompareTag("Seeker"))
             {
                 seeker = collObject.gameObject.GetComponent<Seeker>();
 
-                if (seeker.HasPlayerGrabbed)
+                if (seeker != null )
                 {
-                    player = seeker.capturedPlayer;
-                }
-
-                if (seeker != null)
-                {
-                    PutPlayerInJail();
-                    seeker.AddReward(1f);
-                    seeker.HasPlayerGrabbed = false;
-                    seeker.capturedPlayer = null;
-                    seeker.EndEpisodeLogic();
-                    seeker = null;
-                    player = null;
+                    if (seeker.HasPlayerGrabbed)
+                    {
+                        player = seeker.capturedPlayer;
+                        PerformCapturingProcedure();
+                    }
                 }
             }
         }
-        
+
+        private void PerformCapturingProcedure()
+        {
+            if (seeker != null)
+            {
+                PutPlayerInJail();
+                seeker = null;
+                player = null;
+            }
+        }
+
         private void PutPlayerInJail()
         {
-            if (player != null && !player.IsJailed)
+            if (player != null && !player.IsJailed && seeker != null)
             {
-                player.transform.localPosition = new Vector3(transform.position.x, transform.position.y + 5, transform.position.z);
-                player.IsJailed = true;
-                player.IsGrabbed = false;
-                seeker.playersCaptured++;
+                // Player
+                player.CapturedLogic();
+                player.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+
+                // Seeker
+                seeker.ClearCapturedPlayer();
+                seeker.transform.position = new Vector3(0, 1, 0);
             }
         }
     }

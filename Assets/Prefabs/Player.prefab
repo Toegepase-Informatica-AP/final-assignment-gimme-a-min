@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3730406947897326205}
   m_Layer: 0
   m_Name: LeftEye
-  m_TagString: Untagged
+  m_TagString: LeftEye
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -259,7 +259,7 @@ MonoBehaviour:
     VectorActionSize: 0200000002000000020000000200000002000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: bcaf6ae5b4c298b498fe783a1ca30cef, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Player
@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 198940578726730828}
   m_Layer: 0
   m_Name: RightEye
-  m_TagString: Untagged
+  m_TagString: RightEye
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

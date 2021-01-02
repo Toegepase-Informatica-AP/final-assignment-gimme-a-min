@@ -1,4 +1,5 @@
 ﻿
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -27,6 +28,14 @@ namespace Assets.Scripts
             {
                 base.OnActionReceived(vectorAction);
             }
+        }
+
+        public void CapturedLogic()
+        {
+            IsJailed = true;
+            IsGrabbed = false;
+            CapturedBy.HasPlayerGrabbed = false;
+            CapturedBy = null;
         }
     }
 }
