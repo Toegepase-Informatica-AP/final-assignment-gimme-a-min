@@ -9,13 +9,13 @@ namespace Assets.Scripts
         public float movementSpeed = 2f;
         public float rotationSpeed = 5f;
 
-        protected Classroom classroom;
+        public Classroom Classroom { get; set; }
         protected Rigidbody rbody;
         protected GameObject jailFloor;
 
         public override void Initialize()
         {
-            classroom = GetComponentInParent<Classroom>();
+            Classroom = GetComponentInParent<Classroom>();
             rbody = GetComponent<Rigidbody>();
             rbody.angularVelocity = Vector3.zero;
             rbody.velocity = Vector3.zero;
@@ -24,11 +24,6 @@ namespace Assets.Scripts
 
         protected virtual void FixedUpdate()
         {
-            if (transform.position.y < 0)
-            {
-                EndEpisode();
-            }
-
             RequestDecision();
         }
 

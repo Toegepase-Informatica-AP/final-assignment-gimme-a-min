@@ -50,7 +50,7 @@ namespace Assets.Scripts
 
             foreach(Player player in players.transform.GetComponentsInChildren<Player>())
             {
-                if (player.transform.position.y < 0)
+                if (player.transform.position.y < 0 && !player.IsJailed)
                 {
                     seekers.transform.GetComponentsInChildren<Seeker>()[0].EndEpisode();
                 }

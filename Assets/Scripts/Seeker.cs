@@ -21,6 +21,11 @@ namespace Assets.Scripts
         {
             base.FixedUpdate();
 
+            if (HasPlayerGrabbed)
+            {
+                RequestDecision();
+            }
+
             if (CapturedPlayer != null && CapturedPlayer.IsGrabbed && !CapturedPlayer.IsJailed)
             {
                 TransportPlayer();
@@ -51,7 +56,7 @@ namespace Assets.Scripts
         {
             if (CapturedPlayer != null)
             {
-                CapturedPlayer.transform.position = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
+                CapturedPlayer.transform.position = new Vector3(transform.position.x -1 , transform.position.y, transform.position.z);
             }
         }
 
@@ -68,15 +73,15 @@ namespace Assets.Scripts
 
         public override void OnEpisodeBegin()
         {
-            classroom = GetComponentInParent<Classroom>();
+            Classroom = GetComponentInParent<Classroom>();
 
-            if (classroom != null)
+            if (Classroom != null)
             {
-                classroom.ClearEnvironment();
-                classroom.ResetSpawnSettings();
-                classroom.SpawnPlayers();
-                classroom.SpawnSeekers();
-                PlayerCount = classroom.playerCount;
+                Classroom.ClearEnvironment();
+                Classroom.ResetSpawnSettings();
+                Classroom.SpawnPlayers();
+                Classroom.SpawnSeekers();
+                PlayerCount = Classroom.playerCount;
             }
 
             PlayersCaptured = 0;
@@ -130,7 +135,7 @@ namespace Assets.Scripts
 
         public void EndEpisodeLogic()
         {
-            if (PlayersCaptured >= PlayerCount)
+            if (PlayersCaptured == PlayerCount)
             {
                 // Eindig episode als alle players worden gevangen.
                 EndEpisode();

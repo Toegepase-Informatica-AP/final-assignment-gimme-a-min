@@ -62,7 +62,7 @@ namespace Assets.Scripts
 
                 // Seeker
                 seeker.ClearCapturedPlayer();
-                seeker.transform.position = new Vector3(0, 1, 0);
+                // seeker.transform.position = seeker.Classroom.transform.position;
             }
         }
     }
