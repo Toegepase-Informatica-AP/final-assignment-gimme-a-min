@@ -40,7 +40,20 @@ namespace Assets.Scripts
 
             foreach (Seeker seeker in seekers.transform.GetComponentsInChildren<Seeker>())
             {
+                if (seeker.transform.position.y < 0)
+                {
+                    seeker.EndEpisode();
+                }
+
                 seekerRewardText += seeker.GetCumulativeReward();
+            }
+
+            foreach(Player player in players.transform.GetComponentsInChildren<Player>())
+            {
+                if (player.transform.position.y < 0)
+                {
+                    seekers.transform.GetComponentsInChildren<Seeker>()[0].EndEpisode();
+                }
             }
 
             seekerReward.text = seekerRewardText.ToString("f3");

@@ -10,6 +10,12 @@ namespace Assets.Scripts
         public bool HasPlayerGrabbed { get; set; }
         public int PlayerCount { get; set; }
         public int PlayersCaptured { get; set; }
+        public override void CollectObservations(VectorSensor sensor)
+        {
+            base.CollectObservations(sensor);
+
+            sensor.AddObservation(HasPlayerGrabbed);
+        }
 
         protected override void FixedUpdate()
         {
@@ -46,13 +52,6 @@ namespace Assets.Scripts
             {
                 capturedPlayer.transform.position = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
             }
-        }
-
-        public override void CollectObservations(VectorSensor sensor)
-        {
-            base.CollectObservations(sensor);
-
-            sensor.AddObservation(HasPlayerGrabbed);
         }
 
         public override void OnActionReceived(float[] vectorAction)
@@ -115,6 +114,10 @@ namespace Assets.Scripts
             {
                 // Afstraffen als die zich laat vertragen door een grabbable?
                 AddReward(-0.1f);
+            }
+            else if (collObject.CompareTag("JailFloor"))
+            {
+                EndEpisode();
             }
             else
             {

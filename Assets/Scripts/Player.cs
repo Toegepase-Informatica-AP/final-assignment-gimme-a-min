@@ -1,4 +1,7 @@
-﻿namespace Assets.Scripts
+﻿using Unity.MLAgents.Sensors;
+using UnityEngine;
+
+namespace Assets.Scripts
 {
 
     public class Player : MovingObject
@@ -6,6 +9,13 @@
         public bool IsJailed { get; set; } = false;
         public bool IsGrabbed { get; set; } = false;
         public Seeker CapturedBy { get; set; } = null;
+        public override void CollectObservations(VectorSensor sensor)
+        {
+            base.CollectObservations(sensor);
+
+            sensor.AddObservation(IsJailed);
+            sensor.AddObservation(IsGrabbed);
+        }
 
         protected override void FixedUpdate()
         {
@@ -14,6 +24,14 @@
             if (!IsGrabbed && !IsJailed)
             {
                 AddReward(0.001f);
+            }
+        }
+
+        protected override void OnCollisionEnter(Collision collision)
+        {
+            if (!IsGrabbed && !IsJailed)
+            {
+                base.OnCollisionEnter(collision);
             }
         }
 

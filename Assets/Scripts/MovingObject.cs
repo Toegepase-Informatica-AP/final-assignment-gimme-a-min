@@ -11,17 +11,18 @@ namespace Assets.Scripts
 
         protected Classroom classroom;
         protected Rigidbody rbody;
+        protected GameObject jailFloor;
 
         public override void Initialize()
         {
             classroom = GetComponentInParent<Classroom>();
+            jailFloor = classroom.transform.Find("JailFloor").gameObject;
             rbody = GetComponent<Rigidbody>();
             rbody.angularVelocity = Vector3.zero;
             rbody.velocity = Vector3.zero;
             rbody.angularDrag = 50;
         }
 
-        // Source: https://gamedev.stackexchange.com/questions/149283/unity-player-movement-rotation-breaks-the-movement
         protected virtual void FixedUpdate()
         {
             if (transform.position.y < 0)
@@ -97,6 +98,7 @@ namespace Assets.Scripts
             }
         }
 
+        // Source: https://gamedev.stackexchange.com/questions/149283/unity-player-movement-rotation-breaks-the-movement
         private void ObjectRotation()
         {
             float x = movementSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
@@ -128,7 +130,6 @@ namespace Assets.Scripts
             else
             {
                 // Ignore
-                return;
             }
         }
     }
