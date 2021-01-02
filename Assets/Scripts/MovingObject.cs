@@ -35,8 +35,6 @@ namespace Assets.Scripts
 
         public override void Heuristic(float[] actionsOut)
         {
-            ObjectRotation();
-
             actionsOut[0] = 0f;
             actionsOut[1] = 0f;
             actionsOut[2] = 0f;
