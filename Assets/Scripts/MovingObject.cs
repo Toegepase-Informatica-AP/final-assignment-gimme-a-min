@@ -97,10 +97,17 @@ namespace Assets.Scripts
             }
         }
 
+        private Quaternion newTargetDirection = Quaternion.identity;
+
+        public void SetBlendedEulerAngles(Vector3 angles)
+        {
+            newTargetDirection = Quaternion.Euler(angles);
+        }
+        // Source: https://answers.unity.com/questions/717637/how-do-you-smoothly-transitionlerp-into-a-new-rota.html
         // Source: https://gamedev.stackexchange.com/questions/149283/unity-player-movement-rotation-breaks-the-movement
         private void ObjectRotation()
         {
-            float x = movementSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
+            /*float x = movementSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
             float z = movementSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
             transform.Translate(x, 0f, z, Space.World);
 
@@ -109,7 +116,15 @@ namespace Assets.Scripts
             if (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f)
             {
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
-            }
+            }*/
+            /*Vector3 newLookDirection;
+            newLookDirection = Quaternion.LookRotation(Camera.main.transform.forward, Camera.main.transform.up) * rotationSpeed;
+            float deltaAngle = Vector3.Angle(transform.forward, newLookDirection);
+            Vector3 axisOfRotation = Vector3.Cross(transform.forward, newLookDirection);
+            Quaternion deltaRotation = Quaternion.AngleAxis(deltaAngle, axisOfRotation);
+            transform.rotation = Quaternion.Lerp(transform.rotation, transform.rotation * deltaRotation, Time.deltaTime);*/
+
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, newTargetDirection, rotationSpeed * Time.deltaTime);
         }
 
         protected virtual void OnCollisionEnter(Collision collision)
