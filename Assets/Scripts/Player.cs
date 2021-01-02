@@ -49,6 +49,7 @@ namespace Assets.Scripts
             IsGrabbed = false;
             CapturedBy.HasPlayerGrabbed = false;
             CapturedBy = null;
+            AddReward(-1f);
         }
     }
 }

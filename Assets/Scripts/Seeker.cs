@@ -98,10 +98,11 @@ namespace Assets.Scripts
                     CapturedPlayer = collObject.gameObject.GetComponent<Player>();
                     if (CapturedPlayer != null && !CapturedPlayer.IsJailed)
                     {
+                        var reward = 0.5f;
                         CapturedPlayer.IsGrabbed = true;
                         CapturedPlayer.CapturedBy = this;
-                        CapturedPlayer.AddReward(-1f);
-                        AddReward(0.1f);
+                        CapturedPlayer.AddReward(-reward);
+                        AddReward(reward);
                     }
                 }
                 else
