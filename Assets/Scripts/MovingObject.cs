@@ -29,7 +29,6 @@ namespace Assets.Scripts
                 EndEpisode();
             }
 
-            ObjectRotation();
             RequestDecision();
         }
 
@@ -52,21 +51,19 @@ namespace Assets.Scripts
             }
             else if (Input.GetKey(KeyCode.LeftArrow))
             {
-                //actionsOut[2] = 1f;
-                transform.Rotate(Vector3.up, -rotationSpeed * Time.deltaTime);
+                actionsOut[2] = 1f;
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
-                //actionsOut[3] = 1f;
-                transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
+                actionsOut[3] = 1f;
             }
             else if (Input.GetKey(KeyCode.D))
             {
-                //actionsOut[4] = 1f;
+                actionsOut[4] = 1f;
             }
             else if (Input.GetKey(KeyCode.A))
             {
-                //actionsOut[4] = -1f;
+                actionsOut[4] = -1f;
             }
         }
 
@@ -74,20 +71,18 @@ namespace Assets.Scripts
         {
             if (vectorAction[0] > 0.5f)
             {
-                //Vector3 rightVelocity = new Vector3(movementSpeed * vectorAction[0], 0f, 0f);
-                Vector3 rightVelocity = movementSpeed * transform.right;
+                Vector3 rightVelocity = new Vector3(movementSpeed * vectorAction[0], 0f, 0f);
                 rbody.AddForce(rightVelocity, ForceMode.VelocityChange);
             }
             if (vectorAction[1] > 0.5f)
             {
-                //Vector3 leftVelocity = new Vector3(-movementSpeed * vectorAction[1], 0f, 0f);
-                Vector3 leftVelocity = -movementSpeed * transform.right;
+                Vector3 leftVelocity = new Vector3(-movementSpeed * vectorAction[1], 0f, 0f);
                 rbody.AddForce(leftVelocity, ForceMode.VelocityChange);
             }
-            /*if (vectorAction[2] > 0.5f)
+            if (vectorAction[2] > 0.5f)
             {
-                Vector3 leftVelocity = new Vector3(0f, 0f, movementSpeed * vectorAction[2]);
-                rbody.AddForce(leftVelocity, ForceMode.VelocityChange);
+                Vector3 rightVelocity = new Vector3(0f, 0f, movementSpeed * vectorAction[2]);
+                rbody.AddForce(rightVelocity, ForceMode.VelocityChange);
             }
             if (vectorAction[3] > 0.5f)
             {
@@ -95,34 +90,17 @@ namespace Assets.Scripts
                 rbody.AddForce(leftVelocity, ForceMode.VelocityChange);
             }
 
-            if (vectorAction[4] != 0f)
+            if (vectorAction[4] >= 0.5f)
             {
-                transform.Rotate(0f, (vectorAction[4] * rotationSpeed) * Time.deltaTime, 0f);
-            }*/
-        }
-
-        private Quaternion newTargetDirection = Quaternion.identity;
-
-        public void SetBlendedEulerAngles(Vector3 angles)
-        {
-            newTargetDirection = Quaternion.Euler(angles);
-        }
-        // Source: https://gamedev.stackexchange.com/questions/149283/unity-player-movement-rotation-breaks-the-movement
-        private void ObjectRotation()
-        {
-            /*float x = movementSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
-            float z = movementSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
-            transform.Translate(x, 0f, z, Space.World);
-
-            float angle = Mathf.Atan2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * Mathf.Rad2Deg;
-
-            if (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f)
-            {
-                transform.rotation = Quaternion.Euler(0f, angle, 0f);
+                transform.Rotate(0f, (2 * rotationSpeed) * Time.deltaTime, 0f);
             }
 
-            //transform.RotateAround(gameObject.transform.position, Vector3.up, rotationSpeed * Time.deltaTime);
-            */
+            if (vectorAction[4] < 0.5f)
+            {
+                transform.Rotate(0f, (2 * rotationSpeed) * Time.deltaTime * -1, 0f);
+            }
+
+            Debug.Log(vectorAction[4]);
         }
 
         protected virtual void OnCollisionEnter(Collision collision)

@@ -239,7 +239,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &5810321180093013678
 MonoBehaviour:
@@ -296,7 +296,7 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   movementSpeed: 1
-  rotationSpeed: 300
+  rotationSpeed: 75
 --- !u!1 &8694890750489996307
 GameObject:
   m_ObjectHideFlags: 0
