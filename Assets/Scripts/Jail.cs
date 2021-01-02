@@ -58,7 +58,7 @@ namespace Assets.Scripts
             {
                 // Player
                 player.CapturedLogic();
-                player.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+                player.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
 
                 // Seeker
                 seeker.ClearCapturedPlayer();
