@@ -52,19 +52,21 @@ namespace Assets.Scripts
             }
             else if (Input.GetKey(KeyCode.LeftArrow))
             {
-                actionsOut[2] = 1f;
+                //actionsOut[2] = 1f;
+                transform.Rotate(Vector3.up, -rotationSpeed * Time.deltaTime);
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
-                actionsOut[3] = 1f;
+                //actionsOut[3] = 1f;
+                transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
             }
             else if (Input.GetKey(KeyCode.D))
             {
-                actionsOut[4] = 1f;
+                //actionsOut[4] = 1f;
             }
             else if (Input.GetKey(KeyCode.A))
             {
-                actionsOut[4] = -1f;
+                //actionsOut[4] = -1f;
             }
         }
 
@@ -72,15 +74,17 @@ namespace Assets.Scripts
         {
             if (vectorAction[0] > 0.5f)
             {
-                Vector3 rightVelocity = new Vector3(movementSpeed * vectorAction[0], 0f, 0f);
+                //Vector3 rightVelocity = new Vector3(movementSpeed * vectorAction[0], 0f, 0f);
+                Vector3 rightVelocity = movementSpeed * transform.right;
                 rbody.AddForce(rightVelocity, ForceMode.VelocityChange);
             }
             if (vectorAction[1] > 0.5f)
             {
-                Vector3 leftVelocity = new Vector3(-movementSpeed * vectorAction[1], 0f, 0f);
+                //Vector3 leftVelocity = new Vector3(-movementSpeed * vectorAction[1], 0f, 0f);
+                Vector3 leftVelocity = -movementSpeed * transform.right;
                 rbody.AddForce(leftVelocity, ForceMode.VelocityChange);
             }
-            if (vectorAction[2] > 0.5f)
+            /*if (vectorAction[2] > 0.5f)
             {
                 Vector3 leftVelocity = new Vector3(0f, 0f, movementSpeed * vectorAction[2]);
                 rbody.AddForce(leftVelocity, ForceMode.VelocityChange);
@@ -94,7 +98,7 @@ namespace Assets.Scripts
             if (vectorAction[4] != 0f)
             {
                 transform.Rotate(0f, (vectorAction[4] * rotationSpeed) * Time.deltaTime, 0f);
-            }
+            }*/
         }
 
         private Quaternion newTargetDirection = Quaternion.identity;
@@ -103,7 +107,6 @@ namespace Assets.Scripts
         {
             newTargetDirection = Quaternion.Euler(angles);
         }
-        // Source: https://answers.unity.com/questions/717637/how-do-you-smoothly-transitionlerp-into-a-new-rota.html
         // Source: https://gamedev.stackexchange.com/questions/149283/unity-player-movement-rotation-breaks-the-movement
         private void ObjectRotation()
         {
@@ -116,15 +119,10 @@ namespace Assets.Scripts
             if (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f)
             {
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
-            }*/
-            /*Vector3 newLookDirection;
-            newLookDirection = Quaternion.LookRotation(Camera.main.transform.forward, Camera.main.transform.up) * rotationSpeed;
-            float deltaAngle = Vector3.Angle(transform.forward, newLookDirection);
-            Vector3 axisOfRotation = Vector3.Cross(transform.forward, newLookDirection);
-            Quaternion deltaRotation = Quaternion.AngleAxis(deltaAngle, axisOfRotation);
-            transform.rotation = Quaternion.Lerp(transform.rotation, transform.rotation * deltaRotation, Time.deltaTime);*/
+            }
 
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, newTargetDirection, rotationSpeed * Time.deltaTime);
+            //transform.RotateAround(gameObject.transform.position, Vector3.up, rotationSpeed * Time.deltaTime);
+            */
         }
 
         protected virtual void OnCollisionEnter(Collision collision)
