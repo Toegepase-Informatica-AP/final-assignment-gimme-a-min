@@ -67,12 +67,22 @@ Wanneer een speler gevangen wordt door de zoeker, wordt deze in de gevangenis op
 
 ![Speler](DocAssets/speler.png)
 
+De speler is in staat om zichzelf naar voor, achter, links en rechts te verplaatsen. Ook kan deze rond de X-as roteren. Zoals hierboven vermeld is er ook een interactie tussen de speler en de deuren. Deze kunnen geopend en gesloten worden. Uiteindelijk is er nog de interactie met de gevangenis. Wanneer de speler de gevangenis aanraakt, zal het spel eindigen.3D
+
+![Zoeker](DocAssets/zoeker.png)
+
+De zoeker is, net zoals de speler, in staat om zichzelf naar voor, achter, links en rechts te verplaatsen en deze kan ook rond de X-as roteren. Ook heeft de zoeker de mogelijkheid om deuren te openen en te sluiten.
+
+De zoeker heeft echter twee ogen met 3D Ray Perception Sensors. Deze zijn in staat om alle objecten met een tag te observeren. Wanneer de Ray Perception Sensors de speler zien, zou de zoeker (in theorie) zich richting de speler moeten verplaatsen, deze "vastnemen", en deze naar de gevangenis brengen. Het vastnemen van de speler doet de zoeker door simpelweg tegen de speler aan te lopen. 
+
 
 ### 3.5 Gedragingen van de objecten
 
 
 
 ### 3.6 One-Pager
+
+
 
 ## 4 Resultaten
 
@@ -81,4 +91,3 @@ Wanneer een speler gevangen wordt door de zoeker, wordt deze in de gevangenis op
 ### 4.2 Opvallende waarnemingen
 
 ## 5 Conclusie
-
