@@ -59,7 +59,7 @@ namespace Assets.Scripts
         {
             base.OnActionReceived(vectorAction);
 
-            if (vectorAction[0] == 0f && vectorAction[1] == 0f && vectorAction[2] == 0f && vectorAction[3] == 0f && vectorAction[4] == 0f)
+            if (vectorAction[0] == 0f && vectorAction[1] == 0f && vectorAction[2] == 0f && vectorAction[3] == 0f && vectorAction[4] == 0f && vectorAction[5] == 0f)
             {
                 // Stilstaan & niet rondkijken samen zorgt voor afstraffing.
                 AddReward(-0.001f);
