@@ -1,6 +1,5 @@
 # VerstAPpertje
 
-
 ## 1 Inhoud
 
 - [Inleiding](#2-Inleiding) 
@@ -62,9 +61,16 @@ Over het hele speelveld zien we dat er een aantal deuren zijn verspreid. De spel
 
 Bepaalde lokalen zijn enkel toegankelijk via een deur. Deze kan op twee manieren geopent worden. De eerste manier maakt gebruik van grabables aan de hendels. De speler kan deze hendels vastnemen en zo de deur opentrekken of openduwen. De tweede manier is gewoon ertegenaan lopen. Hierbij zal de deur op een realistische manier opengeduwd worden.
 
+![Gevangenis](DocAssets/gevangenis.png)
+
+Wanneer een speler gevangen wordt door de zoeker, wordt deze in de gevangenis opgesloten. Dit gebeurt simpelweg door de collider van de speler tegen de collider van de gevangenis aan te tikken.
+
+![Speler](DocAssets/speler.png)
 
 
 ### 3.5 Gedragingen van de objecten
+
+
 
 ### 3.6 One-Pager
 
