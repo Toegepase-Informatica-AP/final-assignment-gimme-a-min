@@ -69,6 +69,10 @@ Wanneer een speler gevangen wordt door de zoeker, wordt deze in de gevangenis op
 
 De speler is in staat om zichzelf naar voor, achter, links en rechts te verplaatsen. Ook kan deze rond de X-as roteren. Zoals hierboven vermeld is er ook een interactie tussen de speler en de deuren. Deze kunnen geopend en gesloten worden. Uiteindelijk is er nog de interactie met de gevangenis. Wanneer de speler de gevangenis aanraakt, zal het spel eindigen.3D
 
+
+### 3.5 Gedragingen van de objecten
+
+
 ![Zoeker](DocAssets/zoeker.png)
 
 De zoeker is, net zoals de speler, in staat om zichzelf naar voor, achter, links en rechts te verplaatsen en deze kan ook rond de X-as roteren. Ook heeft de zoeker de mogelijkheid om deuren te openen en te sluiten.
@@ -76,18 +80,36 @@ De zoeker is, net zoals de speler, in staat om zichzelf naar voor, achter, links
 De zoeker heeft echter twee ogen met 3D Ray Perception Sensors. Deze zijn in staat om alle objecten met een tag te observeren. Wanneer de Ray Perception Sensors de speler zien, zou de zoeker (in theorie) zich richting de speler moeten verplaatsen, deze "vastnemen", en deze naar de gevangenis brengen. Het vastnemen van de speler doet de zoeker door simpelweg tegen de speler aan te lopen. 
 
 
-### 3.5 Gedragingen van de objecten
-
-
-
 ### 3.6 One-Pager
 
+#### 3.6.1 Inleiding
 
+Het algemeen idee is om een Virtual Reality Ervaring te maken waarin de gebruiker verstoppertje kan spelen in een 3D-wereld gebaseerd op de gebouwen van AP. De speler zelf zal zich altijd moeten verstoppen, terwijl een intelligente agent hem zal trachten te vinden. 
+
+#### 3.6.2 AI Component
+
+Zonder de AI-component zal het onmogelijk zijn voor de zoeker om de verstopper snel te vinden. Hiervoor zal 
+de agent gebruik maken van de aanwijzingen. Ook is deze belangrijk om van ons spel een soloplayer avontuur 
+te kunnen maken. Anders zal elke verstopper afhankelijk zijn van een tweede partij, nl. de zoeker.  
+Met een AI-Component zal de “zoeker” met behulp van Ray Perception Sensors studenten kunnen zien, welke 
+deuren er openstaan, welke stoelen er verplaatst zijn, etc. 
+Wij opteren hierbij voor een Single-Agent aangezien er slechts één zoeker zal zijn. 
+
+#### 3.6.3 Interacties
+
+De “zoeker” van het spel zal gespeeld worden door een Intelligence Agent. Zoals een gewone speler zal deze 
+getraind worden om bepaalde geluiden en visuele aanwijzingen te gebruiken om de “verstopper” te vinden. 
+De agent zal dankzij het Ray Perception 3D component de mogelijkheid hebben om andere gameobjects met 
+op voorhand ingestelde tags te zien. 
+De enige virtueel fysieke interactie tussen de agent en de speler zal zijn wanneer de speler gevonden wordt. De 
+speler wordt dan meegenomen naar de gevangenis door de agent, waar hij opgesloten zal worden. 
 
 ## 4 Resultaten
 
 ### 4.1 TensorBoard
 
 ### 4.2 Opvallende waarnemingen
+
+Om de zoeker aan te leren dat hij naar een speler moest zoeken, moest er ook een speler Agent aangemaakt worden die zich zou kunnen verstoppen. Op een gegeven moment was de Agent van de speler te slim geworden voor de Agent van de zoeker. Dit zorgde ervoor dat de zoeker niets meer bijleerde.
 
 ## 5 Conclusie
