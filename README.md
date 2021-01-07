@@ -112,4 +112,9 @@ speler wordt dan meegenomen naar de gevangenis door de agent, waar hij opgeslote
 
 Om de zoeker aan te leren dat hij naar een speler moest zoeken, moest er ook een speler Agent aangemaakt worden die zich zou kunnen verstoppen. Op een gegeven moment was de Agent van de speler te slim geworden voor de Agent van de zoeker. Dit zorgde ervoor dat de zoeker niets meer bijleerde.
 
-## 5 Conclusie
+Zowel de speler als de zoeker had een manier gevonden om in de gevangenis te geraken zonder het beoogde spelverloop hierbij te volgen. De speler kon op een onvoorspelde manier de gevangenis in. Dit zorgde er voor dat hij veilig was van de zoeker. De speler daarentegen ging rechtstreeks richting de gevangenis. Hierdoor kon hij de episode eindigen alvorens hij afgestraft werd voor strafbaar gedrag. Op deze manier waren zijn scores hoger dan dat hij zou zoeken en zo punten zou verliezen.
+
+
+## 5 Concusie
+
+Door het hierboven vermelde fenomeen werd het enorm moeilijk voor de zoeker om bij te leren. Dit, in combinatie met een niet geoptimaliseerd beloningssysteem, zorgt ervoor dat we in onze beperkte ontwikkelingstijd geen feilloze agents hebben kunnen trainen.
