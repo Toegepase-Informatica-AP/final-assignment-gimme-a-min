@@ -26,6 +26,7 @@ Hieronder een ruwe voorstelling van het beloningssysteem dat gebruikt wordt om d
 ![Beloningssysteem](DocAssets/spelverloop.svg)
 
 ## 3 Methoden
+
 ### 3.1 Samenvatting
 
 In dit document zullen alle stappen om dit project te realiseren worden toegelicht. Na het lezen hiervan zal de lezer in staat zijn om zelf een VR Ervaring ondersteund door ML te creëren met behulp van Unity, ML Agents, XR Interaction Toolkit & Oculus XR Plugin.
@@ -52,7 +53,17 @@ Wanneer de speler gevonden en gepakt wordt door de zoeker, zal de zoeker deze ve
 
 ### 3.4 Observaties, mogelijke acties en beloningen
 
+In dit project maken wij gebruik van reinforcement learning om de ML Agents op een correcte wijze te laten leren. Dit doen wij door gebruik te maken van zowel intrinsieke- als extrinsieke beloningen. Extrinsieke beloningen zijn beloningen die door ons worden gedefinieerd. Intrinsieke beloningen bepalen dan weer de nieuwsgierigheid van de ML Agents en hoe snel hij iets moet leren.
 
+Doordat de Zoeker en de Speler gemeenschappelijke gedragingen hebben (zie hoofdstuk `'Gedragingen van de objecten'`), worden deze in een superclasse gebruikt waar beiden van zullen overerven. Zo zullen ze beiden telkens gestraft of beloond worden per actie die ze ondernemen. Echter delen zij acties die leiden tot gemeenschappelijke beloningen.
+
+Aangezien de Zoeker het belangrijkst object is van dit project, zal hij ook meer worden beloond en afgestraft voor de acties die het zal ondernemen. 
+
+| Omschrijving | Beloning (floats) |
+|-|-|
+| 
+
+### 3.4 Beschrijvingen van de objecten
 
 ![Speelveld](DocAssets/speelveld.png)
 
@@ -72,16 +83,267 @@ Wanneer een speler gevangen wordt door de zoeker, wordt deze in dehttps://prod.l
 
 De speler is in staat om zichzelf naar voor, achter, links en rechts te verplaatsen. Ook kan deze rond de X-as roteren. Zoals hierboven vermeld is er ook een interactie tussen de speler en de deuren. Deze kunnen geopend en gesloten worden. Uiteindelijk is er nog de interactie met de gevangenis. Wanneer de speler de gevangenis aanraakt, zal het spel eindigen.
 
-
 ### 3.5 Gedragingen van de objecten
 
+#### Zoeker
 
 ![Zoeker](DocAssets/zoeker.png)
 
 De zoeker is, net zoals de speler, in staat om zichzelf naar voor, achter, links en rechts te verplaatsen en deze kan ook rond de X-as roteren. Ook heeft de zoeker de mogelijkheid om deuren te openen en te sluiten.
 
-De zoeker heeft echter twee ogen met 3D Ray Perception Sensors. Deze zijn in staat om alle objecten met een tag te observeren. Wanneer de Ray Perception Sensors de speler zien, zou de zoeker (in theorie) zich richting de speler moeten verplaatsen, deze "vastnemen", en deze naar de gevangenis brengen. Het vastnemen van de speler doet de zoeker door simpelweg tegen de speler aan te lopen. 
+De zoeker heeft echter twee ogen met 3D Ray Perception Sensors. Deze zijn in staat om alle objecten met een tag te observeren. Wanneer de Ray Perception Sensors de speler zien, zou de zoeker (in theorie) zich richting de speler moeten verplaatsen, deze "vastnemen", en deze naar de gevangenis brengen. Het vastnemen van de speler doet de zoeker door simpelweg tegen de speler aan te lopen.
 
+Hoewel de speler in het uiteindelijke spel door een persoon zal worden gespeeld, zal deze in de trainingsfase ook worden aangedreven door een intelligente agent. Beide agents worden dus als het ware tegen elkaar opgezet en moeten beiden zo goed mogelijk hun eigen taak uitvoeren. De agent van de speler moet uit de handen van de zoeker proberen te blijven, terwijl de zoeker de speler moet vangen en deze opsluiten in de gevangenis.
+
+Het beloningssysteem achter de zoeker en de speler wordt aangedreven door code. Aangezien beiden redelijk gelijkaardig zijn in wat ze kunnen doen, erven ze alletwee over van dezelfde superklasse: MovingObject.
+
+```csharp
+public abstract class MovingObject : Agent
+    {
+        [Header("Settings")]
+        public float movementSpeed = 2f;
+        public float rotationSpeed = 5f;
+
+        public Classroom Classroom { get; set; }
+        protected Rigidbody rbody;
+        protected GameObject jailFloor;
+
+        public override void Initialize()
+        {
+            Classroom = GetComponentInParent<Classroom>();
+            rbody = GetComponent<Rigidbody>();
+            rbody.angularVelocity = Vector3.zero;
+            rbody.velocity = Vector3.zero;
+            rbody.angularDrag = 50;
+        }
+
+        protected virtual void FixedUpdate()
+        {
+            RequestDecision();
+        }
+
+        public override void Heuristic(float[] actionsOut)
+        {
+            actionsOut[0] = 0f;
+            actionsOut[1] = 0f;
+            actionsOut[2] = 0f;
+            actionsOut[3] = 0f;
+            actionsOut[4] = 0f;
+            actionsOut[5] = 0f;
+
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                actionsOut[0] = 2f;
+            }
+             if (Input.GetKey(KeyCode.DownArrow))
+            {
+                actionsOut[1] = 1f;
+            }
+             if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                actionsOut[2] = 1f;
+            }
+             if (Input.GetKey(KeyCode.RightArrow))
+            {
+                actionsOut[3] = 1f;
+            }
+             if (Input.GetKey(KeyCode.D))
+            {
+                actionsOut[4] = 1f;
+            }
+             if (Input.GetKey(KeyCode.A))
+            {
+                actionsOut[5] = 1f;
+            }
+        }
+
+        public override void OnActionReceived(float[] vectorAction)
+        {
+            if (vectorAction[0] > 0.5f)
+            {
+                Vector3 rightVelocity = new Vector3(movementSpeed * vectorAction[0], 0f, 0f);
+                rbody.velocity = rightVelocity;
+            }
+            if (vectorAction[1] > 0.5f)
+            {
+                Vector3 leftVelocity = new Vector3(-movementSpeed * vectorAction[1], 0f, 0f);
+                rbody.velocity = leftVelocity;
+            }
+            if (vectorAction[2] > 0.5f)
+            {
+                Vector3 rightVelocity = new Vector3(0f, 0f, movementSpeed * vectorAction[2]);
+                rbody.velocity = rightVelocity;
+            }
+            if (vectorAction[3] > 0.5f)
+            {
+                Vector3 leftVelocity = new Vector3(0f, 0f, -movementSpeed * vectorAction[3]);
+                rbody.velocity = leftVelocity;
+            }
+
+            if (vectorAction[4] > 0f)
+            {
+                transform.Rotate(0f, (vectorAction[4] * rotationSpeed) * Time.deltaTime, 0f);
+            }
+            else if (vectorAction[5] > 0f)
+            {
+                transform.Rotate(0f, (vectorAction[5] * rotationSpeed) * Time.deltaTime * -1, 0f);
+            }
+        }
+    }
+```
+
+Het script dat de zoeker aandrijft:
+```csharp
+public class Seeker : MovingObject
+    {
+        public Player CapturedPlayer { get; set; }
+        public bool HasPlayerGrabbed { get; set; }
+        public int PlayerCount { get; set; }
+        public int PlayersCaptured { get; set; }
+
+        public override void CollectObservations(VectorSensor sensor)
+        {
+            base.CollectObservations(sensor);
+
+            sensor.AddObservation(HasPlayerGrabbed);
+        }
+
+        protected override void FixedUpdate()
+        {
+            base.FixedUpdate();
+
+            if (CapturedPlayer != null && CapturedPlayer.IsGrabbed && !CapturedPlayer.IsJailed)
+            {
+                TransportPlayer();
+            }
+
+        }
+
+        private void TransportPlayer()
+        {
+            if (CapturedPlayer != null)
+            {
+                CapturedPlayer.transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
+            }
+        }
+
+        public override void OnActionReceived(float[] vectorAction)
+        {
+            base.OnActionReceived(vectorAction);
+
+            if (vectorAction[0] == 0f && vectorAction[1] == 0f && vectorAction[2] == 0f && vectorAction[3] == 0f && vectorAction[4] == 0f && vectorAction[5] == 0f)
+            {
+                // Stilstaan & niet rondkijken samen zorgt voor afstraffing.
+                AddReward(-0.001f);
+            }
+        }
+
+        public override void OnEpisodeBegin()
+        {
+            Classroom = GetComponentInParent<Classroom>();
+
+            if (Classroom != null)
+            {
+                Classroom.ClearEnvironment();
+                Classroom.ResetSpawnSettings();
+                Classroom.SpawnPlayers();
+                Classroom.SpawnSeekers();
+                PlayerCount = Classroom.playerCount;
+            }
+
+            PlayersCaptured = 0;
+            HasPlayerGrabbed = false;
+            CapturedPlayer = null;
+        }
+
+        protected void OnCollisionEnter(Collision collision)
+        {
+            Transform collObject = collision.transform;
+
+            if (collObject.CompareTag("Player"))
+            {
+                if (!HasPlayerGrabbed)
+                {
+                    HasPlayerGrabbed = true;
+
+                    CapturedPlayer = collObject.gameObject.GetComponent<Player>();
+                    if (CapturedPlayer != null && !CapturedPlayer.IsJailed)
+                    {
+                        CapturedPlayer.IsGrabbed = true;
+                        CapturedPlayer.CapturedBy = this;
+                        CapturedPlayer.AddReward(-1f);
+                        AddReward(0.5f);
+                    }
+                }
+                else
+                {
+                    // Afstraffen voor tegen een Player te botsen als die er al eentje vastheeft.
+                    AddReward(-0.1f);
+                }
+            }
+            else if (collObject.CompareTag("JailFloor"))
+            {
+                EndEpisode();
+            }
+        }
+
+        public void EndEpisodeLogic()
+        {
+            if (PlayersCaptured == PlayerCount)
+            {
+                // Eindig episode als alle players worden gevangen.
+                EndEpisode();
+            }
+        }
+
+        public void ClearCapturedPlayer()
+        {
+            PlayersCaptured++;
+            AddReward(1f);
+            HasPlayerGrabbed = false;
+            CapturedPlayer = null;
+            EndEpisodeLogic();
+        }
+    }
+```
+
+Het script dat de speler aandrijft:
+```csharp
+    public class Player : MovingObject
+    {
+        public bool IsJailed { get; set; }
+        public bool IsGrabbed { get; set; }
+        public Seeker CapturedBy { get; set; }
+        public override void CollectObservations(VectorSensor sensor)
+        {
+            base.CollectObservations(sensor);
+
+            sensor.AddObservation(IsJailed);
+            sensor.AddObservation(IsGrabbed);
+        }
+
+        protected override void FixedUpdate()
+        {
+            base.FixedUpdate();
+        }
+
+        public override void OnActionReceived(float[] vectorAction)
+        {
+            if (!IsGrabbed)
+            {
+                base.OnActionReceived(vectorAction);
+            }
+        }
+
+        public void CapturedLogic()
+        {
+            IsJailed = true;
+            IsGrabbed = false;
+            CapturedBy.HasPlayerGrabbed = false;
+            CapturedBy = null;
+        }
+    }
+```
 
 ### 3.6 One-Pager
 
