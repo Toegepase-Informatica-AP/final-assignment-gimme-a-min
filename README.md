@@ -120,7 +120,7 @@ Het tweede hendelobject is een grabable die de speler kan vastnemenen. Wanneer d
 
 ![Gevangenis](https://i.imgur.com/WWgn2e4.png)
 
-Wanneer een speler gevangen wordt door de zoeker, wordt deze in de gevangenis opgesloten. Dit gebeurt simpelweg door de collider van de speler tegen de collider van de gevangenis aan te tikken.
+Wanneer een speler gevangen wordt door de zoeker, wordt deze in de gevangenis opgesloten. Dit gebeurt simpelweg door de collider van de speler tegen de collider van de gevangenis aan te tikken. De collider van het parent-object moet een trigger zijn 
 
 De gevangenis bestaat uit een vloer (pane-) object, ijzeren tralies (cube-) objecten, vier muur (cube-) objecten die de traliën met elkaar verbinden en een dienblad. Ook wordt dit omringd door een nog groter kubus die uit vier cube-objecten bestaat. Dit zal nodig zijn om het glitchen van een speler in de gevangenis te voorkomen.
 
@@ -676,8 +676,22 @@ De `ClearEnvironment()` methode zorgt er voor dat het speelveld leeg is vooralee
         }
 ```
 
-`ResetSpawnSettings()` 
+`ResetSpawnSettings()` zorgt ervoor dat alle spawnlocaties weer vrij worden gemaakt voor de volgende keer dat spelers of zoekers moeten worden gespawnd.
 
+```csharp
+public void ResetSpawnSettings()
+        {
+            foreach (SpawnLocation sl in playerSpawnLocations.transform.GetComponentsInChildren<SpawnLocation>())
+            {
+                sl.IsUsed = false;
+            }
+
+            foreach (SpawnLocation sl in seekerSpawnLocations.transform.GetComponentsInChildren<SpawnLocation>())
+            {
+                sl.IsUsed = false;
+            }
+        }
+```
 
 
 ### 3.6 One-Pager
