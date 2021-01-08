@@ -33,7 +33,7 @@
   - [4 Resultaten](#4-resultaten)
     - [4.1 TensorBoard](#41-tensorboard)
     - [4.2 Opvallende waarnemingen](#42-opvallende-waarnemingen)
-  - [5 Concusie](#5-concusie)
+  - [5 Conclusie](#5-conclusie)
   - [6 Bronvermelding](#6-bronvermelding)
 
 ## 2 Inleiding
@@ -80,18 +80,18 @@ Doordat de *Zoeker* en de *Speler* gemeenschappelijke gedragingen hebben (zie ho
 
 Aangezien de *Zoeker* het belangrijkst object is van dit project, zal hij ook meer worden beloond en afgestraft voor de acties die het zal ondernemen. De beloningen en afstraffingen focussen zich op het vangen van spelers en het forceren van een constante zoektocht. Deze worden hieronder beschreven.
 
-| Omschrijving | Beloning (floats) |
-|-|-|
-| Stilstaan & niet roteren | -0,001 |
-| Vangen van een *Speler* terwijl hij er op dat ogenblik één in handen heeft | - 0,1 |
-| Vangen van een *Speler* terwijl hij er op dat ogenblik geen in handen heeft | +0,5 |
-| Steken van de gevangen *Speler* in de gevangenis | +1 |
+| Omschrijving                                                                | Beloning (floats) |
+| --------------------------------------------------------------------------- | ----------------- |
+| Stilstaan & niet roteren                                                    | -0,001            |
+| Vangen van een *Speler* terwijl hij er op dat ogenblik één in handen heeft  | - 0,1             |
+| Vangen van een *Speler* terwijl hij er op dat ogenblik geen in handen heeft | +0,5              |
+| Steken van de gevangen *Speler* in de gevangenis                            | +1                |
 
 De *Speler* daarentegen zal logischerwijs afgestraft worden als het door een *Zoeker* wordt gevangen.
 
-| Omschrijving | Beloning (floats) |
-|-|-|
-| Gevangen door een *Zoeker* | -1 |
+| Omschrijving               | Beloning (floats) |
+| -------------------------- | ----------------- |
+| Gevangen door een *Zoeker* | -1                |
 
 ### 3.5 Beschrijvingen van de objecten
 
@@ -111,7 +111,7 @@ Door meerdere klaslokalen in een scène te zetten, kan men meerdere spelomgeving
 
 > Opgelet: deze verhoogde leercurve is er enkel zolang het toestel waar je de training op draait krachtig genoeg zijn om al deze omgevingen tegelijkertijd te kunnen draaien. Als hier geen rekening mee gehouden wordt, zorgt dit juist voor een vertraging van het leerproces.
 
-Bij het klaslokaal is het ook belangrijk om de klaslokaal-script component mee te geven. Hiervoor moet men aangeven hoeveel spelers en zoekers de gebruiker wenst te spawnen tijdens de trainingen of tijdens het spelverloop en de prefabs van de objecten die worden gegenereerd. In dit geval zijn dit de de *Speler* en de *Zoeker* prefabs. Ook wordt er een TextMeshPro-object gevraagd die de som van de rewards van alle zoekers samen (indien er meer dan een *Zoeker* is) zal tonen.
+Bij het klaslokaal is het ook belangrijk om de klaslokaal-script component mee te geven. Hiervoor moet men aangeven hoeveel spelers en zoekers de gebruiker wenst te spawnen tijdens de trainingen of tijdens het spelverloop en de prefabs van de objecten die worden gegenereerd. In dit geval zijn dit de de *Speler* en de *Zoeker* prefabs. Ook wordt er een TextMeshPro-object gevraagd die de som van de rewards van alle zoekers samen (als er meer dan een *Zoeker* is) zal tonen.
 
 Om trainingen effectief sneller te laten verlopen, is het beter om trainingen door te laten gaan in een kleiner klaslokaal met minder muren om achter te kunnen verstoppen. Dit verhoogt de kans dat een *Zoeker* tegen een *Speler* kan botsen en naar de gevangenis kan brengen.
 
@@ -131,7 +131,7 @@ De *Deur* maakt gebruik van fixed joints om te draaien. Dit is een component gem
 
 Uiteindelijk bestaat de *Deur* uit vier, onzichtbare, rechtoekige hendelobjecten. Twee aan elke kant van de *Deur*.
 
-Het eerste hendelobject zorgt er voor dat de hendel op de plaats van de visuele deurklink blijft.
+Het eerste hendelobject zorgt ervoor dat de hendel op de plaats van de visuele deurklink blijft.
 
 Het tweede hendelobject is een grabable die de *Speler* kan vastnemenen. Wanneer de *Speler* de hendel loslaat, wordt de locatie van deze grabable terug gereset naar de locatie van het eerste hendelobject.[3]
 
@@ -149,7 +149,7 @@ Ook wordt er aangeraden om de collider van de middelste tralie langs beide kante
 
 ![Jailtag](https://i.imgur.com/XiPzCll.png)
 
-Hieraan wordt de Jail-script component aan toegevoegd en de "Jail"-tag aan gegeven.
+Hieraan wordt de Jail-script component aan toegevoegd en de "Jail"-tag aangegeven.
 
 #### *Speler* object
 
@@ -159,18 +159,18 @@ De *Speler* kan zich naar voor, achter, links en rechts verplaatsen. Ook kan dez
 
 De Ray Perception Sensors van beide ogen van de *Speler* zijn als volgt ingesteld:
 
-| Variabele             | Waarde         |
-| --------------------- | -------------- |
+| Variabele             | Waarde                                 |
+| --------------------- | -------------------------------------- |
 | Detectable Tags       | Wall, HideWall, **Seeker**, Door, Jail |
-| Rays Per Direction    | 3              |
-| Max Ray Degrees       | 4.3              |
-| Sphere Cast Radius    | 0.7            |
-| Ray Length            | 370             |
-| Ray Layer Mask        | Mixed          |
-| Stacked Raycasts      | 1              |
-| Start Vertical Offset | 0              |
-| End Vertical Offset   | -8            |
-| Use Child Sensors     | True           |
+| Rays Per Direction    | 3                                      |
+| Max Ray Degrees       | 4.3                                    |
+| Sphere Cast Radius    | 0.7                                    |
+| Ray Length            | 370                                    |
+| Ray Layer Mask        | Mixed                                  |
+| Stacked Raycasts      | 1                                      |
+| Start Vertical Offset | 0                                      |
+| End Vertical Offset   | -8                                     |
+| Use Child Sensors     | True                                   |
 
 Als volgende stap moet hier zeker het Decision Requester script op staan met "Take Actions Between Decisions" uitgevinkt.
 
@@ -190,11 +190,11 @@ Het *Zoeker*-object is bijna volledig identiek als het *Speler*-object buiten he
 
 <img src="https://i.imgur.com/Y3ucgt3.png" placeholder="*Speler*" width="500">
 
-| Variabele             | Waarde         |
-| --------------------- | -------------- |
-| Detectable Tags       | Wall, HideWall, **Player**, Door, Jail |
-| Rays Per Direction    | 3              |
-| ...       | ...              |
+| Variabele          | Waarde                                 |
+| ------------------ | -------------------------------------- |
+| Detectable Tags    | Wall, HideWall, **Player**, Door, Jail |
+| Rays Per Direction | 3                                      |
+| ...                | ...                                    |
 
 Aan deze prefab wordt de "*Zoeker*"-tag gegeven.
 
@@ -549,7 +549,7 @@ behaviors:
 #### *Deur* script
 
 Om de *Deur* vlekkeloos te laten werken, wordt er gebruik gemaakt van deze scripts.
-In de update functie wordt er bekeken of het grabable handleobject niet te ver is van de deurklink zelf. Indien dit wel is, zal de *Deur* losgelaten worden. `GrabEnd()` wordt aangeroepen wanneer de *Speler* het object loslaat.
+In de update functie wordt er bekeken of het grabable handleobject niet te ver is van de deurklink zelf. Als dit wel is, zal de *Deur* losgelaten worden. `GrabEnd()` wordt aangeroepen wanneer de *Speler* het object loslaat.
 
 ```csharp
 public class DoorGrabbable : OVRGrabbable
@@ -650,7 +650,7 @@ public Vector3 GetAvailableSpawnLocation(MovingObjectTypes type)
         }
 ```
 
-De `ClearEnvironment()` methode zorgt er voor dat het speelveld leeg is vooraleer er een nieuwe episode begint.
+De `ClearEnvironment()` methode zorgt ervoor dat het speelveld leeg is vooraleer er een nieuwe episode begint.
 
 ```csharp
     public void ClearEnvironment()
@@ -893,17 +893,17 @@ Zowel de *Speler* als de *Zoeker* had een manier gevonden om in de gevangenis te
 
 Elke keer dat er gedacht werd dat alle bugs uit de applicatie waren, vonden de *Speler* en *Zoeker* toch nog een manier om een bug te abusen. Dit maakte het extra moeilijk om te trainen.
 
-## 5 Concusie
+## 5 Conclusie
 
 Wij als groep hebben een VR applicatie gemaakt voor een enkele *Speler* die een soort "verstoppertje" nabootst, genaamd verstAPpertje.
 
-Het grootste probleem van deze opdracht was de gelimiteerde tijdsspanne. Dit zorgde ervoor dat de Agent niet de kans had om volledig te ontwikkelen. Enkele voorgestelde verbeteringen hiervoor zijn: het beloningssysteem nog verder optimaliseren, de agent nog meer tijd geven om bij te leren of een supercomputer gebruiken zodat de berekeningen sneller gaan.
+Het grootste probleem van deze opdracht was de gelimiteerde tijdsspanne. Dit zorgde ervoor dat de Agent niet de kans had om volledig te ontwikkelen. Enkele voorgestelde verbeteringen hiervoor zijn: het beloningssysteem nog verder optimaliseren, de agent nog meer tijd geven om bij te leren of een supercomputer gebruiken zodat de berekeningen sneller verlopen.
 
 ## 6 Bronvermelding
 
 1. VR with Andrew (Mar 18, 2020) [3.6.1]:
-   1. [Moving in VR using Unity's XR Toolkit [01]](https://www.youtube.com/watch?v=6N__0jeg6k0) [1] geraadpleegd op 2020/12/12
-   2. [Moving in VR using Unity's XR Toolkit [02]](https://www.youtube.com/watch?v=X2QYjhu4_G4) [2] geraadpleegd op 2020/12/12
+   1. [Moving in VR using Unity's XR Toolkit [01]](https://www.youtube.com/watch?v=6N__0jeg6k0) geraadpleegd op 2020/12/12
+   2. [Moving in VR using Unity's XR Toolkit [02]](https://www.youtube.com/watch?v=X2QYjhu4_G4) geraadpleegd op 2020/12/12
 2. Valem:
    1. [How to make a door in VR - Unity tutorial](https://www.youtube.com/watch?v=3cJ_uq1m-dg) geraadpleegd op 2020/12/19
 3. David D'Haese:
