@@ -93,7 +93,7 @@ Door meerdere klaslokalen in een scène te zetten, kan men meerdere spelomgeving
 
 Bij het klaslokaal is het ook belangrijk om het klaslokaal gedrag mee te geven. Hiervoor moet men aangeven hoeveel spelers en zoekers de gebruiker wenst te spawnen tijdens de trainingen of tijdens het spelverloop en de prefabs van de objecten die worden gegenereerd. In dit geval zijn dit de de speler en de zoeker prefabs. Ook wordt er een TextMeshPro-object gevraagd die de som van de rewards van alle zoekers samen (indien er meer dan een zoeker is) zal tonen.
 
-Om trainingen effectief sneller te laten verlopen, is het beter om trainingen door te laten gaan in een kleiner klaslokaal met minder muren om achter te kunnen verstoppen.
+Om trainingen effectief sneller te laten verlopen, is het beter om trainingen door te laten gaan in een kleiner klaslokaal met minder muren om achter te kunnen verstoppen. Dit verhoogt de kans dat een zoeker tegen een speler kan botsen en naar de gevangenis te brengen.
 
 ![Voorbeeld van een trainingsomgeving](https://cdn.discordapp.com/attachments/497393423498608662/797081291979489280/Screenshot_131.png)
 
@@ -575,7 +575,6 @@ public class DoorGrabbable : OVRGrabbable
         }
     }
 }
-
 ```
 
 
