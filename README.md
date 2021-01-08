@@ -901,11 +901,10 @@ Het grootste probleem van deze opdracht was de gelimiteerde tijdsspanne. Dit zor
 
 ## 6 Bronvermelding
 
-VR with Andrew (Mar 18, 2020): Moving in VR using Unity's XR Toolkit [3.6.1] and Moving in VR using Unity's XR Toolkit :
-1. https://www.youtube.com/watch?v=6N__0jeg6k0
-
-2. https://www.youtube.com/watch?v=X2QYjhu4_G4
-
-How to make a door in VR - Unity tutorial (Aug 21, 2019) by Valem opgehaald van https://www.youtube.com/watch?v=3cJ_uq1m-dg [3]
-
-D'haese, D. "Gedragingen van de agent en de andere spelobjecten" https://ddhaese.github.io/Course_ML-Agents/gedragingen-van-de-agent-en-de-andere-spelobjecten.html#obelix.csé&"
+1. VR with Andrew (Mar 18, 2020) [3.6.1]:
+   1. [Moving in VR using Unity's XR Toolkit [01]](https://www.youtube.com/watch?v=6N__0jeg6k0) [1] geraadpleegd op 2020/12/12
+   2. [Moving in VR using Unity's XR Toolkit [02]](https://www.youtube.com/watch?v=X2QYjhu4_G4) [2] geraadpleegd op 2020/12/12
+2. Valem:
+   1. [How to make a door in VR - Unity tutorial](https://www.youtube.com/watch?v=3cJ_uq1m-dg) geraadpleegd op 2020/12/19
+3. David D'Haese:
+   1. ["Gedragingen van de agent en de andere spelobjecten"](https://ddhaese.github.io/Course_ML-Agents/gedragingen-van-de-agent-en-de-andere-spelobjecten.html#obelix.csé&) geraadpleegd op 2020/12/05
