@@ -842,17 +842,16 @@ Het algemeen idee is om een Virtual Reality Ervaring te maken waarin de gebruike
 
 #### 3.7.2 AI Component
 
-Zonder de AI-component zal het onmogelijk zijn voor de *Zoeker* om de verstopper snel te vinden. Hiervoor zal 
-de agent gebruik maken van de aanwijzingen. Ook is deze belangrijk om van ons spel een soloplayer avontuur 
-te kunnen maken. Anders zal elke verstopper afhankelijk zijn van een tweede partij, nl. de *Zoeker*.  
-Met een AI-Component zal de “zoeker” met behulp van Ray Perception Sensors studenten kunnen zien, welke 
-deuren er openstaan, welke stoelen er verplaatst zijn, etc. 
+Zonder de AI-component zal het onmogelijk zijn voor de *Zoeker* om de verstopper snel te vinden. Hiervoor zal de agent gebruik maken van de aanwijzingen. Ook is deze belangrijk om van ons spel een soloplayer avontuur te kunnen maken. Anders zal elke verstopper afhankelijk zijn van een tweede partij, nl. de *Zoeker*.  
+
+Met een AI-Component zal de "zoeker" met behulp van Ray Perception Sensors studenten kunnen zien, welke deuren er openstaan, welke stoelen er verplaatst zijn, etc. 
+
 Wij opteren hierbij voor een Single-Agent aangezien er slechts één *Zoeker* zal zijn. 
 
 #### 3.7.3 Interacties
 
-De “zoeker” van het spel zal gespeeld worden door een Intelligence Agent. Zoals een gewone *Speler* zal deze 
-getraind worden om bepaalde geluiden en visuele aanwijzingen te gebruiken om de “verstopper” te vinden. 
+De "zoeker" van het spel zal gespeeld worden door een Intelligence Agent. Zoals een gewone *Speler* zal deze 
+getraind worden om bepaalde geluiden en visuele aanwijzingen te gebruiken om de "verstopper" te vinden. 
 De agent zal dankzij het Ray Perception 3D component de mogelijkheid hebben om andere gameobjects met 
 op voorhand ingestelde tags te zien. 
 De enige virtueel fysieke interactie tussen de agent en de *Speler* zal zijn wanneer de *Speler* gevonden wordt. De 
