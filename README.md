@@ -537,7 +537,7 @@ behaviors:
           learning_rate : 1e-3
 ```
 
-#### *Deur*
+#### *Deur* script
 
 Om de *Deur* vlekkeloos te laten werken, wordt er gebruik gemaakt van deze scripts.
 In de update functie wordt er bekeken of het grabable handleobject niet te ver is van de deurklink zelf. Indien dit wel is, zal de *Deur* losgelaten worden. `GrabEnd()` wordt aangeroepen wanneer de *Speler* het object loslaat. 
@@ -570,7 +570,7 @@ public class DoorGrabbable : OVRGrabbable
 ```
 
 
-### Classroom
+### Classroom script
 
 Het classroom object is verantwoordelijk voor het spawnen van de *Speler*-, en zoekerobjecten. De *Zoeker* en *Speler* worden bij elke episode op een willekekeurig spawnplatform gespawned. Dit wordt gedaan door gebruik te maken van de methodes `GetAvailableSpawnLocation()`, `GetRandomSpawnLocation()`, `SpawnSeekers()`, `SpawnPlayers()`
 
@@ -686,8 +686,10 @@ De `ClearEnvironment()` methode zorgt er voor dat het speelveld leeg is vooralee
         }
 ```
 
-### Spawnlocations
-Wanneer de property _IsUsed_ op _true_ komt te staan zal deze niet meer gebruikt kunnen worden om de agents te spawnen.
+### Spawnlocation script
+
+Spawnlocation heeft een
+
 ```csharp
     public class SpawnLocation : MonoBehaviour
     {
@@ -695,6 +697,7 @@ Wanneer de property _IsUsed_ op _true_ komt te staan zal deze niet meer gebruikt
     }
 ```
 
+### Jail script
 
 ### 3.6 One-Pager
 
