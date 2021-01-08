@@ -14,6 +14,7 @@
   - [TensorBoard](#4.1-TensorBoard)
   - [Opvallende waarnemingen](#4.2-Opvallende-waarnemingen)
 - [Conclusie](#5-Conclusie)
+- [Bronvermelding](#6-bronvermelding)
 
 ## 2 Inleiding
 
@@ -51,6 +52,8 @@ Wanneer de speler gevonden en gepakt wordt door de zoeker, zal de zoeker deze ve
 
 ### 3.4 Observaties, mogelijke acties en beloningen
 
+
+
 ![Speelveld](DocAssets/speelveld.png)
 
 Bovenstaande afbeelding geeft ons een top-down view van het volledige speelveld. We zien hier een aantal belangrijke elementen voor zowel de speler als de intelligente agent die als zoeker zal fungeren.
@@ -67,7 +70,7 @@ Wanneer een speler gevangen wordt door de zoeker, wordt deze in de gevangenis op
 
 ![Speler](DocAssets/speler.png)
 
-De speler is in staat om zichzelf naar voor, achter, links en rechts te verplaatsen. Ook kan deze rond de X-as roteren. Zoals hierboven vermeld is er ook een interactie tussen de speler en de deuren. Deze kunnen geopend en gesloten worden. Uiteindelijk is er nog de interactie met de gevangenis. Wanneer de speler de gevangenis aanraakt, zal het spel eindigen.3D
+De speler is in staat om zichzelf naar voor, achter, links en rechts te verplaatsen. Ook kan deze rond de X-as roteren. Zoals hierboven vermeld is er ook een interactie tussen de speler en de deuren. Deze kunnen geopend en gesloten worden. Uiteindelijk is er nog de interactie met de gevangenis. Wanneer de speler de gevangenis aanraakt, zal het spel eindigen.
 
 
 ### 3.5 Gedragingen van de objecten
@@ -110,11 +113,27 @@ speler wordt dan meegenomen naar de gevangenis door de agent, waar hij opgeslote
 
 ### 4.2 Opvallende waarnemingen
 
-Om de zoeker aan te leren dat hij naar een speler moest zoeken, moest er ook een speler Agent aangemaakt worden die zich zou kunnen verstoppen. Op een gegeven moment was de Agent van de speler te slim geworden voor de Agent van de zoeker. Dit zorgde ervoor dat de zoeker niets meer bijleerde.
+Om de zoeker aan te leren dat hij naar een speler moest zoeken, moest er ook een speler Agent aangemaakt worden die zich zou kunnen verstoppen. Op een gegeven moment was de Agent van de speler te slim geworden voor de Agent van de zoeker. Dit zorgde ervoor dat de snelle vooruitgang van de Seeker werd belemmerd.
 
 Zowel de speler als de zoeker had een manier gevonden om in de gevangenis te geraken zonder het beoogde spelverloop hierbij te volgen. De speler kon op een onvoorspelde manier de gevangenis in. Dit zorgde er voor dat hij veilig was van de zoeker. De speler daarentegen ging rechtstreeks richting de gevangenis. Hierdoor kon hij de episode eindigen alvorens hij afgestraft werd voor strafbaar gedrag. Op deze manier waren zijn scores hoger dan dat hij zou zoeken en zo punten zou verliezen.
+
+Elke keer dat er gedacht werd dat alle bugs uit de applicatie waren, vonden de speler en zoeker toch nog een manier om een bug te abusen. Dit maakte het extra moeilijk om te trainen.
 
 
 ## 5 Concusie
 
+Wij als groep hebben een VR applicatie gemaakt voor een enkele speler die een soort "verstoppertje" nabootst, genaamd verstAPpertje.
+
+*resultaten*
+
 Door het hierboven vermelde fenomeen werd het enorm moeilijk voor de zoeker om bij te leren. Dit, in combinatie met een niet geoptimaliseerd beloningssysteem, zorgt ervoor dat we in onze beperkte ontwikkelingstijd geen feilloze agents hebben kunnen trainen.
+
+Het grootste probleem van deze opdracht was de gelimiteerde tijdsspanne. Dit zorgde ervoor dat de Agent niet de kans had om volledig te ontwikkelen. Enkele voorgestelde verbeteringen hiervoor zijn: het beloningssysteem nog verder optimaliseren, de agent nog meer tijd geven om bij te leren of een supercomputer gebruiken zodat de berekeningen sneller gaan.
+
+## 6 Bronvermelding
+VR with Andrew (Mar 18, 2020) Moving in VR using Unity's XR Toolkit [01] and Moving in VR using Unity's XR Toolkit [02]  Opgehaald van
+1. https://www.youtube.com/watch?v=6N__0jeg6k0 
+
+2. https://www.youtube.com/watch?v=X2QYjhu4_G4  
+
+How to make a door in VR - Unity tutorial (Aug 21, 2019) by Valem opgehaald van https://www.youtube.com/watch?v=3cJ_uq1m-dg
