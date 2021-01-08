@@ -26,32 +26,13 @@ namespace Assets.Scripts
                 TransportPlayer();
             }
 
-            if (Physics.Raycast(transform.position, transform.right, out RaycastHit hit))
-            {
-                if (hit.transform.CompareTag("Player") && !HasPlayerGrabbed)
-                {
-                    float reward = 0.001f;
-
-                    // Blijf punten toevoegen zolang een speler in zijn zicht is.
-                    AddReward(reward);
-
-                    // TODO: eens nakijken of we dit wel willen.
-                    //Player player = hit.transform.gameObject.GetComponent<Player>();
-
-                    //if (player != null)
-                    //{
-                    //    // Blijf speler afstraffen zolang hij in het zicht van een seeker is.
-                    //    player.AddReward(-reward);
-                    //}
-                }
-            }
         }
 
         private void TransportPlayer()
         {
             if (CapturedPlayer != null)
             {
-                CapturedPlayer.transform.position = new Vector3(transform.position.x - 1, transform.position.y + 2, transform.position.z);
+                CapturedPlayer.transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
             }
         }
 
@@ -84,10 +65,8 @@ namespace Assets.Scripts
             CapturedPlayer = null;
         }
 
-        protected override void OnCollisionEnter(Collision collision)
+        protected void OnCollisionEnter(Collision collision)
         {
-            base.OnCollisionEnter(collision);
-
             Transform collObject = collision.transform;
 
             if (collObject.CompareTag("Player"))
@@ -99,32 +78,21 @@ namespace Assets.Scripts
                     CapturedPlayer = collObject.gameObject.GetComponent<Player>();
                     if (CapturedPlayer != null && !CapturedPlayer.IsJailed)
                     {
-                        var reward = 0.5f;
                         CapturedPlayer.IsGrabbed = true;
                         CapturedPlayer.CapturedBy = this;
-                        CapturedPlayer.AddReward(-reward);
-                        AddReward(reward);
+                        CapturedPlayer.AddReward(-1f);
+                        AddReward(0.5f);
                     }
                 }
                 else
                 {
-                    // Afstraffen voor tegen een Player te botsen als die er al eentje vast heeft?
-                    AddReward(-0.05f);
+                    // Afstraffen voor tegen een Player te botsen als die er al eentje vastheeft.
+                    AddReward(-0.1f);
                 }
-            }
-            else if (collObject.CompareTag("Grabbable"))
-            {
-                // Afstraffen als die zich laat vertragen door een grabbable?
-                AddReward(-0.1f);
             }
             else if (collObject.CompareTag("JailFloor"))
             {
                 EndEpisode();
-            }
-            else
-            {
-                // Ignore
-                return;
             }
         }
 

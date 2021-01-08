@@ -356,7 +356,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
   m_Model: {fileID: 0}
-  m_InferenceDevice: 0
+  m_InferenceDevice: 1
   m_BehaviorType: 0
   m_BehaviorName: Seeker
   TeamId: 1
@@ -391,7 +391,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  movementSpeed: 20
+  movementSpeed: 15
   rotationSpeed: 75
 --- !u!1 &7723037365744851987
 GameObject:

@@ -85,34 +85,13 @@ namespace Assets.Scripts
                 rbody.velocity = leftVelocity;
             }
 
-            if (vectorAction[4] > 0.5f)
+            if (vectorAction[4] > 0f)
             {
-                transform.Rotate(0f, (2 * rotationSpeed) * Time.deltaTime, 0f);
+                transform.Rotate(0f, (vectorAction[4] * rotationSpeed) * Time.deltaTime, 0f);
             }
-
-            if (vectorAction[5] > 0.5f)
+            else if (vectorAction[5] > 0f)
             {
-                transform.Rotate(0f, (2 * rotationSpeed) * Time.deltaTime * -1, 0f);
-            }
-        }
-
-        protected virtual void OnCollisionEnter(Collision collision)
-        {
-            Transform collObject = collision.transform;
-
-            if (collObject.CompareTag("Wall"))
-            {
-                // Afstraffen om tegen de buitenste muren te botsen.
-                AddReward(-0.05f);
-            }
-            else if (collObject.CompareTag("HideWall"))
-            {
-                // Kleine beloning om tegen de muur te plakken voor stealthy actions.
-                // AddReward(0.001f);
-            }
-            else
-            {
-                // Ignore
+                transform.Rotate(0f, (vectorAction[5] * rotationSpeed) * Time.deltaTime * -1, 0f);
             }
         }
     }

@@ -66,7 +66,7 @@ Bepaalde lokalen zijn enkel toegankelijk via een deur. Deze kunnen op twee manie
 
 ![Gevangenis](DocAssets/gevangenis.png)
 
-Wanneer een speler gevangen wordt door de zoeker, wordt deze in de gevangenis opgesloten. Dit gebeurt simpelweg door de collider van de speler tegen de collider van de gevangenis aan te tikken.
+Wanneer een speler gevangen wordt door de zoeker, wordt deze in dehttps://prod.liveshare.vsengsaas.visualstudio.com/join?FC32142D06BC00DD6F842CF12C815148E12C gevangenis opgesloten. Dit gebeurt simpelweg door de collider van de speler tegen de collider van de gevangenis aan te tikken.
 
 ![Speler](DocAssets/speler.png)
 

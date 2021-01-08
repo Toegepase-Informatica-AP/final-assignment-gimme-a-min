@@ -11,22 +11,6 @@ namespace Assets.Scripts
         {
             Transform collObject = collision.transform;
 
-            if (collObject.CompareTag("LeftEye") || collObject.CompareTag("RightEye"))
-            {
-                collObject = collObject.parent;
-            }
-
-            if (collObject.CompareTag("Player"))
-            {
-                player = collObject.gameObject.GetComponent<Player>();
-
-                if (player != null && player.CapturedBy != null)
-                {
-                    seeker = player.CapturedBy;
-                    PerformCapturingProcedure();
-                }
-            }
-
             if (collObject.CompareTag("Seeker"))
             {
                 seeker = collObject.gameObject.GetComponent<Seeker>();
@@ -54,7 +38,7 @@ namespace Assets.Scripts
 
         private void PutPlayerInJail()
         {
-            if (player != null && !player.IsJailed && seeker != null)
+            if (player != null && !player.IsJailed && seeker != null && player.IsGrabbed)
             {
                 // Player
                 player.CapturedLogic();
@@ -62,7 +46,6 @@ namespace Assets.Scripts
 
                 // Seeker
                 seeker.ClearCapturedPlayer();
-                // seeker.transform.position = seeker.Classroom.transform.position;
             }
         }
     }

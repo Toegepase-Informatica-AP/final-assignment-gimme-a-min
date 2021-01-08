@@ -20,26 +20,6 @@ namespace Assets.Scripts
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-
-            if (!IsGrabbed && !IsJailed)
-            {
-                AddReward(0.001f);
-            }
-        }
-
-        protected override void OnCollisionEnter(Collision collision)
-        {
-            if (!IsJailed)
-            {
-                Transform collObject = collision.transform;
-
-                if (collObject.CompareTag("JailFloor"))
-                    EndEpisode();
-            }
-            if (!IsGrabbed && !IsJailed)
-            {
-                base.OnCollisionEnter(collision);
-            }
         }
 
         public override void OnActionReceived(float[] vectorAction)
@@ -56,7 +36,6 @@ namespace Assets.Scripts
             IsGrabbed = false;
             CapturedBy.HasPlayerGrabbed = false;
             CapturedBy = null;
-            AddReward(-1f);
         }
     }
 }
