@@ -48,36 +48,64 @@ Voor we kunnen starten met de ontwikkeling van het project, hebben we bepaalde s
 
 ### 3.3 Spelverloop
 
-Wanneer het spel start, zal de speler op een willekeurig `spelersspawnplatform` (groen) worden gespawnd. Tegelijkertijd zal ook de zoeker op een daarvoor bestemd platform (rood) worden gespawnd. De speler heeft dan de mogelijkheid om rond te lopen in het speelveld en zich zo goed mogelijk te verstoppen. De zoeker zal trachten de speler te vinden. De zoeker is zoals eerder vermeld een agent die op voorhand wordt getraind.
+Wanneer het spel start, zal de speler op een willekeurig `spelersspawnplatform` (groen) worden gespawnd. Tegelijkertijd zal ook de zoeker op een daarvoor bestemd platform (rood) worden gespawnd. De speler heeft dan de mogelijkheid om rond te lopen in het klaslokaal en zich zo goed mogelijk te verstoppen. De zoeker zal trachten de speler te vinden. De zoeker is zoals eerder vermeld een agent die op voorhand wordt getraind.
+
 Wanneer de speler gevonden en gepakt wordt door de zoeker, zal de zoeker deze verplaatsen richting de gevangenis. Eens deze aan de gevangenis gearriveerd is, wordt de speler hierin opgesloten. Dit is dan ook het einde van het spel. Het doel van de speler is om zo lang mogelijk uit de handen van de zoeker te blijven.
 
 ### 3.4 Observaties, mogelijke acties en beloningen
 
 In dit project maken wij gebruik van reinforcement learning om de ML Agents op een correcte wijze te laten leren. Dit doen wij door gebruik te maken van zowel intrinsieke- als extrinsieke beloningen. Extrinsieke beloningen zijn beloningen die door ons worden gedefinieerd. Intrinsieke beloningen bepalen dan weer de nieuwsgierigheid van de ML Agents en hoe snel hij iets moet leren.
 
-Doordat de Zoeker en de Speler gemeenschappelijke gedragingen hebben (zie hoofdstuk `'Gedragingen van de objecten'`), worden deze in een superclasse gebruikt waar beiden van zullen overerven. Zo zullen ze beiden telkens gestraft of beloond worden per actie die ze ondernemen. Echter delen zij acties die leiden tot gemeenschappelijke beloningen.
+Doordat de zoeker en de Speler gemeenschappelijke gedragingen hebben (zie hoofdstuk `'Gedragingen van de objecten'`), worden deze in een superklasse gebruikt waar beiden van zullen overerven. Zo zullen ze beiden telkens gestraft of beloond worden per actie die ze ondernemen. Echter delen zij acties die leiden tot gemeenschappelijke beloningen.
 
-Aangezien de Zoeker het belangrijkst object is van dit project, zal hij ook meer worden beloond en afgestraft voor de acties die het zal ondernemen. 
+Aangezien de zoeker het belangrijkst object is van dit project, zal hij ook meer worden beloond en afgestraft voor de acties die het zal ondernemen. De beloningen en afstraffingen focussen zich op het vangen van spelers en het forceren van een constante zoektocht. Deze worden hieronder beschreven.
 
 | Omschrijving | Beloning (floats) |
 |-|-|
-| 
+| Stilstaan & niet roteren | -0,001 |
+| Vangen van een speler terwijl hij er op dat ogenblik één in handen heeft | - 0,1 |
+| Vangen van een speler terwijl hij er op dat ogenblik geen in handen heeft | +0,5 |
+| Steken van de gevangen speler in de gevangenis | +1 |
+
+De Speler daarentegen zal logischerwijs afgestraft worden als het door een zoeker wordt gevangen.
+
+| Omschrijving | Beloning (floats) |
+|-|-|
+| Gevangen door een zoeker | -1 |
 
 ### 3.4 Beschrijvingen van de objecten
 
-![Speelveld](DocAssets/speelveld.png)
+Vooraleer we aan de effectieve ML Agents training kunnen starten, zullen er eerst objecten aangemaakt moeten worden die als basis van dit project zullen dienen, beginnende met het klaslokaal.
 
-Bovenstaande afbeelding geeft ons een top-down view van het volledige speelveld. We zien hier een aantal belangrijke elementen voor zowel de speler als de intelligente agent die als zoeker zal fungeren.
+#### Classroom object
 
-Over het hele speelveld zien we dat er een aantal deuren zijn verspreid. De speler kan van deze deuren handig gebruik maken om zich beter te verstoppen voor de zoeker. De zoeker zal dan de deur moeten openen om de speler te kunnen zien. Om ervoor te zorgen dat de speler hier niet té veel voordeel uit kan halen, is er bij elke kamer die een deur bevat slechts één deur voorzien, zodat de speler niet gewoon kan wachten tot de deur opengaat en dan de andere uitweg nemen.
+![Classroom](https://i.imgur.com/9rknYTq.png)
+
+Bovenstaande afbeelding geeft ons een top-down view van het volledige speelveld, in ons geval het klaslokaal. Zoals u kan zien, dient dit ook als het parent object voor alle objecten om in één enkel omgeving te plaatsen. Deze bevat het nodige gedrag om de spelomgeving foutloos te laten verlopen door tijdens de trainingen telkens het spel te herstarten als alle spelers in de gevangenis zitten. Ook zien we een aantal belangrijke elementen voor zowel de speler als de intelligente agent die als zoeker zal fungeren.
+
+Zo'n klaslokaal heeft een zekere 
+
+Over het hele klaslokaal zien we dat er een aantal deuren zijn verspreid. De speler kan van deze deuren handig gebruik maken om zich beter te verstoppen voor de zoeker. De zoeker zal dan de deur moeten openen om de speler te kunnen zien. Om ervoor te zorgen dat de speler hier niet té veel voordeel uit kan halen, is er bij elke kamer die een deur bevat slechts één deur voorzien zodat de speler niet gewoon kan wachten tot de deur opengaat en dan de andere uitweg nemen.
+
+Door meerdere klaslokalen in een scène te zetten, kan men meerdere spelomgevingen tegelijk laten draaien. Logischerwijs zal dit ervoor zorgen dat het leerproces van de ML Agents sneller zal verlopen.
+
+> Opgelet: deze verhoogde leercurve is er enkel zolang het toestel waar je de training op draait krachtig genoeg zijn om al deze omgevingen tegelijkertijd te kunnen draaien. Als hier geen rekening mee gehouden wordt, zorgt dit juist voor een vertraging van het leerproces.
+
+Bij het klaslokaal is het ook belangrijk om mee te geven hoeveel spelers en zoekers de gebruiker wenst te spawnen tijdens de trainingen of tijdens het spelverloop en de prefabs van de objecten die worden gegenereerd. In dit geval zijn dit de de speler en de zoeker prefabs.
+
+#### Deur object
 
 ![Deur](DocAssets/deur.png)
 
-Bepaalde lokalen zijn enkel toegankelijk via een deur. Deze kunnen op twee manieren worden geopend. De eerste manier maakt gebruik van grabables aan de hendels. De speler kan deze hendels vastnemen en zo de deur opentrekken of openduwen. De tweede manier is om ertegenaan te lopen. Hierbij zal de deur op een realistische manier worden opengeduwd.
+Bepaalde lokalen zijn enkel toegankelijk via een deur. Deze kunnen op twee manieren worden geopend. De eerste manier maakt gebruik van grabbablesF aan de hendels. De speler kan deze hendels vastnemen en zo de deur opentrekken of openduwen. De tweede manier is om ertegenaan te lopen. Hierbij zal de deur op een realistische manier worden opengeduwd.
+
+#### Gevangenis object
 
 ![Gevangenis](DocAssets/gevangenis.png)
 
 Wanneer een speler gevangen wordt door de zoeker, wordt deze in dehttps://prod.liveshare.vsengsaas.visualstudio.com/join?FC32142D06BC00DD6F842CF12C815148E12C gevangenis opgesloten. Dit gebeurt simpelweg door de collider van de speler tegen de collider van de gevangenis aan te tikken.
+
+#### Speler object
 
 ![Speler](DocAssets/speler.png)
 
@@ -193,6 +221,7 @@ public abstract class MovingObject : Agent
 ```
 
 Het script dat de zoeker aandrijft:
+
 ```csharp
 public class Seeker : MovingObject
     {
@@ -345,6 +374,88 @@ Het script dat de speler aandrijft:
     }
 ```
 
+Om ervoor te zorgen dat de Speler en de zoeker nu ook effectief kunnen worden aangedreven door ML-agents, moeten volgende componenten worden ingesteld voor de Speler in de inspector in Unity:
+
+![Speler Inspector](DocAssets/spelercomponenten.png)
+
+Daarnaast moet ongeveer hetzelfde gebeuren voor de zoeker:
+
+![Zoeker Inspector](DocAssets/zoekercomponenten.png)
+
+Zorg ervoor dat alle instellingen zeker exact hetzelfde staan ingesteld. Anders is het zeer waarschijnlijk dat het trainen zal mislukken.
+
+
+Het configuratiebestand om beide agents te trainen is het volgend yml-bestand.
+```yml
+behaviors:
+  Seeker:
+    trainer_type: ppo
+    max_steps: 5.0e7
+    time_horizon: 64
+    summary_freq: 10000
+    keep_checkpoints: 5
+    checkpoint_interval: 50000
+    
+    hyperparameters:
+      batch_size: 32
+      buffer_size: 9600
+      learning_rate: 3.0e-4
+      learning_rate_schedule: constant
+      beta: 5.0e-3
+      epsilon: 0.2
+      lambd: 0.95
+      num_epoch: 3
+
+    network_settings:
+      num_layers: 2
+      hidden_units: 128
+      normalize: false
+      vis_encoder_type: simple
+
+    reward_signals:
+      extrinsic:
+        strength: 1.0
+        gamma: 0.99
+      curiosity:
+        strength: 0.1
+        gamma: 0.99
+        encoding_size: 256
+        learning_rate : 1e-3
+  Player:
+      trainer_type: ppo
+      max_steps: 5.0e7
+      time_horizon: 64
+      summary_freq: 10000
+      keep_checkpoints: 5
+      checkpoint_interval: 50000
+      
+      hyperparameters:
+        batch_size: 32
+        buffer_size: 9600
+        learning_rate: 3.0e-4
+        learning_rate_schedule: constant
+        beta: 5.0e-3
+        epsilon: 0.2
+        lambd: 0.95
+        num_epoch: 3
+
+      network_settings:
+        num_layers: 2
+        hidden_units: 128
+        normalize: false
+        vis_encoder_type: simple
+
+      reward_signals:
+        extrinsic:
+          strength: 1.0
+          gamma: 0.99
+        curiosity:
+          strength: 0.1
+          gamma: 0.99
+          encoding_size: 256
+          learning_rate : 1e-3
+```
+
 ### 3.6 One-Pager
 
 #### 3.6.1 Inleiding
@@ -373,6 +484,10 @@ speler wordt dan meegenomen naar de gevangenis door de agent, waar hij opgeslote
 
 ### 4.1 TensorBoard
 
+![Resultaten](DocAssets/cumulativerewards.png)
+
+In de bovenstaande grafiek zien we dat er veel lijnen haast symmetrisch ten op zichte van de middellijn lopen. Dit komt natuurlijk door het feit dat de 2 agents concurrenten van elkaar zijn. Als de zoeker punten verliest, wint de speler punten en vice versa. Na verloop van tijd worden zowel de zoeker als de Speler beter in hun taak en gaan hun scores logischerwijs veel dichter bij elkaar liggen.
+
 ### 4.2 Opvallende waarnemingen
 
 Om de zoeker aan te leren dat hij naar een speler moest zoeken, moest er ook een speler Agent aangemaakt worden die zich zou kunnen verstoppen. Op een gegeven moment was de Agent van de speler te slim geworden voor de Agent van de zoeker. Dit zorgde ervoor dat de snelle vooruitgang van de Seeker werd belemmerd.
@@ -385,10 +500,6 @@ Elke keer dat er gedacht werd dat alle bugs uit de applicatie waren, vonden de s
 ## 5 Concusie
 
 Wij als groep hebben een VR applicatie gemaakt voor een enkele speler die een soort "verstoppertje" nabootst, genaamd verstAPpertje.
-
-*resultaten*
-
-Door het hierboven vermelde fenomeen werd het enorm moeilijk voor de zoeker om bij te leren. Dit, in combinatie met een niet geoptimaliseerd beloningssysteem, zorgt ervoor dat we in onze beperkte ontwikkelingstijd geen feilloze agents hebben kunnen trainen.
 
 Het grootste probleem van deze opdracht was de gelimiteerde tijdsspanne. Dit zorgde ervoor dat de Agent niet de kans had om volledig te ontwikkelen. Enkele voorgestelde verbeteringen hiervoor zijn: het beloningssysteem nog verder optimaliseren, de agent nog meer tijd geven om bij te leren of een supercomputer gebruiken zodat de berekeningen sneller gaan.
 
