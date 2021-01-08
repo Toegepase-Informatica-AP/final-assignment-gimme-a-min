@@ -93,9 +93,11 @@ Door meerdere klaslokalen in een scène te zetten, kan men meerdere spelomgeving
 
 Bij het klaslokaal is het ook belangrijk om het klaslokaal gedrag mee te geven. Hiervoor moet men aangeven hoeveel spelers en zoekers de gebruiker wenst te spawnen tijdens de trainingen of tijdens het spelverloop en de prefabs van de objecten die worden gegenereerd. In dit geval zijn dit de de speler en de zoeker prefabs. Ook wordt er een TextMeshPro-object gevraagd die de som van de rewards van alle zoekers samen (indien er meer dan een zoeker is) zal tonen.
 
-Om trainingen effectief sneller te laten verlopen, is het beter om trainingen door te laten gaan in een kleiner klaslokaal met minder muren om achter te kunnen verstoppen. Dit verhoogt de kans dat een zoeker tegen een speler kan botsen en naar de gevangenis te brengen.
+Om trainingen effectief sneller te laten verlopen, is het beter om trainingen door te laten gaan in een kleiner klaslokaal met minder muren om achter te kunnen verstoppen. Dit verhoogt de kans dat een zoeker tegen een speler kan botsen en naar de gevangenis kan brengen. 
 
 ![Voorbeeld van een trainingsomgeving](https://cdn.discordapp.com/attachments/497393423498608662/797081291979489280/Screenshot_131.png)
+
+Zo is het beter om bij de bovenstaande afbeelding om met het klaslokaal linksbovenaan te starten met de trainingen. Vanaf het moment dat men merkt dat de intelligente agent voldoende weet, kunnen we overschakelen naar een groter omgeving met meer muren met het verkregen brein als basis. (`mlagents-learn file.yml --initialize-from naam`)
 
 #### Deur object
 
@@ -134,7 +136,7 @@ De speler is in staat om zichzelf naar voor, achter, links en rechts te verplaat
 
 De Ray Perception Sensors van de speler zijn als volgt ingesteld:
 
-##### Het rechter oog
+##### Rechter oog
 
 | Variabele             | Waarde         |
 | --------------------- | -------------- |
@@ -149,7 +151,7 @@ De Ray Perception Sensors van de speler zijn als volgt ingesteld:
 | End Vertical Offset   | -8            |
 | Use Child Sensors     | True           |
 
-##### Het linker oog
+##### Linker oog
 
 | Variabele             | Waarde         |
 | --------------------- | -------------- |
@@ -163,8 +165,14 @@ De Ray Perception Sensors van de speler zijn als volgt ingesteld:
 | Start Vertical Offset | 0              |
 | End Vertical Offset   | -8            |
 | Use Child Sensors     | True           |
+
+![Decision Requester](https://i.imgur.com/mcNk5kO.png)
 
 Als volgende stap moet hier zeker het Decision Requester script op staan met "Take Actions Between Decisions" uitgevinkt.
+
+#### Spawnlocation objecten
+
+
 
 ### 3.5 Gedragingen van de objecten
 
@@ -580,7 +588,75 @@ public class DoorGrabbable : OVRGrabbable
 
 ### Classroom
 
-Het classroom object is verantwoordelijk voor het spawnen van de speler-, en zoekerobjecten. 
+Het classroom object is verantwoordelijk voor het spawnen van de speler-, en zoekerobjecten. De zoeker en speler worden bij elke episode op een willekekeurig spawnplatform gespawned. Dit wordt gedaan door gebruik te maken van de methodes `GetAvailableSpawnLocation()`, `GetRandomSpawnLocation()`, `SpawnSeekers()`, `SpawnPlayers()`
+
+```csharp
+public Vector3 GetAvailableSpawnLocation(MovingObjectTypes type)
+        {
+            SpawnLocation spawnLocation = GetRandomSpawnLocation(type);
+            spawnLocation.IsUsed = true;
+            Vector3 pos = spawnLocation.transform.position;
+            return new Vector3(pos.x, pos.y, pos.z);
+        }
+
+        private SpawnLocation GetRandomSpawnLocation(MovingObjectTypes type)
+        {
+            IEnumerable<SpawnLocation> locations;
+            switch (type)
+            {
+                case MovingObjectTypes.SEEKER:
+                    locations = seekerSpawnLocations.transform.GetComponentsInChildren<SpawnLocation>();
+                    break;
+                case MovingObjectTypes.PLAYER:
+                    locations = playerSpawnLocations.transform.GetComponentsInChildren<SpawnLocation>();
+                    break;
+                default:
+                    locations = null;
+                    break;
+            }
+            locations = locations.Where(x => !x.IsUsed);
+            int randomIndex = Random.Range(0, locations.Count());
+            SpawnLocation randomlyPicked = locations.ElementAt(randomIndex);
+            return randomlyPicked;
+        }
+
+        public void SpawnSeekers()
+        {
+            seekers.transform.SetParent(transform);
+            // Moet het aantal gevraagde seekers spawnen, maar ook rekening houden met hoeveel spawnplaatsen er effectief zijn.
+            for (int i = 0; i < seekerCount && i < seekerSpawnLocations.transform.GetComponentsInChildren<SpawnLocation>().Length; i++)
+            {
+                GameObject seeker = Instantiate(seekerPrefab.gameObject);
+
+                seeker.transform.localPosition = GetAvailableSpawnLocation(MovingObjectTypes.SEEKER);
+                seeker.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+                var component = seeker.GetComponent<Seeker>();
+                component.PlayerCount = playerCount;
+                component.HasPlayerGrabbed = false;
+
+                seeker.transform.SetParent(seekers.transform);
+            }
+        }
+
+        public void SpawnPlayers()
+        {
+            players.transform.SetParent(transform);
+
+            // Moet het aantal gevraagde seekers spawnen, maar ook rekening houden met hoeveel spawnplaatsen er effectief zijn.
+            for (int i = 0; i < playerCount && i < playerSpawnLocations.transform.GetComponentsInChildren<SpawnLocation>().Length; i++)
+            {
+                GameObject seeker = Instantiate(playerPrefab.gameObject);
+
+                seeker.transform.localPosition = GetAvailableSpawnLocation(MovingObjectTypes.PLAYER);
+                seeker.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+                var component = seeker.GetComponent<Player>();
+                component.IsGrabbed = false;
+                component.IsJailed = false;
+
+                seeker.transform.SetParent(players.transform);
+            }
+        }
+```
 
 ### 3.6 One-Pager
 
