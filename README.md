@@ -105,7 +105,7 @@ Zo is het beter om bij de bovenstaande afbeelding om met het klaslokaal linksbov
 
 Bepaalde lokalen zijn enkel toegankelijk via een deur. Deze kunnen op twee manieren worden geopend. De eerste manier maakt gebruik van grabbables aan de hendels. De speler kan deze hendels vastnemen en zo de deur opentrekken of openduwen. De tweede manier is om ertegenaan te lopen. Hierbij zal de deur op een realistische manier worden opengeduwd.
 
-De deur maakt gebruik van fixed joints om te draaien. Dit is een component gemaakt om objecten rond een specifieke as te laten draaien. Er kan een limiet gezet worden die de draaihoek van de deur beperkt. 
+De deur maakt gebruik van fixed joints om te draaien. Dit is een component gemaakt om objecten rond een specifieke as te laten draaien. Er kan een limiet gezet worden die de draaihoek van de deur beperkt. De "Door"-tag zal ook aan dit prefab worden meegegeven.
 
 ![Zichtbare hendelobject](https://i.imgur.com/MshOD0w.png)
 
@@ -138,24 +138,7 @@ Aan dit object wordt de "Jail"-tag gegeven.
 
 De speler is in staat om zichzelf naar voor, achter, links en rechts te verplaatsen. Ook kan deze rond de X-as (links en rechts) roteren. Zoals hierboven vermeld is er ook een interactie tussen de speler en de deuren. Deze kunnen geopend en gesloten worden. Als laatst is er nog de interactie met de gevangenis. Wanneer de zoeker de gevangenis aanraakt, zal het spel eindigen.
 
-De Ray Perception Sensors van de speler zijn als volgt ingesteld:
-
-##### Rechter oog
-
-| Variabele             | Waarde         |
-| --------------------- | -------------- |
-| Detectable Tags       | Wall, HideWall, **Seeker**, Door, Jail |
-| Rays Per Direction    | 3              |
-| Max Ray Degrees       | 4.3              |
-| Sphere Cast Radius    | 0.7            |
-| Ray Length            | 370             |
-| Ray Layer Mask        | Mixed          |
-| Stacked Raycasts      | 1              |
-| Start Vertical Offset | 0              |
-| End Vertical Offset   | -8            |
-| Use Child Sensors     | True           |
-
-##### Linker oog
+De Ray Perception Sensors van beide ogen van de speler zijn als volgt ingesteld:
 
 | Variabele             | Waarde         |
 | --------------------- | -------------- |
@@ -186,6 +169,9 @@ Dit zijn, zoals eerder vermeld, simpele cube-objecten met de collider ingesteld 
 
 Een spelerspawnlocatieobject zal de tag `PlayerSpawnLocation` moeten krijgt en de zoeker de tag `SeekerSpawnLocation`. Deze objecten moeten ook in de overeenkomstige parent-objecten (`PlayerSpawnLocations` en `SeekerSpawnLocations`) zitten.
 
+Bij de start van elke nieuwe episode zal er over deze spawnlocaties geloopt worden om zoekers en spelers te spawnen op één van deze plaatsen.
+> Er kan maar 1 zoeker/speler per spawnlocatie spawnen. Meer uitleg hierover in hoofdstuk 3.5.
+
 ### 3.5 Gedragingen van de objecten
 
 #### Zoeker
@@ -196,24 +182,7 @@ De zoeker is, net zoals de speler, in staat om zichzelf naar voor, achter, links
 
 De zoeker heeft echter twee ogen met 3D Ray Perception Sensors. Deze zijn in staat om alle objecten met een tag te observeren. Wanneer de Ray Perception Sensors de speler zien, zou de zoeker (in theorie) zich richting de speler moeten verplaatsen, deze "vastnemen", en deze naar de gevangenis brengen. Het vastnemen van de speler doet de zoeker door simpelweg tegen de speler aan te lopen.
 
-De Ray Perception Sensors van de zoeker zijn als volgt ingesteld:
-
-#### Het rechter oog
-
-| Variabele             | Waarde         |
-| --------------------- | -------------- |
-| Detectable Tags       | Wall, HideWall, **Player**, Door, Jail |
-| Rays Per Direction    | 3              |
-| Max Ray Degrees       | 4.3              |
-| Sphere Cast Radius    | 0.7            |
-| Ray Length            | 370             |
-| Ray Layer Mask        | Mixed          |
-| Stacked Raycasts      | 1              |
-| Start Vertical Offset | 0              |
-| End Vertical Offset   | -8            |
-| Use Child Sensors     | True           |
-
-#### Het linker oog
+De Ray Perception Sensors van beide ogen van de zoeker zijn als volgt ingesteld:
 
 | Variabele             | Waarde         |
 | --------------------- | -------------- |
@@ -689,7 +658,7 @@ De `ClearEnvironment()` methode zorgt er voor dat het speelveld leeg is vooralee
 `ResetSpawnSettings()` zorgt ervoor dat alle spawnlocaties weer vrij worden gemaakt voor de volgende keer dat spelers of zoekers moeten worden gespawnd.
 
 ```csharp
-public void ResetSpawnSettings()
+        public void ResetSpawnSettings()
         {
             foreach (SpawnLocation sl in playerSpawnLocations.transform.GetComponentsInChildren<SpawnLocation>())
             {
@@ -701,6 +670,26 @@ public void ResetSpawnSettings()
                 sl.IsUsed = false;
             }
         }
+```
+
+`GetAvailableSpawnLocation()` 
+```csharp
+        public Vector3 GetAvailableSpawnLocation(MovingObjectTypes type)
+        {
+            SpawnLocation spawnLocation = GetRandomSpawnLocation(type);
+            spawnLocation.IsUsed = true;
+            Vector3 pos = spawnLocation.transform.position;
+            return new Vector3(pos.x, pos.y, pos.z);
+        }
+```
+
+### Spawnlocations
+Wanneer de property _IsUsed_ op _true_ komt te staan zal deze niet meer gebruikt kunnen worden om de agents te spawnen.
+```csharp
+    public class SpawnLocation : MonoBehaviour
+    {
+        public bool IsUsed { get; set; } = false;
+    }
 ```
 
 
