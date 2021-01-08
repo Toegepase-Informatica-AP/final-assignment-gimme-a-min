@@ -153,9 +153,48 @@ De Ray Perception Sensors van beide ogen van de speler zijn als volgt ingesteld:
 | End Vertical Offset   | -8            |
 | Use Child Sensors     | True           |
 
+Als volgende stap moet hier zeker het Decision Requester script op staan met "Take Actions Between Decisions" uitgevinkt.
+
 ![Decision Requester](https://i.imgur.com/mcNk5kO.png)
 
+Om de zes mogelijke voor de speler ook effectief mogelijk te maken, zal die de `Behavior Parameters` component moeten hebben met een branch size op zes.
+
+> ! Vergeet zeker niet om "Use Child Sensors" aan te vinken!
+
+![Behavior parameters speler](https://i.imgur.com/ghIDOda.png)
+
+Aan deze prefab wordt de "Player"-tag gegeven.
+
+#### Zoeker object
+
+<img src="DocAssets/speler.png" placeholder="Speler" width="200" >
+
+De speler is in staat om zichzelf naar voor, achter, links en rechts te verplaatsen. Ook kan deze rond de X-as (links en rechts) roteren. Zoals hierboven vermeld is er ook een interactie tussen de speler en de deuren. Deze kunnen geopend en gesloten worden. Als laatst is er nog de interactie met de gevangenis. Wanneer de zoeker de gevangenis aanraakt, zal het spel eindigen.
+
+De Ray Perception Sensors van beide ogen van de speler zijn als volgt ingesteld:
+
+| Variabele             | Waarde         |
+| --------------------- | -------------- |
+| Detectable Tags       | Wall, HideWall, **Seeker**, Door, Jail |
+| Rays Per Direction    | 3              |
+| Max Ray Degrees       | 4.3              |
+| Sphere Cast Radius    | 0.7            |
+| Ray Length            | 370             |
+| Ray Layer Mask        | Mixed          |
+| Stacked Raycasts      | 1              |
+| Start Vertical Offset | 0              |
+| End Vertical Offset   | -8            |
+| Use Child Sensors     | True           |
+
 Als volgende stap moet hier zeker het Decision Requester script op staan met "Take Actions Between Decisions" uitgevinkt.
+
+![Decision Requester](https://i.imgur.com/mcNk5kO.png)
+
+Om de zes mogelijke voor de speler ook effectief mogelijk te maken, zal die de `Behavior Parameters` component moeten hebben met een branch size op zes.
+
+> ! Vergeet zeker niet om "Use Child Sensors" aan te vinken!
+
+![Behavior parameters speler](https://i.imgur.com/ghIDOda.png)
 
 Aan deze prefab wordt de "Player"-tag gegeven.
 
