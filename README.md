@@ -172,7 +172,7 @@ Als volgende stap moet hier zeker het Decision Requester script op staan met "Ta
 
 #### Spawnlocation objecten
 
-
+Om spelers en zoekers in het klaslokaal te laten spawnen 
 
 ### 3.5 Gedragingen van de objecten
 
@@ -657,6 +657,8 @@ public Vector3 GetAvailableSpawnLocation(MovingObjectTypes type)
             }
         }
 ```
+
+
 
 ### 3.6 One-Pager
 
