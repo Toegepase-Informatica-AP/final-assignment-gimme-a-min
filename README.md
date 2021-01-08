@@ -103,7 +103,7 @@ Vooraleer we aan de effectieve ML Agents training kunnen starten, zullen er eers
 
 #### Classroom object
 
-![Classroom](https://i.imgur.com/CCUMPMU.png)
+![Classroom](DocAssets/CCUMPMU.png)
 
 Bovenstaande afbeelding geeft ons een top-down view van het volledige speelveld (niet-trainingsomgeving), in ons geval het klaslokaal. Zoals u kan zien, dient dit ook als het parent object voor alle objecten om in één enkel omgeving te plaatsen. Deze bevat het nodige gedrag om de spelomgeving foutloos te laten verlopen door tijdens de trainingen telkens het spel te herstarten als alle spelers in de gevangenis zitten. Ook zien we een aantal belangrijke elementen voor zowel de *Speler* als de intelligente agent die als *Zoeker* zal fungeren.
 
@@ -119,19 +119,19 @@ Bij het klaslokaal is het ook belangrijk om de klaslokaal-script component mee t
 
 Om trainingen effectief sneller te laten verlopen, is het beter om trainingen door te laten gaan in een kleiner klaslokaal met minder muren om achter te kunnen verstoppen. Dit verhoogt de kans dat een *Zoeker* tegen een *Speler* kan botsen en naar de gevangenis kan brengen.
 
-![Voorbeeld van een trainingsomgeving](https://cdn.discordapp.com/attachments/497393423498608662/797081291979489280/Screenshot_131.png)
+![Voorbeeld van een trainingsomgeving](DocAssets/Screenshot_131.png)
 
 Zo is het beter om bij de bovenstaande afbeelding om met het klaslokaal linksbovenaan te starten met de trainingen. Vanaf het moment dat men merkt dat de intelligente agent voldoende weet, kunnen we overschakelen naar een groter omgeving met meer muren met het verkregen brein als basis. (`mlagents-learn file.yml --initialize-from naam`)
 
 #### *Deur* object
 
-![*Deur*](https://i.imgur.com/9x1VfSv.png)
+![*Deur*](DocAssets/9x1VfSv.png)
 
 Bepaalde lokalen zijn enkel toegankelijk via een *Deur*. Deze kunnen op twee manieren worden geopend. De eerste manier maakt gebruik van grabbables aan de hendels. De *Speler* kan deze hendels vastnemen en zo de *Deur* opentrekken of openduwen. De tweede manier is om ertegenaan te lopen. Hierbij zal de *Deur* op een realistische manier worden opengeduwd.
 
 De *Deur* maakt gebruik van fixed joints om te draaien. Dit is een component gemaakt om objecten rond een specifieke as te laten draaien. Er kan een limiet worden gezet die de draaihoek van de *Deur* beperkt. De "Door"-tag zal ook aan dit prefab worden meegegeven.
 
-![Zichtbare hendelobject](https://i.imgur.com/MshOD0w.png)
+![Zichtbare hendelobject](DocAssets/MshOD0w.png)
 
 Uiteindelijk bestaat de *Deur* uit vier onzichtbare rechthoekige hendelobjecten. Twee aan elke kant van de *Deur*.
 
@@ -143,23 +143,23 @@ Het tweede hendelobject is een grabable die de *Speler* kan vastnemenen. Wanneer
 
 #### Gevangenis object
 
-![Gevangenis](https://i.imgur.com/WWgn2e4.png)
+![Gevangenis](DocAssets/WWgn2e4.png)
 
 Wanneer een *Speler* gevangen wordt door de *Zoeker*, wordt deze in de gevangenis opgesloten. Dit gebeurt simpelweg door de collider van de *Speler* tegen de collider van de gevangenis aan te tikken. Om de beste resultaten te halen, is het beter om de collider van de *Jail* als een trigger in te stellen zodat botsingen daartegen niet voor ongewenst gedrag zorgen.
 
 De gevangenis bestaat uit een vloer (pane-) object, ijzeren tralies (cube-) objecten, vier muur (cube-) objecten die de traliën met elkaar verbinden en een dienblad. Ook wordt dit omringd door een nog groter kubus die uit vier cube-objecten bestaat. Dit zal nodig zijn om het glitchen van een *Speler* in de gevangenis te voorkomen.
 
-![Tralie met grote collider](https://i.imgur.com/lR4JUVg.png)
+![Tralie met grote collider](DocAssets/lR4JUVg.png)
 
 Ook wordt er aangeraden om de collider van de middelste tralie langs beide kanten volledig uit te strekken zodat deze even groot is als de collider van de hele *Jail*. Dit zorgt ervoor dat de *Zoeker* niet in de gevangenis kan kijken en niet achter spelers zou aanzitten die daar al in zitten.
 
-![Jailtag](https://i.imgur.com/XiPzCll.png)
+![Jailtag](DocAssets/XiPzCll.png)
 
 Ook zal het Jail-script component hieraan toegevoegd moeten worden en moet deze de "Jail"-tag krijgen.
 
 #### *Speler* object
 
-![*Speler*](https://i.imgur.com/oRUdZGC.png)
+![*Speler*](DocAssets/oRUdZGC.png)
 
 De *Speler* kan zich naar voor, achter, links en rechts verplaatsen. Ook kan deze rond de X-as (links en rechts) roteren. Zoals hierboven vermeld, is er ook een interactie tussen de *Speler* en de *Deur*en. Deze kunnen geopend en gesloten worden. Als laatste is er nog de interactie met de gevangenis. Wanneer de *Zoeker* de gevangenis aanraakt, zal het spel eindigen.
 
@@ -180,13 +180,13 @@ De Ray Perception Sensors van beide ogen van de *Speler* zijn als volgt ingestel
 
 Als volgende stap moet hier zeker het Decision Requester script op staan met "Take Actions Between Decisions" uitgevinkt.
 
-![Decision Requester](https://i.imgur.com/mcNk5kO.png)
+![Decision Requester](DocAssets/mcNk5kO.png)
 
 Om de zes acties voor de *Speler* ook effectief mogelijk te maken, zal die de `Behavior Parameters` component moeten hebben met een branch size van zes.
 
 > ! Vergeet zeker niet om "Use Child Sensors" aan te vinken!
 
-![Behavior parameters *Speler*](https://i.imgur.com/ghIDOda.png)
+![Behavior parameters *Speler*](DocAssets/ghIDOda.png)
 
 Aan deze prefab wordt de "Player"-tag gegeven alsook de Player-script component.
 
@@ -194,7 +194,7 @@ Aan deze prefab wordt de "Player"-tag gegeven alsook de Player-script component.
 
 Het *Zoeker*-object is bijna volledig identiek aan het *Speler*-object buiten het feit dat de RayPerceptionSensoren van de ogen **Player**s waarnemen i.p.v. **Seeker**s en dat het Seeker-script component hieraan toegevoegd moet worden.
 
-<img src="https://i.imgur.com/Y3ucgt3.png" placeholder="*Speler*" width="500">
+<img src="DocAssets/Y3ucgt3.png" placeholder="*Speler*" width="500">
 
 | Variabele          | Waarde                                 |
 | ------------------ | -------------------------------------- |
@@ -206,11 +206,11 @@ Aan deze prefab wordt de "*Zoeker*"-tag gegeven.
 
 #### Spawnlocation objecten
 
-![SpawnLocations](https://i.imgur.com/5mLZZI5.png)
+![SpawnLocations](DocAssets/5mLZZI5.png)
 
 Om *Speler*s en *Zoeker*s in het klaslokaal te laten spawnen en dit zo flexibel mogelijk te maken zodat deze te allen tijde veranderd kan worden, zijn er spawnlocation (cube-) objecten die de locatie markeren waar de *Speler*s en *Zoeker*s kunnen spawnen.
 
-![PlayerSpawnLocation](https://i.imgur.com/TPpMhFP.png)
+![PlayerSpawnLocation](DocAssets/TPpMhFP.png)
 
 Dit zijn, zoals eerder vermeld, simpele cube-objecten met de collider ingesteld als een trigger. Zo kunnen we de *Speler*s en *Zoeker*s exact op dezelfde locatie als het object laten spawnen, zonder deze met elkaar te laten botsen.
 
