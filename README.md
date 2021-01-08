@@ -157,6 +157,8 @@ De Ray Perception Sensors van beide ogen van de speler zijn als volgt ingesteld:
 
 Als volgende stap moet hier zeker het Decision Requester script op staan met "Take Actions Between Decisions" uitgevinkt.
 
+Aan deze prefab wordt de "Player"-tag gegeven.
+
 #### Spawnlocation objecten
 
 ![SpawnLocations](https://i.imgur.com/5mLZZI5.png)
@@ -742,9 +744,11 @@ Het grootste probleem van deze opdracht was de gelimiteerde tijdsspanne. Dit zor
 
 ## 6 Bronvermelding
 
-"VR with Andrew (Mar 18, 2020): Moving in VR using Unity's XR Toolkit [01] and Moving in VR using Unity's XR Toolkit [02]" oppgehaald van
+"VR with Andrew (Mar 18, 2020): Moving in VR using Unity's XR Toolkit [01] and Moving in VR using Unity's XR Toolkit [02]" opgehaald van
 1. https://www.youtube.com/watch?v=6N__0jeg6k0 
 
 2. https://www.youtube.com/watch?v=X2QYjhu4_G4  
 
 How to make a door in VR - Unity tutorial (Aug 21, 2019) by Valem opgehaald van https://www.youtube.com/watch?v=3cJ_uq1m-dg [1]
+
+D'haese, D. "Gedragingen van de agent en de andere spelobjecten" https://ddhaese.github.io/Course_ML-Agents/gedragingen-van-de-agent-en-de-andere-spelobjecten.html#obelix.cs
