@@ -73,7 +73,7 @@ De Speler daarentegen zal logischerwijs afgestraft worden als het door een zoeke
 |-|-|
 | Gevangen door een zoeker | -1 |
 
-### 3.4 Beschrijvingen van de objecten
+### 3.5 Beschrijvingen van de objecten
 
 Vooraleer we aan de effectieve ML Agents training kunnen starten, zullen er eerst objecten aangemaakt moeten worden die als basis van dit project zullen dienen, beginnende met het klaslokaal.
 
@@ -167,11 +167,7 @@ Aan deze prefab wordt de "Player"-tag gegeven.
 
 #### Zoeker object
 
-<img src="DocAssets/speler.png" placeholder="Speler" width="200" >
-
-De speler is in staat om zichzelf naar voor, achter, links en rechts te verplaatsen. Ook kan deze rond de X-as (links en rechts) roteren. Zoals hierboven vermeld is er ook een interactie tussen de speler en de deuren. Deze kunnen geopend en gesloten worden. Als laatst is er nog de interactie met de gevangenis. Wanneer de zoeker de gevangenis aanraakt, zal het spel eindigen.
-
-De Ray Perception Sensors van beide ogen van de speler zijn als volgt ingesteld:
+<img src="https://i.imgur.com/Y3ucgt3.png" placeholder="Speler" width="200" >
 
 | Variabele             | Waarde         |
 | --------------------- | -------------- |
@@ -186,17 +182,7 @@ De Ray Perception Sensors van beide ogen van de speler zijn als volgt ingesteld:
 | End Vertical Offset   | -8            |
 | Use Child Sensors     | True           |
 
-Als volgende stap moet hier zeker het Decision Requester script op staan met "Take Actions Between Decisions" uitgevinkt.
-
-![Decision Requester](https://i.imgur.com/mcNk5kO.png)
-
-Om de zes mogelijke voor de speler ook effectief mogelijk te maken, zal die de `Behavior Parameters` component moeten hebben met een branch size op zes.
-
-> ! Vergeet zeker niet om "Use Child Sensors" aan te vinken!
-
-![Behavior parameters speler](https://i.imgur.com/ghIDOda.png)
-
-Aan deze prefab wordt de "Player"-tag gegeven.
+Aan deze prefab wordt de "Zoeker"-tag gegeven.
 
 #### Spawnlocation objecten
 
@@ -783,11 +769,11 @@ Het grootste probleem van deze opdracht was de gelimiteerde tijdsspanne. Dit zor
 
 ## 6 Bronvermelding
 
-"VR with Andrew (Mar 18, 2020): Moving in VR using Unity's XR Toolkit [01] and Moving in VR using Unity's XR Toolkit [02]" opgehaald van
+VR with Andrew (Mar 18, 2020): Moving in VR using Unity's XR Toolkit [1] and Moving in VR using Unity's XR Toolkit [2] :
 1. https://www.youtube.com/watch?v=6N__0jeg6k0 
 
 2. https://www.youtube.com/watch?v=X2QYjhu4_G4  
 
-How to make a door in VR - Unity tutorial (Aug 21, 2019) by Valem opgehaald van https://www.youtube.com/watch?v=3cJ_uq1m-dg [1]
+How to make a door in VR - Unity tutorial (Aug 21, 2019) by Valem opgehaald van https://www.youtube.com/watch?v=3cJ_uq1m-dg [3]
 
-D'haese, D. "Gedragingen van de agent en de andere spelobjecten" https://ddhaese.github.io/Course_ML-Agents/gedragingen-van-de-agent-en-de-andere-spelobjecten.html#obelix.cs
+D'haese, D. "Gedragingen van de agent en de andere spelobjecten" [4] https://ddhaese.github.io/Course_ML-Agents/gedragingen-van-de-agent-en-de-andere-spelobjecten.html#obelix.cs
