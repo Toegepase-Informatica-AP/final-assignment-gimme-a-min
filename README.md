@@ -120,7 +120,7 @@ Het tweede hendelobject is een grabable die de speler kan vastnemenen. Wanneer d
 
 ![Gevangenis](https://i.imgur.com/WWgn2e4.png)
 
-Wanneer een speler gevangen wordt door de zoeker, wordt deze in de gevangenis opgesloten. Dit gebeurt simpelweg door de collider van de speler tegen de collider van de gevangenis aan te tikken. De collider van het parent-object moet een trigger zijn 
+Wanneer een speler gevangen wordt door de zoeker, wordt deze in de gevangenis opgesloten. Dit gebeurt simpelweg door de collider van de speler tegen de collider van de gevangenis aan te tikken. Om de beste resultaten te halen, is het beter om de collider van de jail als een trigger in te stellen zodat botsingen daartegen niet voor ongewest gedrag zorgen.
 
 De gevangenis bestaat uit een vloer (pane-) object, ijzeren tralies (cube-) objecten, vier muur (cube-) objecten die de traliën met elkaar verbinden en een dienblad. Ook wordt dit omringd door een nog groter kubus die uit vier cube-objecten bestaat. Dit zal nodig zijn om het glitchen van een speler in de gevangenis te voorkomen.
 
@@ -128,11 +128,15 @@ De gevangenis bestaat uit een vloer (pane-) object, ijzeren tralies (cube-) obje
 
 Ook wordt er aangeraden om de collider van de middelste tralie langs beide kanten volledig uit te strekken zodat deze even groot is als de collider van de hele jail. Dit zorgt ervoor dat de zoeker niet in de gevangenis kan kijken en niet achter spelers zou aanzitten die daar al in zitten.
 
+![Jailtag](https://i.imgur.com/XiPzCll.png)
+
+Aan dit object wordt de "Jail"-tag gegeven. 
+
 #### Speler object
 
 <img src="DocAssets/speler.png" placeholder="Speler" width="200" >
 
-De speler is in staat om zichzelf naar voor, achter, links en rechts te verplaatsen. Ook kan deze rond de X-as roteren. Zoals hierboven vermeld is er ook een interactie tussen de speler en de deuren. Deze kunnen geopend en gesloten worden. Uiteindelijk is er nog de interactie met de gevangenis. Wanneer de speler de gevangenis aanraakt, zal het spel eindigen.
+De speler is in staat om zichzelf naar voor, achter, links en rechts te verplaatsen. Ook kan deze rond de X-as (links en rechts) roteren. Zoals hierboven vermeld is er ook een interactie tussen de speler en de deuren. Deze kunnen geopend en gesloten worden. Als laatst is er nog de interactie met de gevangenis. Wanneer de zoeker de gevangenis aanraakt, zal het spel eindigen.
 
 De Ray Perception Sensors van de speler zijn als volgt ingesteld:
 
@@ -174,7 +178,13 @@ Als volgende stap moet hier zeker het Decision Requester script op staan met "Ta
 
 ![SpawnLocations](https://i.imgur.com/5mLZZI5.png)
 
-Om spelers en zoekers in het klaslokaal te laten spawnen en dit zo flexibel mogelijk te maken zodat deze te allen tijde veranderd kan worden, zijn er spawnlocation (cube-) objecten die de locatie markeren waar de spelers en zoekers kunnen spawnen. 
+Om spelers en zoekers in het klaslokaal te laten spawnen en dit zo flexibel mogelijk te maken zodat deze te allen tijde veranderd kan worden, zijn er spawnlocation (cube-) objecten die de locatie markeren waar de spelers en zoekers kunnen spawnen.
+
+![PlayerSpawnLocation](https://i.imgur.com/TPpMhFP.png)
+
+Dit zijn, zoals eerder vermeld, simpele cube-objecten met de collider ingesteld als een trigger. Zo kunnen we de spelers en zoekers exact op dezelfde locatie als het object laten spawnen, zonder deze met elkaar te laten botsen.
+
+Een spelerspawnlocatieobject zal de tag `PlayerSpawnLocation` moeten krijgt en de zoeker de tag `SeekerSpawnLocation`. Deze objecten moeten ook in de overeenkomstige parent-objecten (`PlayerSpawnLocations` en `SeekerSpawnLocations`) zitten.
 
 ### 3.5 Gedragingen van de objecten
 
