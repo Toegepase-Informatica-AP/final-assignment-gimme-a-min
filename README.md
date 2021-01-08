@@ -38,18 +38,20 @@
 
 ## 2 Inleiding
 
-Het algemeen idee van VerstAPpertje is een Virtual Reality Ervaring te creëren waarin een *Speler* verstoppertje kan spelen in een 3D-wereld die gebaseerd is op de gebouwen van AP.
-De *Zoeker* is een intelligente agent welke op voorhand getraind is om de *Speler* te zoeken en vervolgens deze op te sluiten in het gevang.
+Het algemeen idee van VerstAPpertje is om een Virtual Reality ervaring te creëren waarin een *Speler* verstoppertje kan spelen in een 3D-wereld die gebaseerd is op de gebouwen van AP.
+De *Zoeker* is een intelligente agent welke op voorhand getraind is om de *Speler* te zoeken en vervolgens deze op te sluiten in de gevangenis.
 
-Hieronder een ruwe voorstelling van het beloningssysteem dat gebruikt wordt om de *Zoeker* te trainen.
+Hieronder vindt u een ruwe voorstelling van het beloningssysteem dat wordt gebruikt om de *Zoeker* te trainen.
 
-![Beloningssysteem](DocAssets/spelverloop.svg)
+![Beloningssysteem](DocAssets/belonigssysteem_lts.svg)
+
+> Note: Het beloningssysteem is na het indienen van de One-Pager lichtjes aangepast. De veranderingen hieraan zijn zichtbaar en gecodeerd volgens kleur: rood duid een verwijdering aan en groen een aanpassing.
 
 ## 3 Methoden
 
 ### 3.1 Samenvatting
 
-In dit document zullen alle stappen om dit project te realiseren worden toegelicht. Na het lezen hiervan zal de lezer in staat zijn om zelf een VR Ervaring ondersteund door ML te creëren met behulp van Unity, ML Agents, XR Interaction Toolkit & Oculus XR Plugin.
+In dit document zullen alle stappen om dit project te realiseren worden toegelicht. Na het lezen hiervan, zal de lezer in staat zijn om zelf een VR Ervaring ondersteund door ML te creëren met behulp van Unity, ML Agents, XR Interaction Toolkit en Oculus XR Plugin.
 
 ### 3.2 Installatie
 
@@ -83,15 +85,15 @@ Aangezien de *Zoeker* het belangrijkst object is van dit project, zal hij ook me
 | Omschrijving                                                                | Beloning (floats) |
 | --------------------------------------------------------------------------- | ----------------- |
 | Stilstaan & niet roteren                                                    | -0,001            |
-| Vangen van een *Speler* terwijl hij er op dat ogenblik één in handen heeft  | - 0,1             |
-| Vangen van een *Speler* terwijl hij er op dat ogenblik geen in handen heeft | +0,5              |
+| Vangen van een *Speler* terwijl hij er op dat ogenblik **één** in handen heeft  | - 0,1             |
+| Vangen van een *Speler* terwijl hij er op dat ogenblik **geen** in handen heeft | +0,5              |
 | Steken van de gevangen *Speler* in de gevangenis                            | +1                |
 
 De *Speler* daarentegen zal logischerwijs afgestraft worden als het door een *Zoeker* wordt gevangen.
 
 | Omschrijving               | Beloning (floats) |
 | -------------------------- | ----------------- |
-| Gevangen door een *Zoeker* | -1                |
+| Gevangen door een **Zoeker** | -1                |
 
 ### 3.5 Beschrijvingen van de objecten
 
@@ -103,15 +105,15 @@ Vooraleer we aan de effectieve ML Agents training kunnen starten, zullen er eers
 
 Bovenstaande afbeelding geeft ons een top-down view van het volledige speelveld (niet-trainingsomgeving), in ons geval het klaslokaal. Zoals u kan zien, dient dit ook als het parent object voor alle objecten om in één enkel omgeving te plaatsen. Deze bevat het nodige gedrag om de spelomgeving foutloos te laten verlopen door tijdens de trainingen telkens het spel te herstarten als alle spelers in de gevangenis zitten. Ook zien we een aantal belangrijke elementen voor zowel de *Speler* als de intelligente agent die als *Zoeker* zal fungeren.
 
-Zo'n klaslokaal zal, zoals eerder vermeld, als de container dienen waarin alle objecten terecht komen en bestaat zelf uit een een SurroundingWalls parent-object die alle rode buitenste muren (Cube-object) bevat, een Floor (pane-) object die als vloer dient en een Ceiling (pane-) object die als dak zal dienen. Voor een betere zichtbaarheid kan het dak worden disabled tijdens de trainingen.
+Zo'n klaslokaal zal, zoals eerder vermeld, als de container dienen waarin alle objecten terechtkomen en bestaat zelf uit een een SurroundingWalls parent-object die alle rode buitenste muren (Cube-object) bevat, een Floor (pane-) object die als vloer dient en een Ceiling (pane-) object die als dak zal dienen. Voor een betere zichtbaarheid kan het dak worden disabled tijdens de trainingen.
 
 Over het hele klaslokaal zien we dat er een aantal deuren zijn verspreid. De *Speler* kan van deze deuren handig gebruik maken om zich beter te verstoppen voor de *Zoeker*. De *Zoeker* zal dan de *Deur* moeten openen om de *Speler* te kunnen zien. Om ervoor te zorgen dat de *Speler* hier niet té veel voordeel uit kan halen, is er bij elke kamer die een *Deur* bevat slechts één *Deur* voorzien zodat de *Speler* niet gewoon kan wachten tot de *Deur* opengaat en dan de andere uitweg nemen. Ook zijn er heel wat muren opgezet waarachter de spelers zich kunnen verstoppen.
 
-Door meerdere klaslokalen in een scène te zetten, kan men meerdere spelomgevingen tegelijk laten draaien. Logischerwijs zal dit ervoor zorgen dat het leerproces van de ML Agents sneller zal verlopen.
+Door meerdere klaslokalen in een scène te zetten, kan men meerdere spelomgevingen tegelijkertijd laten draaien. Logischerwijs zal dit ervoor zorgen dat het leerproces van de ML Agents sneller zal verlopen.
 
-> Opgelet: deze verhoogde leercurve is er enkel zolang het toestel waar je de training op draait krachtig genoeg zijn om al deze omgevingen tegelijkertijd te kunnen draaien. Als hier geen rekening mee gehouden wordt, zorgt dit juist voor een vertraging van het leerproces.
+> Opgelet: Deze verhoogde leercurve is er enkel zolang het toestel waar je de training op draait krachtig genoeg is om al deze omgevingen tegelijkertijd te kunnen draaien. Als hier geen rekening mee wordt gehouden, zorgt dit juist voor een vertraging van het leerproces.
 
-Bij het klaslokaal is het ook belangrijk om de klaslokaal-script component mee te geven. Hiervoor moet men aangeven hoeveel spelers en zoekers de gebruiker wenst te spawnen tijdens de trainingen of tijdens het spelverloop en de prefabs van de objecten die worden gegenereerd. In dit geval zijn dit de de *Speler* en de *Zoeker* prefabs. Ook wordt er een TextMeshPro-object gevraagd die de som van de rewards van alle zoekers samen (als er meer dan een *Zoeker* is) zal tonen.
+Bij het klaslokaal is het ook belangrijk om de klaslokaal-script component mee te geven. Hiervoor moet men aangeven hoeveel *Speler*s en *Zoeker*s de gebruiker wenst te spawnen tijdens de trainingen of tijdens het spelverloop en de prefabs van de objecten die worden gegenereerd. In dit geval zijn dit de de *Speler* en de *Zoeker* prefabs. Ook wordt er een TextMeshPro-object gevraagd die de som van de rewards van alle zoekers tesamen (als er meer dan een *Zoeker* is) zal tonen.
 
 Om trainingen effectief sneller te laten verlopen, is het beter om trainingen door te laten gaan in een kleiner klaslokaal met minder muren om achter te kunnen verstoppen. Dit verhoogt de kans dat een *Zoeker* tegen een *Speler* kan botsen en naar de gevangenis kan brengen.
 
@@ -125,31 +127,33 @@ Zo is het beter om bij de bovenstaande afbeelding om met het klaslokaal linksbov
 
 Bepaalde lokalen zijn enkel toegankelijk via een *Deur*. Deze kunnen op twee manieren worden geopend. De eerste manier maakt gebruik van grabbables aan de hendels. De *Speler* kan deze hendels vastnemen en zo de *Deur* opentrekken of openduwen. De tweede manier is om ertegenaan te lopen. Hierbij zal de *Deur* op een realistische manier worden opengeduwd.
 
-De *Deur* maakt gebruik van fixed joints om te draaien. Dit is een component gemaakt om objecten rond een specifieke as te laten draaien. Er kan een limiet gezet worden die de draaihoek van de *Deur* beperkt. De "Door"-tag zal ook aan dit prefab worden meegegeven.
+De *Deur* maakt gebruik van fixed joints om te draaien. Dit is een component gemaakt om objecten rond een specifieke as te laten draaien. Er kan een limiet worden gezet die de draaihoek van de *Deur* beperkt. De "Door"-tag zal ook aan dit prefab worden meegegeven.
 
 ![Zichtbare hendelobject](https://i.imgur.com/MshOD0w.png)
 
-Uiteindelijk bestaat de *Deur* uit vier, onzichtbare, rechtoekige hendelobjecten. Twee aan elke kant van de *Deur*.
+Uiteindelijk bestaat de *Deur* uit vier onzichtbare rechthoekige hendelobjecten. Twee aan elke kant van de *Deur*.
 
 Het eerste hendelobject zorgt ervoor dat de hendel op de plaats van de visuele deurklink blijft.
 
-Het tweede hendelobject is een grabable die de *Speler* kan vastnemenen. Wanneer de *Speler* de hendel loslaat, wordt de locatie van deze grabable terug gereset naar de locatie van het eerste hendelobject.[3]
+Het tweede hendelobject is een grabable die de *Speler* kan vastnemenen. Wanneer de *Speler* de hendel loslaat, wordt de locatie van deze grabable terug gereset naar de locatie van het eerste hendelobject.
+
+> Zie bron 2.1.
 
 #### Gevangenis object
 
 ![Gevangenis](https://i.imgur.com/WWgn2e4.png)
 
-Wanneer een *Speler* gevangen wordt door de *Zoeker*, wordt deze in de gevangenis opgesloten. Dit gebeurt simpelweg door de collider van de *Speler* tegen de collider van de gevangenis aan te tikken. Om de beste resultaten te halen, is het beter om de collider van de jail als een trigger in te stellen zodat botsingen daartegen niet voor ongewenst gedrag zorgen.
+Wanneer een *Speler* gevangen wordt door de *Zoeker*, wordt deze in de gevangenis opgesloten. Dit gebeurt simpelweg door de collider van de *Speler* tegen de collider van de gevangenis aan te tikken. Om de beste resultaten te halen, is het beter om de collider van de *Jail* als een trigger in te stellen zodat botsingen daartegen niet voor ongewenst gedrag zorgen.
 
 De gevangenis bestaat uit een vloer (pane-) object, ijzeren tralies (cube-) objecten, vier muur (cube-) objecten die de traliën met elkaar verbinden en een dienblad. Ook wordt dit omringd door een nog groter kubus die uit vier cube-objecten bestaat. Dit zal nodig zijn om het glitchen van een *Speler* in de gevangenis te voorkomen.
 
 ![Tralie met grote collider](https://i.imgur.com/lR4JUVg.png)
 
-Ook wordt er aangeraden om de collider van de middelste tralie langs beide kanten volledig uit te strekken zodat deze even groot is als de collider van de hele jail. Dit zorgt ervoor dat de *Zoeker* niet in de gevangenis kan kijken en niet achter spelers zou aanzitten die daar al in zitten.
+Ook wordt er aangeraden om de collider van de middelste tralie langs beide kanten volledig uit te strekken zodat deze even groot is als de collider van de hele *Jail*. Dit zorgt ervoor dat de *Zoeker* niet in de gevangenis kan kijken en niet achter spelers zou aanzitten die daar al in zitten.
 
 ![Jailtag](https://i.imgur.com/XiPzCll.png)
 
-Hieraan wordt de Jail-script component aan toegevoegd en de "Jail"-tag aangegeven.
+Ook zal het Jail-script component hieraan toegevoegd moeten worden en moet deze de "Jail"-tag krijgen.
 
 #### *Speler* object
 
