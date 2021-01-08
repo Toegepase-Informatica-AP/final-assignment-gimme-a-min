@@ -217,7 +217,7 @@ Bij de start van elke nieuwe episode zal er over deze spawnlocaties geloopt word
 
 #### *Zoeker*
 
-<img src="DocAssets/Zoeker.png" placeholder="*Zoeker*" width="200" >
+<img src="DocAssets/zoeker.png" placeholder="*Zoeker*" width="200" >
 
 De *Zoeker* is, net zoals de *Speler*, in staat om zichzelf naar voor, achter, links en rechts te verplaatsen en deze kan ook rond de X-as roteren. Ook heeft de *Zoeker* de mogelijkheid om deuren te openen en te sluiten.
 
