@@ -169,7 +169,7 @@ Aan deze prefab wordt de "Player"-tag gegeven alsook de Player-script component.
 
 Het *Zoeker*-object is bijna volledig identiek als het *Speler*-object buiten het feit dat de RayPerceptionSensoren van de ogen **Player**s waarnemen i.p.v. **Seeker**s en dat het Seeker-script component hieraan toegevoegd moet worden.
 
-<img src="https://i.imgur.com/Y3ucgt3.png" placeholder="*Speler*" width="200" >
+<img src="https://i.imgur.com/Y3ucgt3.png" placeholder="*Speler*" width="500" >
 
 | Variabele             | Waarde         |
 | --------------------- | -------------- |
@@ -198,7 +198,7 @@ Bij de start van elke nieuwe episode zal er over deze spawnlocaties geloopt word
 
 #### *Zoeker*
 
-<img src="DocAssets/*Zoeker*.png" placeholder="*Zoeker*" width="200" >
+<img src="DocAssets/Zoeker.png" placeholder="*Zoeker*" width="200" >
 
 De *Zoeker* is, net zoals de *Speler*, in staat om zichzelf naar voor, achter, links en rechts te verplaatsen en deze kan ook rond de X-as roteren. Ook heeft de *Zoeker* de mogelijkheid om deuren te openen en te sluiten.
 
@@ -465,7 +465,7 @@ Daarnaast moet ongeveer hetzelfde gebeuren voor de *Zoeker*:
 
 Zorg ervoor dat alle instellingen zeker exact hetzelfde staan ingesteld. Anders is het zeer waarschijnlijk dat het trainen zal mislukken.
 
-Het configuratiebestand om beide agents te trainen is het volgend yml-bestand. Hierbij hebben we  met de _curiosity strength_ parameter gespeeld tot dat we aan de optimale waarden kwamen voor de training. We merkten dat het belangrijk is om hogere curiosity waarden toe te kennen wanneer er met complexe omgevingen getraind wordt. Dit zorgt ervoor dat de agent de omgeving beter gaat verkennen.
+Het configuratiebestand om beide agents te trainen is het volgend yml-bestand. Hierbij hebben we  met de _curiosity strength_ parameter gespeeld tot dat we aan de optimale waarden kwamen voor de training. We merkten dat het belangrijk is om hogere curiosity waarden toe te kennen wanneer er met complexe omgevingen getraind wordt. Dit zorgt ervoor dat de agent de omgeving beter gaat verkennen. 
 
 ```yml
 behaviors:
@@ -688,7 +688,7 @@ De `ClearEnvironment()` methode zorgt er voor dat het speelveld leeg is vooralee
 
 ### Spawnlocation script
 
-Spawnlocation heeft een
+Spawnlocation heeft één enkele property genaamd `IsUsed`. Deze staat default op `false` ingesteld en wordt op true gezet eens een *Zoeker* of een *Speler* hierop spawnt. Zo voorkomen we meerdere spawns op éénzelfde locatie.
 
 ```csharp
     public class SpawnLocation : MonoBehaviour
@@ -698,6 +698,60 @@ Spawnlocation heeft een
 ```
 
 ### Jail script
+
+Het *Jail*-object heeft één enkel belangrijk procedure, nl. het afhandelen van wanneer een *Zoeker* binnenin zijn trigger loopt. Zo wordt er eerst gekeken of de *Zoeker* effectief een speler vastheeft. Als dit klopt, zal de *Speler* in het *Jail*-object geteleporteerd worden, krijgt de *Zoeker* een beloning van 1.0 en wordt er een check gedaan of alle *Speler*s in het *Jail*-object zitten of niet om zo de episode te eindigen.
+
+Het script dat het *Jail*-object aandrijft:
+
+```sql
+    public class Jail : MonoBehaviour
+    {
+        private Player player = null;
+        private Seeker seeker = null;
+
+        private void OnTriggerEnter(Collider collision)
+        {
+            Transform collObject = collision.transform;
+
+            if (collObject.CompareTag("Seeker"))
+            {
+                seeker = collObject.gameObject.GetComponent<Seeker>();
+
+                if (seeker != null)
+                {
+                    if (seeker.HasPlayerGrabbed)
+                    {
+                        player = seeker.CapturedPlayer;
+                        PerformCapturingProcedure();
+                    }
+                }
+            }
+        }
+
+        private void PerformCapturingProcedure()
+        {
+            if (seeker != null)
+            {
+                PutPlayerInJail();
+                seeker = null;
+                player = null;
+            }
+        }
+
+        private void PutPlayerInJail()
+        {
+            if (player != null && !player.IsJailed && seeker != null && player.IsGrabbed)
+            {
+                // Player
+                player.CapturedLogic();
+                player.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+
+                // Seeker
+                seeker.ClearCapturedPlayer();
+            }
+        }
+    }
+```
 
 ### 3.6 One-Pager
 
