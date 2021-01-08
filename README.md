@@ -581,7 +581,7 @@ public class DoorGrabbable : OVRGrabbable
 
 ### Classroom
 
-Het classroom object is verantwoordelijk voor het spawnen en 
+Het classroom object is verantwoordelijk voor het spawnen van de speler-, en zoekerobjecten. 
 
 ### 3.6 One-Pager
 
