@@ -79,7 +79,7 @@ Vooraleer we aan de effectieve ML Agents training kunnen starten, zullen er eers
 
 #### Classroom object
 
-![Classroom](https://i.imgur.com/9rknYTq.png)
+![Classroom](https://i.imgur.com/CCUMPMU.png)
 
 Bovenstaande afbeelding geeft ons een top-down view van het volledige speelveld (niet-trainingsomgeving), in ons geval het klaslokaal. Zoals u kan zien, dient dit ook als het parent object voor alle objecten om in één enkel omgeving te plaatsen. Deze bevat het nodige gedrag om de spelomgeving foutloos te laten verlopen door tijdens de trainingen telkens het spel te herstarten als alle spelers in de gevangenis zitten. Ook zien we een aantal belangrijke elementen voor zowel de speler als de intelligente agent die als zoeker zal fungeren.
 
@@ -91,7 +91,7 @@ Door meerdere klaslokalen in een scène te zetten, kan men meerdere spelomgeving
 
 > Opgelet: deze verhoogde leercurve is er enkel zolang het toestel waar je de training op draait krachtig genoeg zijn om al deze omgevingen tegelijkertijd te kunnen draaien. Als hier geen rekening mee gehouden wordt, zorgt dit juist voor een vertraging van het leerproces.
 
-Bij het klaslokaal is het ook belangrijk om het klaslokaal gedrag mee te geven. Hiervoor moet men aangeven hoeveel spelers en zoekers de gebruiker wenst te spawnen tijdens de trainingen of tijdens het spelverloop en de prefabs van de objecten die worden gegenereerd. In dit geval zijn dit de de speler en de zoeker prefabs. Ook wordt er een TextMeshPro-object gevraagd die de som van de rewards van alle zoekers samen (indien er meer dan een zoeker is) zal tonen.
+Bij het klaslokaal is het ook belangrijk om de klaslokaal-script component mee te geven. Hiervoor moet men aangeven hoeveel spelers en zoekers de gebruiker wenst te spawnen tijdens de trainingen of tijdens het spelverloop en de prefabs van de objecten die worden gegenereerd. In dit geval zijn dit de de speler en de zoeker prefabs. Ook wordt er een TextMeshPro-object gevraagd die de som van de rewards van alle zoekers samen (indien er meer dan een zoeker is) zal tonen.
 
 Om trainingen effectief sneller te laten verlopen, is het beter om trainingen door te laten gaan in een kleiner klaslokaal met minder muren om achter te kunnen verstoppen. Dit verhoogt de kans dat een zoeker tegen een speler kan botsen en naar de gevangenis kan brengen. 
 
@@ -113,14 +113,14 @@ Uiteindelijk bestaat de deur uit vier, onzichtbare, rechtoekige hendelobjecten. 
 
 Het eerste hendelobject zorgt er voor dat de hendel op de plaats van de visuele deurklink blijft. 
 
-Het tweede hendelobject is een grabable die de speler kan vastnemenen. Wanneer de speler de hendel loslaat, wordt de locatie van deze grabable terug gereset naar de locatie van het eerste hendelobject.[1]
+Het tweede hendelobject is een grabable die de speler kan vastnemenen. Wanneer de speler de hendel loslaat, wordt de locatie van deze grabable terug gereset naar de locatie van het eerste hendelobject.[3]
 
 
 #### Gevangenis object
 
 ![Gevangenis](https://i.imgur.com/WWgn2e4.png)
 
-Wanneer een speler gevangen wordt door de zoeker, wordt deze in de gevangenis opgesloten. Dit gebeurt simpelweg door de collider van de speler tegen de collider van de gevangenis aan te tikken. Om de beste resultaten te halen, is het beter om de collider van de jail als een trigger in te stellen zodat botsingen daartegen niet voor ongewest gedrag zorgen.
+Wanneer een speler gevangen wordt door de zoeker, wordt deze in de gevangenis opgesloten. Dit gebeurt simpelweg door de collider van de speler tegen de collider van de gevangenis aan te tikken. Om de beste resultaten te halen, is het beter om de collider van de jail als een trigger in te stellen zodat botsingen daartegen niet voor ongewenst gedrag zorgen.
 
 De gevangenis bestaat uit een vloer (pane-) object, ijzeren tralies (cube-) objecten, vier muur (cube-) objecten die de traliën met elkaar verbinden en een dienblad. Ook wordt dit omringd door een nog groter kubus die uit vier cube-objecten bestaat. Dit zal nodig zijn om het glitchen van een speler in de gevangenis te voorkomen.
 
@@ -130,13 +130,13 @@ Ook wordt er aangeraden om de collider van de middelste tralie langs beide kante
 
 ![Jailtag](https://i.imgur.com/XiPzCll.png)
 
-Aan dit object wordt de "Jail"-tag gegeven. 
+Hieraan wordt de Jail-script component aan toegevoegd en de "Jail"-tag aan gegeven. 
 
 #### Speler object
 
-<img src="DocAssets/speler.png" placeholder="Speler" width="200" >
+![Speler](https://i.imgur.com/oRUdZGC.png)
 
-De speler is in staat om zichzelf naar voor, achter, links en rechts te verplaatsen. Ook kan deze rond de X-as (links en rechts) roteren. Zoals hierboven vermeld is er ook een interactie tussen de speler en de deuren. Deze kunnen geopend en gesloten worden. Als laatst is er nog de interactie met de gevangenis. Wanneer de zoeker de gevangenis aanraakt, zal het spel eindigen.
+De speler kan zich naar voor, achter, links en rechts verplaatsen. Ook kan deze rond de X-as (links en rechts) roteren. Zoals hierboven vermeld is er ook een interactie tussen de speler en de deuren. Deze kunnen geopend en gesloten worden. Als laatst is er nog de interactie met de gevangenis. Wanneer de zoeker de gevangenis aanraakt, zal het spel eindigen.
 
 De Ray Perception Sensors van beide ogen van de speler zijn als volgt ingesteld:
 
@@ -163,9 +163,11 @@ Om de zes mogelijke voor de speler ook effectief mogelijk te maken, zal die de `
 
 ![Behavior parameters speler](https://i.imgur.com/ghIDOda.png)
 
-Aan deze prefab wordt de "Player"-tag gegeven.
+Aan deze prefab wordt de "Player"-tag gegeven alsook de Player-script component.
 
 #### Zoeker object
+
+Het zoeker-object is bijna volledig identiek als het speler-object buiten het feit dat de RayPerceptionSensoren van de ogen **Players** waarnemen.
 
 <img src="https://i.imgur.com/Y3ucgt3.png" placeholder="Speler" width="200" >
 
@@ -776,4 +778,4 @@ VR with Andrew (Mar 18, 2020): Moving in VR using Unity's XR Toolkit [1] and Mov
 
 How to make a door in VR - Unity tutorial (Aug 21, 2019) by Valem opgehaald van https://www.youtube.com/watch?v=3cJ_uq1m-dg [3]
 
-D'haese, D. "Gedragingen van de agent en de andere spelobjecten" [4] https://ddhaese.github.io/Course_ML-Agents/gedragingen-van-de-agent-en-de-andere-spelobjecten.html#obelix.cs
+D'haese, D. "Gedragingen van de agent en de andere spelobjecten" https://ddhaese.github.io/Course_ML-Agents/gedragingen-van-de-agent-en-de-andere-spelobjecten.html#obelix.cs
