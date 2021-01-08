@@ -95,6 +95,8 @@ De *Speler* daarentegen zal logischerwijs afgestraft worden als het door een *Zo
 | -------------------------- | ----------------- |
 | Gevangen door een **Zoeker** | -1                |
 
+> Bron 5.1.
+
 ### 3.5 Beschrijvingen van de objecten
 
 Vooraleer we aan de effectieve ML Agents training kunnen starten, zullen er eerst objecten aangemaakt moeten worden die als basis van dit project zullen dienen, beginnende met het klaslokaal.
@@ -137,7 +139,7 @@ Het eerste hendelobject zorgt ervoor dat de hendel op de plaats van de visuele d
 
 Het tweede hendelobject is een grabable die de *Speler* kan vastnemenen. Wanneer de *Speler* de hendel loslaat, wordt de locatie van deze grabable terug gereset naar de locatie van het eerste hendelobject.
 
-> Zie bron 2.1.
+> Bron 2.1.
 
 #### Gevangenis object
 
@@ -768,6 +770,8 @@ Het script dat het *Jail*-object aandrijft:
 
 ### 3.6 VR
 
+> Bron 4.1.
+
 #### 3.6.1 MovementProvider
 
 De volgende script zorgt ervoor dat men aan de hand van de joysticks kan navigeren in de VR-omgeving.
@@ -912,3 +916,7 @@ Het grootste probleem van deze opdracht was de gelimiteerde tijdsspanne. Dit zor
    1. [How to make a door in VR - Unity tutorial](https://www.youtube.com/watch?v=3cJ_uq1m-dg) geraadpleegd op 2020/12/19
 3. David D'Haese:
    1. ["Gedragingen van de agent en de andere spelobjecten"](https://ddhaese.github.io/Course_ML-Agents/gedragingen-van-de-agent-en-de-andere-spelobjecten.html#obelix.csé&) geraadpleegd op 2020/12/05
+4. Tom Peeters:
+   1. ["Week 11 - Develop VR apps"](https://learning.ap.be/course/view.php?id=36780#section-10) geraadpleegd op 2020/12/05
+5. Dana Tabatabaie Irani:
+   1. ["Jumper with Intelligence Agent"](https://github.com/Toegepase-Informatica-AP/machine-learning-jumper-excercise-MrDanaT) geraadpleegd op 2021/01/08
