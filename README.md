@@ -48,7 +48,7 @@ Voor we kunnen starten met de ontwikkeling van het project, hebben we bepaalde s
 
 ### 3.3 Spelverloop
 
-Wanneer het spel start, zal de speler op een willekeurig `spelersspawnplatform` (groen) worden gespawnd. Tegelijkertijd zal ook de zoeker op een daarvoor bestemd platform (rood) worden gespawnd. De speler heeft dan de mogelijkheid om rond te lopen in het klaslokaal en zich zo goed mogelijk te verstoppen. De zoeker zal trachten de speler te vinden. De zoeker is zoals eerder vermeld een agent die op voorhand wordt getraind.
+Wanneer het spel start, zal de speler op een willekeurige `PlayerSpawnLocation` (groen platform) worden gespawnd. Tegelijkertijd zal ook de zoeker op een daarvoor bestemd platform (rood) worden gespawnd. De speler heeft dan de mogelijkheid om rond te lopen in het klaslokaal en zich zo goed mogelijk te verstoppen. De zoeker zal trachten de speler te vinden. De zoeker is zoals eerder vermeld een agent die op voorhand wordt getraind.
 
 Wanneer de speler gevonden en gepakt wordt door de zoeker, zal de zoeker deze verplaatsen richting de gevangenis. Eens deze aan de gevangenis gearriveerd is, wordt de speler hierin opgesloten. Dit is dan ook het einde van het spel. Het doel van de speler is om zo lang mogelijk uit de handen van de zoeker te blijven.
 
@@ -167,22 +167,15 @@ Aan deze prefab wordt de "Player"-tag gegeven alsook de Player-script component.
 
 #### Zoeker object
 
-Het zoeker-object is bijna volledig identiek als het speler-object buiten het feit dat de RayPerceptionSensoren van de ogen **Players** waarnemen.
+Het zoeker-object is bijna volledig identiek als het speler-object buiten het feit dat de RayPerceptionSensoren van de ogen **Player**s waarnemen i.p.v. **Seeker**s en dat het Seeker-script component hieraan toegevoegd moet worden.
 
 <img src="https://i.imgur.com/Y3ucgt3.png" placeholder="Speler" width="200" >
 
 | Variabele             | Waarde         |
 | --------------------- | -------------- |
-| Detectable Tags       | Wall, HideWall, **Seeker**, Door, Jail |
+| Detectable Tags       | Wall, HideWall, **Player**, Door, Jail |
 | Rays Per Direction    | 3              |
-| Max Ray Degrees       | 4.3              |
-| Sphere Cast Radius    | 0.7            |
-| Ray Length            | 370             |
-| Ray Layer Mask        | Mixed          |
-| Stacked Raycasts      | 1              |
-| Start Vertical Offset | 0              |
-| End Vertical Offset   | -8            |
-| Use Child Sensors     | True           |
+| ...       | ...              |
 
 Aan deze prefab wordt de "Zoeker"-tag gegeven.
 
@@ -199,7 +192,7 @@ Dit zijn, zoals eerder vermeld, simpele cube-objecten met de collider ingesteld 
 Een spelerspawnlocatieobject zal de tag `PlayerSpawnLocation` moeten krijgt en de zoeker de tag `SeekerSpawnLocation`. Deze objecten moeten ook in de overeenkomstige parent-objecten (`PlayerSpawnLocations` en `SeekerSpawnLocations`) zitten.
 
 Bij de start van elke nieuwe episode zal er over deze spawnlocaties geloopt worden om zoekers en spelers te spawnen op één van deze plaatsen.
-> Er kan maar 1 zoeker/speler per spawnlocatie spawnen. Meer uitleg hierover in hoofdstuk 3.5.
+> Er kan maar 1 zoeker/speler per spawnlocatie spawnen. Meer uitleg hierover in hoofdstuk 'Spawnlocations'
 
 ### 3.5 Gedragingen van de objecten
 
@@ -209,26 +202,7 @@ Bij de start van elke nieuwe episode zal er over deze spawnlocaties geloopt word
 
 De zoeker is, net zoals de speler, in staat om zichzelf naar voor, achter, links en rechts te verplaatsen en deze kan ook rond de X-as roteren. Ook heeft de zoeker de mogelijkheid om deuren te openen en te sluiten.
 
-De zoeker heeft echter twee ogen met 3D Ray Perception Sensors. Deze zijn in staat om alle objecten met een tag te observeren. Wanneer de Ray Perception Sensors de speler zien, zou de zoeker (in theorie) zich richting de speler moeten verplaatsen, deze "vastnemen", en deze naar de gevangenis brengen. Het vastnemen van de speler doet de zoeker door simpelweg tegen de speler aan te lopen.
-
-De Ray Perception Sensors van beide ogen van de zoeker zijn als volgt ingesteld:
-
-| Variabele             | Waarde         |
-| --------------------- | -------------- |
-| Detectable Tags       | Wall, HideWall, **Player**, Door, Jail |
-| Rays Per Direction    | 3              |
-| Max Ray Degrees       | 4.3              |
-| Sphere Cast Radius    | 0.7            |
-| Ray Length            | 370             |
-| Ray Layer Mask        | Mixed          |
-| Stacked Raycasts      | 1              |
-| Start Vertical Offset | 0              |
-| End Vertical Offset   | -8            |
-| Use Child Sensors     | True           |
-
-![Decision Requester](https://i.imgur.com/mcNk5kO.png)
-
-Als volgende stap moet hier ook het Decision Requester script op staan met "Take Actions Between Decisions" uitgevinkt.
+Met zijn twee ogen met 3D Ray Perception Sensors, is die in staat om alle objecten met een tag te observeren. Wanneer de Ray Perception Sensors de speler zien, zou de zoeker (in theorie) zich richting de speler moeten verplaatsen, deze "vastnemen", en deze naar de gevangenis brengen. Het vastnemen van de speler doet de zoeker door simpelweg tegen de speler aan te lopen.
 
 Hoewel de speler in het uiteindelijke spel door een persoon worden gespeeld, zal deze in de trainingsfase ook worden aangedreven door een intelligente agent. Beide agents worden dus als het ware tegen elkaar opgezet en moeten beiden zo goed mogelijk hun eigen taak uitvoeren. De agent van de speler moet uit de handen van de zoeker proberen te blijven, terwijl de zoeker de speler moet vangen en deze opsluiten in de gevangenis.
 
@@ -343,7 +317,7 @@ public class Seeker : MovingObject
         {
             base.CollectObservations(sensor);
 
-            sensor.AddObservation(HasPlayerGrabbed);
+            sensor.AddObservation(HasPlayerGrabbed); // <-- Voegt de waarneming toe van dat het een speler vastheeft.
         }
 
         protected override void FixedUpdate()
@@ -354,7 +328,6 @@ public class Seeker : MovingObject
             {
                 TransportPlayer();
             }
-
         }
 
         private void TransportPlayer()
@@ -369,6 +342,7 @@ public class Seeker : MovingObject
         {
             base.OnActionReceived(vectorAction);
 
+            // Als het stilstaat, straf hem af.
             if (vectorAction[0] == 0f && vectorAction[1] == 0f && vectorAction[2] == 0f && vectorAction[3] == 0f && vectorAction[4] == 0f && vectorAction[5] == 0f)
             {
                 AddReward(-0.001f);
@@ -454,8 +428,8 @@ Het script dat de speler aandrijft:
         {
             base.CollectObservations(sensor);
 
-            sensor.AddObservation(IsJailed);
-            sensor.AddObservation(IsGrabbed);
+            sensor.AddObservation(IsJailed); // <-- Voegt de waarneming toe van dat het in de gevangenis zit.
+            sensor.AddObservation(IsGrabbed); // <-- Voegt de waarneming toe van dat wordt vastgenomen.
         }
 
         protected override void FixedUpdate()
