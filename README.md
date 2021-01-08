@@ -2,19 +2,39 @@
 
 ## 1 Inhoud
 
-- [Inleiding](#2-Inleiding) 
-- [Methoden](#3-Methoden)
-  - [Samenvatting](#3.1-Samenvatting)
-  - [Installatie](#3.2-Installatie)
-  - [Spelverloop](#3.3-Spelverloop)
-  - [Observaties, mogelijke acties en beloningen](#3.4-Observaties,-mogelijke-acties-en-beloningen)
-  - [Gedragingen van de objecten](#3.5-Gedragingen-van-de-objecten)
-  - [One-Pager](#3.6-One-Pager)
-- [Resultaten](#4-Resultaten)
-  - [TensorBoard](#4.1-TensorBoard)
-  - [Opvallende waarnemingen](#4.2-Opvallende-waarnemingen)
-- [Conclusie](#5-Conclusie)
-- [Bronvermelding](#6-bronvermelding)
+- [VerstAPpertje](#verstappertje)
+  - [1 Inhoud](#1-inhoud)
+  - [2 Inleiding](#2-inleiding)
+  - [3 Methoden](#3-methoden)
+    - [3.1 Samenvatting](#31-samenvatting)
+    - [3.2 Installatie](#32-installatie)
+    - [3.3 Spelverloop](#33-spelverloop)
+    - [3.4 Observaties, mogelijke acties en beloningen](#34-observaties-mogelijke-acties-en-beloningen)
+    - [3.5 Beschrijvingen van de objecten](#35-beschrijvingen-van-de-objecten)
+      - [Classroom object](#classroom-object)
+      - [*Deur* object](#deur-object)
+      - [Gevangenis object](#gevangenis-object)
+      - [*Speler* object](#speler-object)
+      - [*Zoeker* object](#zoeker-object)
+      - [Spawnlocation objecten](#spawnlocation-objecten)
+    - [3.5 Gedragingen van de objecten](#35-gedragingen-van-de-objecten)
+      - [*Zoeker*](#zoeker)
+      - [*Deur* script](#deur-script)
+      - [Classroom script](#classroom-script)
+      - [Spawnlocation script](#spawnlocation-script)
+      - [Jail script](#jail-script)
+    - [3.6 VR](#36-vr)
+      - [3.6.1 MovementProvider](#361-movementprovider)
+    - [3.6.2 XR Rig implementatie](#362-xr-rig-implementatie)
+    - [3.7 One-Pager](#37-one-pager)
+      - [3.7.1 Inleiding](#371-inleiding)
+      - [3.7.2 AI Component](#372-ai-component)
+      - [3.7.3 Interacties](#373-interacties)
+  - [4 Resultaten](#4-resultaten)
+    - [4.1 TensorBoard](#41-tensorboard)
+    - [4.2 Opvallende waarnemingen](#42-opvallende-waarnemingen)
+  - [5 Concusie](#5-concusie)
+  - [6 Bronvermelding](#6-bronvermelding)
 
 ## 2 Inleiding
 
@@ -93,7 +113,7 @@ Door meerdere klaslokalen in een scène te zetten, kan men meerdere spelomgeving
 
 Bij het klaslokaal is het ook belangrijk om de klaslokaal-script component mee te geven. Hiervoor moet men aangeven hoeveel spelers en zoekers de gebruiker wenst te spawnen tijdens de trainingen of tijdens het spelverloop en de prefabs van de objecten die worden gegenereerd. In dit geval zijn dit de de *Speler* en de *Zoeker* prefabs. Ook wordt er een TextMeshPro-object gevraagd die de som van de rewards van alle zoekers samen (indien er meer dan een *Zoeker* is) zal tonen.
 
-Om trainingen effectief sneller te laten verlopen, is het beter om trainingen door te laten gaan in een kleiner klaslokaal met minder muren om achter te kunnen verstoppen. Dit verhoogt de kans dat een *Zoeker* tegen een *Speler* kan botsen en naar de gevangenis kan brengen. 
+Om trainingen effectief sneller te laten verlopen, is het beter om trainingen door te laten gaan in een kleiner klaslokaal met minder muren om achter te kunnen verstoppen. Dit verhoogt de kans dat een *Zoeker* tegen een *Speler* kan botsen en naar de gevangenis kan brengen.
 
 ![Voorbeeld van een trainingsomgeving](https://cdn.discordapp.com/attachments/497393423498608662/797081291979489280/Screenshot_131.png)
 
@@ -109,12 +129,11 @@ De *Deur* maakt gebruik van fixed joints om te draaien. Dit is een component gem
 
 ![Zichtbare hendelobject](https://i.imgur.com/MshOD0w.png)
 
-Uiteindelijk bestaat de *Deur* uit vier, onzichtbare, rechtoekige hendelobjecten. Twee aan elke kant van de *Deur*. 
+Uiteindelijk bestaat de *Deur* uit vier, onzichtbare, rechtoekige hendelobjecten. Twee aan elke kant van de *Deur*.
 
-Het eerste hendelobject zorgt er voor dat de hendel op de plaats van de visuele deurklink blijft. 
+Het eerste hendelobject zorgt er voor dat de hendel op de plaats van de visuele deurklink blijft.
 
 Het tweede hendelobject is een grabable die de *Speler* kan vastnemenen. Wanneer de *Speler* de hendel loslaat, wordt de locatie van deze grabable terug gereset naar de locatie van het eerste hendelobject.[3]
-
 
 #### Gevangenis object
 
@@ -130,7 +149,7 @@ Ook wordt er aangeraden om de collider van de middelste tralie langs beide kante
 
 ![Jailtag](https://i.imgur.com/XiPzCll.png)
 
-Hieraan wordt de Jail-script component aan toegevoegd en de "Jail"-tag aan gegeven. 
+Hieraan wordt de Jail-script component aan toegevoegd en de "Jail"-tag aan gegeven.
 
 #### *Speler* object
 
@@ -169,7 +188,7 @@ Aan deze prefab wordt de "Player"-tag gegeven alsook de Player-script component.
 
 Het *Zoeker*-object is bijna volledig identiek als het *Speler*-object buiten het feit dat de RayPerceptionSensoren van de ogen **Player**s waarnemen i.p.v. **Seeker**s en dat het Seeker-script component hieraan toegevoegd moet worden.
 
-<img src="https://i.imgur.com/Y3ucgt3.png" placeholder="*Speler*" width="500" >
+<img src="https://i.imgur.com/Y3ucgt3.png" placeholder="*Speler*" width="500">
 
 | Variabele             | Waarde         |
 | --------------------- | -------------- |
@@ -455,7 +474,7 @@ Het script dat de *Speler* aandrijft:
     }
 ```
 
-Het configuratiebestand om beide agents te trainen is het volgend yml-bestand. Hierbij hebben we  met de _curiosity strength_ parameter gespeeld tot dat we aan de optimale waarden kwamen voor de training. We merkten dat het belangrijk is om hogere curiosity waarden toe te kennen wanneer er met complexe omgevingen getraind wordt. Dit zorgt ervoor dat de agent de omgeving beter gaat verkennen. 
+Het configuratiebestand om beide agents te trainen is het volgend yml-bestand. Hierbij hebben we  met de _curiosity strength_ parameter gespeeld tot dat we aan de optimale waarden kwamen voor de training. We merkten dat het belangrijk is om hogere curiosity waarden toe te kennen wanneer er met complexe omgevingen getraind wordt. Dit zorgt ervoor dat de agent de omgeving beter gaat verkennen.
 
 ```yml
 behaviors:
@@ -530,7 +549,7 @@ behaviors:
 #### *Deur* script
 
 Om de *Deur* vlekkeloos te laten werken, wordt er gebruik gemaakt van deze scripts.
-In de update functie wordt er bekeken of het grabable handleobject niet te ver is van de deurklink zelf. Indien dit wel is, zal de *Deur* losgelaten worden. `GrabEnd()` wordt aangeroepen wanneer de *Speler* het object loslaat. 
+In de update functie wordt er bekeken of het grabable handleobject niet te ver is van de deurklink zelf. Indien dit wel is, zal de *Deur* losgelaten worden. `GrabEnd()` wordt aangeroepen wanneer de *Speler* het object loslaat.
 
 ```csharp
 public class DoorGrabbable : OVRGrabbable
@@ -559,8 +578,7 @@ public class DoorGrabbable : OVRGrabbable
 }
 ```
 
-
-### Classroom script
+#### Classroom script
 
 Het classroom object is verantwoordelijk voor het spawnen van de *Speler*-, en zoekerobjecten. De *Zoeker* en *Speler* worden bij elke episode op een willekekeurig spawnplatform gespawned. Dit wordt gedaan door gebruik te maken van de methodes `GetAvailableSpawnLocation()`, `GetRandomSpawnLocation()`, `SpawnSeekers()`, `SpawnPlayers()`
 
@@ -665,7 +683,8 @@ De `ClearEnvironment()` methode zorgt er voor dat het speelveld leeg is vooralee
         }
 ```
 
-`GetAvailableSpawnLocation()` 
+`GetAvailableSpawnLocation()`
+
 ```csharp
         public Vector3 GetAvailableSpawnLocation(MovingObjectTypes type)
         {
@@ -676,7 +695,7 @@ De `ClearEnvironment()` methode zorgt er voor dat het speelveld leeg is vooralee
         }
 ```
 
-### Spawnlocation script
+#### Spawnlocation script
 
 Spawnlocation heeft één enkele property genaamd `IsUsed`. Deze staat default op `false` ingesteld en wordt op true gezet eens een *Zoeker* of een *Speler* hierop spawnt. Zo voorkomen we meerdere spawns op éénzelfde locatie.
 
@@ -687,7 +706,7 @@ Spawnlocation heeft één enkele property genaamd `IsUsed`. Deze staat default o
     }
 ```
 
-### Jail script
+#### Jail script
 
 Het *Jail*-object heeft één enkel belangrijk procedure, nl. het afhandelen van wanneer een *Zoeker* binnenin zijn trigger loopt. Zo wordt er eerst gekeken of de *Zoeker* effectief een speler vastheeft. Als dit klopt, zal de *Speler* in het *Jail*-object geteleporteerd worden, krijgt de *Zoeker* een beloning van 1.0 en wordt er een check gedaan of alle *Speler*s in het *Jail*-object zitten of niet om zo de episode te eindigen.
 
@@ -742,10 +761,13 @@ Het script dat het *Jail*-object aandrijft:
         }
     }
 ```
+
 ### 3.6 VR
 
 #### 3.6.1 MovementProvider
+
 De volgense script zorgt ervoor dat men aan de hand van de joysticks kan navigeren in de VR-omgeving.
+
 ```csharp
 public class MovementProvider : LocomotionProvider
     {
@@ -828,6 +850,7 @@ public class MovementProvider : LocomotionProvider
         }
     }
 ```
+
 ### 3.6.2 XR Rig implementatie
 
 Om ervoor te zorgen dat het Unity-project niet gebouwd wordt als 2D-project, maar als een échte Virtual Reality ervaring, moet de `Camera` in de scène worden vervangen door een `XR Rig`.
@@ -838,24 +861,21 @@ Om ervoor te zorgen dat het Unity-project niet gebouwd wordt als 2D-project, maa
 
 #### 3.7.1 Inleiding
 
-Het algemeen idee is om een Virtual Reality Ervaring te maken waarin de gebruiker verstoppertje kan spelen in een 3D-wereld gebaseerd op de gebouwen van AP. De *Speler* zelf zal zich altijd moeten verstoppen, terwijl een intelligente agent hem zal trachten te vinden. 
+Het algemeen idee is om een Virtual Reality Ervaring te maken waarin de gebruiker verstoppertje kan spelen in een 3D-wereld gebaseerd op de gebouwen van AP. De *Speler* zelf zal zich altijd moeten verstoppen, terwijl een intelligente agent hem zal trachten te vinden.
 
 #### 3.7.2 AI Component
 
-Zonder de AI-component zal het onmogelijk zijn voor de *Zoeker* om de verstopper snel te vinden. Hiervoor zal de agent gebruik maken van de aanwijzingen. Ook is deze belangrijk om van ons spel een soloplayer avontuur te kunnen maken. Anders zal elke verstopper afhankelijk zijn van een tweede partij, nl. de *Zoeker*.  
+Zonder de AI-component zal het onmogelijk zijn voor de *Zoeker* om de verstopper snel te vinden. Hiervoor zal de agent gebruik maken van de aanwijzingen. Ook is deze belangrijk om van ons spel een soloplayer avontuur te kunnen maken. Anders zal elke verstopper afhankelijk zijn van een tweede partij, nl. de *Zoeker*.
 
-Met een AI-Component zal de "zoeker" met behulp van Ray Perception Sensors studenten kunnen zien, welke deuren er openstaan, welke stoelen er verplaatst zijn, etc. 
+Met een AI-Component zal de "zoeker" met behulp van Ray Perception Sensors studenten kunnen zien, welke deuren er openstaan, welke stoelen er verplaatst zijn, etc.
 
-Wij opteren hierbij voor een Single-Agent aangezien er slechts één *Zoeker* zal zijn. 
+Wij opteren hierbij voor een Single-Agent aangezien er slechts één *Zoeker* zal zijn.
 
 #### 3.7.3 Interacties
 
-De "zoeker" van het spel zal gespeeld worden door een Intelligence Agent. Zoals een gewone *Speler* zal deze 
-getraind worden om bepaalde geluiden en visuele aanwijzingen te gebruiken om de "verstopper" te vinden. 
-De agent zal dankzij het Ray Perception 3D component de mogelijkheid hebben om andere gameobjects met 
-op voorhand ingestelde tags te zien. 
-De enige virtueel fysieke interactie tussen de agent en de *Speler* zal zijn wanneer de *Speler* gevonden wordt. De 
-*Speler* wordt dan meegenomen naar de gevangenis door de agent, waar hij opgesloten zal worden. 
+De "zoeker" van het spel zal gespeeld worden door een Intelligence Agent. Zoals een gewone *Speler* zal deze getraind worden om bepaalde geluiden en visuele aanwijzingen te gebruiken om de "verstopper" te vinden.
+
+De agent zal dankzij het Ray Perception 3D component de mogelijkheid hebben om andere gameobjects met op voorhand ingestelde tags te zien. De enige virtueel fysieke interactie tussen de agent en de *Speler* zal zijn wanneer de *Speler* gevonden wordt. De *Speler* wordt dan meegenomen naar de gevangenis door de agent, waar hij zal worden opgesloten.
 
 ## 4 Resultaten
 
@@ -873,7 +893,6 @@ Zowel de *Speler* als de *Zoeker* had een manier gevonden om in de gevangenis te
 
 Elke keer dat er gedacht werd dat alle bugs uit de applicatie waren, vonden de *Speler* en *Zoeker* toch nog een manier om een bug te abusen. Dit maakte het extra moeilijk om te trainen.
 
-
 ## 5 Concusie
 
 Wij als groep hebben een VR applicatie gemaakt voor een enkele *Speler* die een soort "verstoppertje" nabootst, genaamd verstAPpertje.
@@ -883,10 +902,10 @@ Het grootste probleem van deze opdracht was de gelimiteerde tijdsspanne. Dit zor
 ## 6 Bronvermelding
 
 VR with Andrew (Mar 18, 2020): Moving in VR using Unity's XR Toolkit [3.6.1] and Moving in VR using Unity's XR Toolkit :
-1. https://www.youtube.com/watch?v=6N__0jeg6k0 
+1. https://www.youtube.com/watch?v=6N__0jeg6k0
 
-2. https://www.youtube.com/watch?v=X2QYjhu4_G4  
+2. https://www.youtube.com/watch?v=X2QYjhu4_G4
 
 How to make a door in VR - Unity tutorial (Aug 21, 2019) by Valem opgehaald van https://www.youtube.com/watch?v=3cJ_uq1m-dg [3]
 
-D'haese, D. "Gedragingen van de agent en de andere spelobjecten" https://ddhaese.github.io/Course_ML-Agents/gedragingen-van-de-agent-en-de-andere-spelobjecten.html#obelix.cs
+D'haese, D. "Gedragingen van de agent en de andere spelobjecten" https://ddhaese.github.io/Course_ML-Agents/gedragingen-van-de-agent-en-de-andere-spelobjecten.html#obelix.csé&"
