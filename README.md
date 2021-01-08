@@ -82,17 +82,17 @@ Doordat de *Zoeker* en de *Speler* gemeenschappelijke gedragingen hebben (zie ho
 
 Aangezien de *Zoeker* het belangrijkst object is van dit project, zal hij ook meer worden beloond en afgestraft voor de acties die het zal ondernemen. De beloningen en afstraffingen focussen zich op het vangen van spelers en het forceren van een constante zoektocht. Deze worden hieronder beschreven.
 
-| Omschrijving                                                                | Beloning (floats) |
-| --------------------------------------------------------------------------- | ----------------- |
-| Stilstaan & niet roteren                                                    | -0,001            |
+| Omschrijving                                                                    | Beloning (floats) |
+| ------------------------------------------------------------------------------- | ----------------- |
+| Stilstaan & niet roteren                                                        | -0,001            |
 | Vangen van een *Speler* terwijl hij er op dat ogenblik **één** in handen heeft  | - 0,1             |
 | Vangen van een *Speler* terwijl hij er op dat ogenblik **geen** in handen heeft | +0,5              |
-| Steken van de gevangen *Speler* in de gevangenis                            | +1                |
+| Steken van de gevangen *Speler* in de gevangenis                                | +1                |
 
 De *Speler* daarentegen zal logischerwijs afgestraft worden als het door een *Zoeker* wordt gevangen.
 
-| Omschrijving               | Beloning (floats) |
-| -------------------------- | ----------------- |
+| Omschrijving                 | Beloning (floats) |
+| ---------------------------- | ----------------- |
 | Gevangen door een **Zoeker** | -1                |
 
 > Bron 5.1.
