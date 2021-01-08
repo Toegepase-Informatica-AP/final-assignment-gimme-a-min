@@ -172,7 +172,9 @@ Als volgende stap moet hier zeker het Decision Requester script op staan met "Ta
 
 #### Spawnlocation objecten
 
-Om spelers en zoekers in het klaslokaal te laten spawnen 
+![SpawnLocations](https://i.imgur.com/5mLZZI5.png)
+
+Om spelers en zoekers in het klaslokaal te laten spawnen en dit zo flexibel mogelijk te maken zodat deze te allen tijde veranderd kan worden, zijn er spawnlocation (cube-) objecten die de locatie markeren waar de spelers en zoekers kunnen spawnen. 
 
 ### 3.5 Gedragingen van de objecten
 
@@ -657,6 +659,24 @@ public Vector3 GetAvailableSpawnLocation(MovingObjectTypes type)
             }
         }
 ```
+
+De `ClearEnvironment()` methode zorgt er voor dat het speelveld leeg is vooraleer er een nieuwe episode begint.
+
+```csharp
+    public void ClearEnvironment()
+        {
+            foreach (Transform player in players.transform)
+            {
+                Destroy(player.gameObject);
+            }
+            foreach (Transform seeker in seekers.transform)
+            {
+                Destroy(seeker.gameObject);
+            }
+        }
+```
+
+`ResetSpawnSettings()` 
 
 
 
