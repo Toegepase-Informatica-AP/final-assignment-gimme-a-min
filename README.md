@@ -474,7 +474,7 @@ Het script dat de *Speler* aandrijft:
     }
 ```
 
-Het configuratiebestand om beide agents te trainen is het volgend yml-bestand. Hierbij hebben we  met de _curiosity strength_ parameter gespeeld tot dat we aan de optimale waarden kwamen voor de training. We merkten dat het belangrijk is om hogere curiosity waarden toe te kennen wanneer er met complexe omgevingen getraind wordt. Dit zorgt ervoor dat de agent de omgeving beter gaat verkennen.
+Het configuratiebestand om beide agents te trainen is het volgend yml-bestand. Hierbij hebben we met de _curiosity strength_ parameter gespeeld tot dat we aan de optimale waarden kwamen voor de training. We merkten dat het belangrijk is om hogere curiosity waarden toe te kennen wanneer er met complexe omgevingen getraind wordt. Dit zorgt ervoor dat de agent de omgeving beter gaat verkennen.
 
 ```yml
 behaviors:
