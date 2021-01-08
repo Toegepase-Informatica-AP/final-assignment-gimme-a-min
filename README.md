@@ -159,7 +159,7 @@ Ook zal het Jail-script component hieraan toegevoegd moeten worden en moet deze 
 
 ![*Speler*](https://i.imgur.com/oRUdZGC.png)
 
-De *Speler* kan zich naar voor, achter, links en rechts verplaatsen. Ook kan deze rond de X-as (links en rechts) roteren. Zoals hierboven vermeld is er ook een interactie tussen de *Speler* en de deuren. Deze kunnen geopend en gesloten worden. Als laatst is er nog de interactie met de gevangenis. Wanneer de *Zoeker* de gevangenis aanraakt, zal het spel eindigen.
+De *Speler* kan zich naar voor, achter, links en rechts verplaatsen. Ook kan deze rond de X-as (links en rechts) roteren. Zoals hierboven vermeld, is er ook een interactie tussen de *Speler* en de *Deur*en. Deze kunnen geopend en gesloten worden. Als laatste is er nog de interactie met de gevangenis. Wanneer de *Zoeker* de gevangenis aanraakt, zal het spel eindigen.
 
 De Ray Perception Sensors van beide ogen van de *Speler* zijn als volgt ingesteld:
 
@@ -180,7 +180,7 @@ Als volgende stap moet hier zeker het Decision Requester script op staan met "Ta
 
 ![Decision Requester](https://i.imgur.com/mcNk5kO.png)
 
-Om de zes mogelijke voor de *Speler* ook effectief mogelijk te maken, zal die de `Behavior Parameters` component moeten hebben met een branch size op zes.
+Om de zes acties voor de *Speler* ook effectief mogelijk te maken, zal die de `Behavior Parameters` component moeten hebben met een branch size van zes.
 
 > ! Vergeet zeker niet om "Use Child Sensors" aan te vinken!
 
@@ -190,7 +190,7 @@ Aan deze prefab wordt de "Player"-tag gegeven alsook de Player-script component.
 
 #### *Zoeker* object
 
-Het *Zoeker*-object is bijna volledig identiek als het *Speler*-object buiten het feit dat de RayPerceptionSensoren van de ogen **Player**s waarnemen i.p.v. **Seeker**s en dat het Seeker-script component hieraan toegevoegd moet worden.
+Het *Zoeker*-object is bijna volledig identiek aan het *Speler*-object buiten het feit dat de RayPerceptionSensoren van de ogen **Player**s waarnemen i.p.v. **Seeker**s en dat het Seeker-script component hieraan toegevoegd moet worden.
 
 <img src="https://i.imgur.com/Y3ucgt3.png" placeholder="*Speler*" width="500">
 
@@ -206,30 +206,30 @@ Aan deze prefab wordt de "*Zoeker*"-tag gegeven.
 
 ![SpawnLocations](https://i.imgur.com/5mLZZI5.png)
 
-Om spelers en zoekers in het klaslokaal te laten spawnen en dit zo flexibel mogelijk te maken zodat deze te allen tijde veranderd kan worden, zijn er spawnlocation (cube-) objecten die de locatie markeren waar de spelers en zoekers kunnen spawnen.
+Om *Speler*s en *Zoeker*s in het klaslokaal te laten spawnen en dit zo flexibel mogelijk te maken zodat deze te allen tijde veranderd kan worden, zijn er spawnlocation (cube-) objecten die de locatie markeren waar de *Speler*s en *Zoeker*s kunnen spawnen.
 
 ![PlayerSpawnLocation](https://i.imgur.com/TPpMhFP.png)
 
-Dit zijn, zoals eerder vermeld, simpele cube-objecten met de collider ingesteld als een trigger. Zo kunnen we de spelers en zoekers exact op dezelfde locatie als het object laten spawnen, zonder deze met elkaar te laten botsen.
+Dit zijn, zoals eerder vermeld, simpele cube-objecten met de collider ingesteld als een trigger. Zo kunnen we de *Speler*s en *Zoeker*s exact op dezelfde locatie als het object laten spawnen, zonder deze met elkaar te laten botsen.
 
-Een spelerspawnlocatieobject zal de tag `PlayerSpawnLocation` moeten krijgt en de *Zoeker* de tag `SeekerSpawnLocation`. Deze objecten moeten ook in de overeenkomstige parent-objecten (`PlayerSpawnLocations` en `SeekerSpawnLocations`) zitten.
+Een spelerspawnlocatieobject zal de tag `PlayerSpawnLocation` moeten krijgen en de *Zoeker* de tag `SeekerSpawnLocation`. Deze objecten moeten ook in de overeenkomstige parent-objecten (`PlayerSpawnLocations` en `SeekerSpawnLocations`) zitten.
 
-Bij de start van elke nieuwe episode zal er over deze spawnlocaties geloopt worden om zoekers en spelers te spawnen op één van deze plaatsen.
-> Er kan maar 1 *Zoeker*/*Speler* per spawnlocatie spawnen. Meer uitleg hierover in hoofdstuk 'Spawnlocations'
+Bij de start van elke nieuwe episode zal er over deze spawnlocaties wordt er geïtereerd om *Zoeker*s en *Speler*s te spawnen op één van deze plaatsen.
+> Er kan maar 1 *Zoeker*/*Speler* per spawnlocatie spawnen. Meer uitleg hierover in hoofdstuk 'Spawnlocation script'
 
 ### 3.5 Gedragingen van de objecten
 
 #### *Zoeker*
 
-<img src="DocAssets/zoeker.png" placeholder="*Zoeker*" width="200" >
+<img src="DocAssets/Zoeker.png" placeholder="*Zoeker*" width="200" >
 
 De *Zoeker* is, net zoals de *Speler*, in staat om zichzelf naar voor, achter, links en rechts te verplaatsen en deze kan ook rond de X-as roteren. Ook heeft de *Zoeker* de mogelijkheid om deuren te openen en te sluiten.
 
-Met zijn twee ogen met 3D Ray Perception Sensors, is die in staat om alle objecten met een tag te observeren. Wanneer de Ray Perception Sensors de *Speler* zien, zou de *Zoeker* (in theorie) zich richting de *Speler* moeten verplaatsen, deze "vastnemen", en deze naar de gevangenis brengen. Het vastnemen van de *Speler* doet de *Zoeker* door simpelweg tegen de *Speler* aan te lopen.
+Met zijn twee ogen met 3D Ray Perception Sensoren, is die in staat om alle objecten met een tag te observeren. Wanneer de Ray Perception Sensors de *Speler* zien, zou de *Zoeker* (in theorie) zich richting de *Speler* moeten verplaatsen, deze "vastnemen", en deze naar de gevangenis brengen. Het vastnemen van de *Speler* doet de *Zoeker* door simpelweg tegen de *Speler* aan te lopen.
 
 Hoewel de *Speler* in het uiteindelijke spel door een persoon worden gespeeld, zal deze in de trainingsfase ook worden aangedreven door een intelligente agent. Beide agents worden dus als het ware tegen elkaar opgezet en moeten beiden zo goed mogelijk hun eigen taak uitvoeren. De agent van de *Speler* moet uit de handen van de *Zoeker* proberen te blijven, terwijl de *Zoeker* de *Speler* moet vangen en deze opsluiten in de gevangenis.
 
-Het beloningssysteem achter de *Zoeker* en de *Speler* wordt aangedreven door code. Aangezien beiden redelijk gelijkaardig zijn in wat ze kunnen doen, erven ze alletwee over van dezelfde superklasse: MovingObject.
+Het beloningssysteem achter de *Zoeker* en de *Speler* wordt aangedreven door code. Aangezien beiden redelijk gelijkaardig zijn in wat ze kunnen doen, erven ze alletwee over van dezelfde superklasse: **MovingObject**.
 
 ```csharp
 public abstract class MovingObject : Agent
@@ -584,7 +584,7 @@ public class DoorGrabbable : OVRGrabbable
 
 #### Classroom script
 
-Het classroom object is verantwoordelijk voor het spawnen van de *Speler*-, en zoekerobjecten. De *Zoeker* en *Speler* worden bij elke episode op een willekekeurig spawnplatform gespawned. Dit wordt gedaan door gebruik te maken van de methodes `GetAvailableSpawnLocation()`, `GetRandomSpawnLocation()`, `SpawnSeekers()`, `SpawnPlayers()`
+Het classroom object is verantwoordelijk voor het spawnen van de *Speler*-, en zoekerobjecten. De *Zoeker* en *Speler* worden bij elke episode op een willekekeurig spawnplatform gespawned. Dit wordt gedaan door gebruik te maken van de volgende methodes `GetAvailableSpawnLocation()`, `GetRandomSpawnLocation()`, `SpawnSeekers()`, `SpawnPlayers()`
 
 ```csharp
 public Vector3 GetAvailableSpawnLocation(MovingObjectTypes type)
@@ -670,7 +670,7 @@ De `ClearEnvironment()` methode zorgt ervoor dat het speelveld leeg is vooraleer
         }
 ```
 
-`ResetSpawnSettings()` zorgt ervoor dat alle spawnlocaties weer vrij worden gemaakt voor de volgende keer dat spelers of zoekers moeten worden gespawnd.
+`ResetSpawnSettings()` zorgt ervoor dat alle spawnlocaties weer vrij worden gemaakt voor de volgende keer dat **Speler**s of **Zoeker**s moeten worden gespawnd.
 
 ```csharp
         public void ResetSpawnSettings()
@@ -712,11 +712,11 @@ Spawnlocation heeft één enkele property genaamd `IsUsed`. Deze staat default o
 
 #### Jail script
 
-Het *Jail*-object heeft één enkel belangrijk procedure, nl. het afhandelen van wanneer een *Zoeker* binnenin zijn trigger loopt. Zo wordt er eerst gekeken of de *Zoeker* effectief een speler vastheeft. Als dit klopt, zal de *Speler* in het *Jail*-object geteleporteerd worden, krijgt de *Zoeker* een beloning van 1.0 en wordt er een check gedaan of alle *Speler*s in het *Jail*-object zitten of niet om zo de episode te eindigen.
+Het *Jail*-object heeft één enkel belangrijke procedure, nl. het afhandelen van wanneer een *Zoeker* binnenin zijn trigger loopt. Zo wordt er eerst gekeken of de *Zoeker* effectief een *Speler* vastheeft. Als dit klopt, zal de *Speler* in het *Jail*-object geteleporteerd worden, krijgt de *Zoeker* een beloning van 1.0 en wordt er een check gedaan of alle *Speler*s in het *Jail*-object zitten of niet om zo de episode te eindigen.
 
 Het script dat het *Jail*-object aandrijft:
 
-```sql
+```csharp
     public class Jail : MonoBehaviour
     {
         private Player player = null;
@@ -770,7 +770,7 @@ Het script dat het *Jail*-object aandrijft:
 
 #### 3.6.1 MovementProvider
 
-De volgense script zorgt ervoor dat men aan de hand van de joysticks kan navigeren in de VR-omgeving.
+De volgende script zorgt ervoor dat men aan de hand van de joysticks kan navigeren in de VR-omgeving.
 
 ```csharp
 public class MovementProvider : LocomotionProvider
@@ -887,21 +887,21 @@ De agent zal dankzij het Ray Perception 3D component de mogelijkheid hebben om a
 
 ![Resultaten](DocAssets/cumulativerewards.png)
 
-In de bovenstaande grafiek zien we dat er veel lijnen haast symmetrisch ten op zichte van de middellijn lopen. Dit komt natuurlijk door het feit dat de 2 agents concurrenten van elkaar zijn. Als de *Zoeker* punten verliest, wint de *Speler* punten en vice versa. Na verloop van tijd worden zowel de *Zoeker* als de *Speler* beter in hun taak en gaan hun scores logischerwijs veel dichter bij elkaar liggen.
+In de bovenstaande grafiek zien we dat er veel lijnen haast symmetrisch ten op zichte van de middellijn lopen. Dit komt natuurlijk door het feit dat de twee agents concurrenten van elkaar zijn. Als de *Zoeker* punten verliest, wint de *Speler* punten en vice versa. Na verloop van tijd worden zowel de *Zoeker* als de *Speler* beter in hun taak en gaan hun scores logischerwijs veel dichter bij elkaar liggen.
 
 ### 4.2 Opvallende waarnemingen
 
-Om de *Zoeker* aan te leren dat hij naar een *Speler* moest zoeken, moest er ook een *Speler* Agent aangemaakt worden die zich zou kunnen verstoppen. Op een gegeven moment was de Agent van de *Speler* te slim geworden voor de Agent van de *Zoeker*. Dit zorgde ervoor dat de snelle vooruitgang van de Seeker werd belemmerd.
+Om de *Zoeker* aan te leren dat hij naar een *Speler* moest zoeken, moest er ook een *Speler* agent aangemaakt worden die zich zou kunnen verstoppen. Op een gegeven moment was de agent van de *Speler* te slim geworden voor de agent van de *Zoeker*. Dit zorgde ervoor dat de snelle vooruitgang van de Seeker werd belemmerd.
 
-Zowel de *Speler* als de *Zoeker* had een manier gevonden om in de gevangenis te geraken zonder het beoogde spelverloop hierbij te volgen. De *Speler* kon op een onvoorspelde manier de gevangenis in. Dit zorgde ervoor dat hij veilig was van de *Zoeker*. De *Speler* daarentegen ging rechtstreeks richting de gevangenis. Hierdoor kon hij de episode eindigen alvorens hij afgestraft werd voor strafbaar gedrag. Op deze manier waren zijn scores hoger dan dat hij zou zoeken en zo punten zou verliezen.
+Zowel de *Speler* als de *Zoeker* had een manier gevonden om in de gevangenis te geraken zonder het beoogde spelverloop hierbij te volgen. De *Speler* kon op een onvoorziene manier de gevangenis in. Dit zorgde ervoor dat hij veilig was van de *Zoeker*. De *Speler* daarentegen ging rechtstreeks richting de gevangenis. Hierdoor kon hij de episode eindigen alvorens hij kon worden afgestraft. Op deze manier waren zijn scores hoger dan dat hij zou zoeken en zo punten zou verliezen.
 
 Elke keer dat er gedacht werd dat alle bugs uit de applicatie waren, vonden de *Speler* en *Zoeker* toch nog een manier om een bug te abusen. Dit maakte het extra moeilijk om te trainen.
 
 ## 5 Conclusie
 
-Wij als groep hebben een VR applicatie gemaakt voor een enkele *Speler* die een soort "verstoppertje" nabootst, genaamd verstAPpertje.
+Wij als groep hebben een VR applicatie gemaakt voor een enkele *Speler* die een variant van verstoppertje nabootst, genaamd verstAPpertje.
 
-Het grootste probleem van deze opdracht was de gelimiteerde tijdsspanne. Dit zorgde ervoor dat de Agent niet de kans had om volledig te ontwikkelen. Enkele voorgestelde verbeteringen hiervoor zijn: het beloningssysteem nog verder optimaliseren, de agent nog meer tijd geven om bij te leren of een supercomputer gebruiken zodat de berekeningen sneller verlopen.
+Het grootste probleem van deze opdracht was de gelimiteerde tijdsspanne. Dit zorgde ervoor dat de agent niet de kans had om volledig te ontwikkelen. Enkele voorgestelde verbeteringen hiervoor zijn: het beloningssysteem nog verder optimaliseren, de agent nog meer tijd geven om bij te leren of een supercomputer gebruiken zodat de berekeningen sneller verlopen.
 
 ## 6 Bronvermelding
 
