@@ -56,7 +56,7 @@ Wanneer de speler gevonden en gepakt wordt door de zoeker, zal de zoeker deze ve
 
 In dit project maken wij gebruik van reinforcement learning om de ML Agents op een correcte wijze te laten leren. Dit doen wij door gebruik te maken van zowel intrinsieke- als extrinsieke beloningen. Extrinsieke beloningen zijn beloningen die door ons worden gedefinieerd. Intrinsieke beloningen bepalen dan weer de nieuwsgierigheid van de ML Agents en hoe snel hij iets moet leren.
 
-Doordat de zoeker en de Speler gemeenschappelijke gedragingen hebben (zie hoofdstuk `'Gedragingen van de objecten'`), worden deze in een superklasse gebruikt waar beiden van zullen overerven. Zo zullen ze beiden telkens gestraft of beloond worden per actie die ze ondernemen. Echter delen zij acties die leiden tot gemeenschappelijke beloningen.
+Doordat de zoeker en de Speler gemeenschappelijke gedragingen hebben (zie hoofdstuk `'Gedragingen van de objecten'`), worden deze in een superklasse gebruikt waar beiden van zullen overerven. Zo zullen ze beiden gelijkaardige gedragen tonen, maar telkens gestraft of beloond op verschillende acties.
 
 Aangezien de zoeker het belangrijkst object is van dit project, zal hij ook meer worden beloond en afgestraft voor de acties die het zal ondernemen. De beloningen en afstraffingen focussen zich op het vangen van spelers en het forceren van een constante zoektocht. Deze worden hieronder beschreven.
 
@@ -81,47 +81,138 @@ Vooraleer we aan de effectieve ML Agents training kunnen starten, zullen er eers
 
 ![Classroom](https://i.imgur.com/9rknYTq.png)
 
-Bovenstaande afbeelding geeft ons een top-down view van het volledige speelveld, in ons geval het klaslokaal. Zoals u kan zien, dient dit ook als het parent object voor alle objecten om in één enkel omgeving te plaatsen. Deze bevat het nodige gedrag om de spelomgeving foutloos te laten verlopen door tijdens de trainingen telkens het spel te herstarten als alle spelers in de gevangenis zitten. Ook zien we een aantal belangrijke elementen voor zowel de speler als de intelligente agent die als zoeker zal fungeren.
+Bovenstaande afbeelding geeft ons een top-down view van het volledige speelveld (niet-trainingsomgeving), in ons geval het klaslokaal. Zoals u kan zien, dient dit ook als het parent object voor alle objecten om in één enkel omgeving te plaatsen. Deze bevat het nodige gedrag om de spelomgeving foutloos te laten verlopen door tijdens de trainingen telkens het spel te herstarten als alle spelers in de gevangenis zitten. Ook zien we een aantal belangrijke elementen voor zowel de speler als de intelligente agent die als zoeker zal fungeren.
 
-Zo'n klaslokaal heeft een zekere 
+Zo'n klaslokaal zal, zoals eerder vermeld, als de container dienen waarin alle objecten terecht komen en bestaat zelf uit een een SurroundingWalls parent-object die alle rode buitenste muren (Cube-object) bevat, een Floor (pane-) object die als vloer dient en een Ceiling (pane-) object die als dak zal dienen. Voor een betere zichtbaarheid kan het dak worden disabled tijdens de trainingen.
 
-Over het hele klaslokaal zien we dat er een aantal deuren zijn verspreid. De speler kan van deze deuren handig gebruik maken om zich beter te verstoppen voor de zoeker. De zoeker zal dan de deur moeten openen om de speler te kunnen zien. Om ervoor te zorgen dat de speler hier niet té veel voordeel uit kan halen, is er bij elke kamer die een deur bevat slechts één deur voorzien zodat de speler niet gewoon kan wachten tot de deur opengaat en dan de andere uitweg nemen.
+Over het hele klaslokaal zien we dat er een aantal deuren zijn verspreid. De speler kan van deze deuren handig gebruik maken om zich beter te verstoppen voor de zoeker. De zoeker zal dan de deur moeten openen om de speler te kunnen zien. Om ervoor te zorgen dat de speler hier niet té veel voordeel uit kan halen, is er bij elke kamer die een deur bevat slechts één deur voorzien zodat de speler niet gewoon kan wachten tot de deur opengaat en dan de andere uitweg nemen. Ook zijn er heel wat muren opgezet waarachter de spelers zich kunnen verstoppen.
 
 Door meerdere klaslokalen in een scène te zetten, kan men meerdere spelomgevingen tegelijk laten draaien. Logischerwijs zal dit ervoor zorgen dat het leerproces van de ML Agents sneller zal verlopen.
 
 > Opgelet: deze verhoogde leercurve is er enkel zolang het toestel waar je de training op draait krachtig genoeg zijn om al deze omgevingen tegelijkertijd te kunnen draaien. Als hier geen rekening mee gehouden wordt, zorgt dit juist voor een vertraging van het leerproces.
 
-Bij het klaslokaal is het ook belangrijk om mee te geven hoeveel spelers en zoekers de gebruiker wenst te spawnen tijdens de trainingen of tijdens het spelverloop en de prefabs van de objecten die worden gegenereerd. In dit geval zijn dit de de speler en de zoeker prefabs.
+Bij het klaslokaal is het ook belangrijk om het klaslokaal gedrag mee te geven. Hiervoor moet men aangeven hoeveel spelers en zoekers de gebruiker wenst te spawnen tijdens de trainingen of tijdens het spelverloop en de prefabs van de objecten die worden gegenereerd. In dit geval zijn dit de de speler en de zoeker prefabs. Ook wordt er een TextMeshPro-object gevraagd die de som van de rewards van alle zoekers samen (indien er meer dan een zoeker is) zal tonen.
+
+Om trainingen effectief sneller te laten verlopen, is het beter om trainingen door te laten gaan in een kleiner klaslokaal met minder muren om achter te kunnen verstoppen.
+
+![Voorbeeld van een trainingsomgeving](https://cdn.discordapp.com/attachments/497393423498608662/797081291979489280/Screenshot_131.png)
 
 #### Deur object
 
-![Deur](DocAssets/deur.png)
+![Deur](https://i.imgur.com/9x1VfSv.png)
 
-Bepaalde lokalen zijn enkel toegankelijk via een deur. Deze kunnen op twee manieren worden geopend. De eerste manier maakt gebruik van grabbablesF aan de hendels. De speler kan deze hendels vastnemen en zo de deur opentrekken of openduwen. De tweede manier is om ertegenaan te lopen. Hierbij zal de deur op een realistische manier worden opengeduwd.
+Bepaalde lokalen zijn enkel toegankelijk via een deur. Deze kunnen op twee manieren worden geopend. De eerste manier maakt gebruik van grabbables aan de hendels. De speler kan deze hendels vastnemen en zo de deur opentrekken of openduwen. De tweede manier is om ertegenaan te lopen. Hierbij zal de deur op een realistische manier worden opengeduwd.
+
+De deur maakt gebruik van fixed joints om te draaien. Dit is een component gemaakt om objecten rond een specifieke as te laten draaien. Er kan een limiet gezet worden die de draaihoek van de deur beperkt. 
+
+![Zichtbare hendelobject](https://i.imgur.com/MshOD0w.png)
+
+Uiteindelijk bestaat de deur uit vier, onzichtbare, rechtoekige hendelobjecten. Twee aan elke kant van de deur. 
+
+Het eerste hendelobject zorgt er voor dat de hendel op de plaats van de visuele deurklink blijft. 
+
+Het tweede hendelobject is een grabable die de speler kan vastnemenen. Wanneer de speler de hendel loslaat, wordt de locatie van deze grabable terug gereset naar de locatie van het eerste hendelobject.[1]
+
 
 #### Gevangenis object
 
-![Gevangenis](DocAssets/gevangenis.png)
+![Gevangenis](https://i.imgur.com/WWgn2e4.png)
 
-Wanneer een speler gevangen wordt door de zoeker, wordt deze in dehttps://prod.liveshare.vsengsaas.visualstudio.com/join?FC32142D06BC00DD6F842CF12C815148E12C gevangenis opgesloten. Dit gebeurt simpelweg door de collider van de speler tegen de collider van de gevangenis aan te tikken.
+Wanneer een speler gevangen wordt door de zoeker, wordt deze in de gevangenis opgesloten. Dit gebeurt simpelweg door de collider van de speler tegen de collider van de gevangenis aan te tikken.
+
+De gevangenis bestaat uit een vloer (pane-) object, ijzeren tralies (cube-) objecten, vier muur (cube-) objecten die de traliën met elkaar verbinden en een dienblad. Ook wordt dit omringd door een nog groter kubus die uit vier cube-objecten bestaat. Dit zal nodig zijn om het glitchen van een speler in de gevangenis te voorkomen.
+
+![Tralie met grote collider](https://i.imgur.com/lR4JUVg.png)
+
+Ook wordt er aangeraden om de collider van de middelste tralie langs beide kanten volledig uit te strekken zodat deze even groot is als de collider van de hele jail. Dit zorgt ervoor dat de zoeker niet in de gevangenis kan kijken en niet achter spelers zou aanzitten die daar al in zitten.
 
 #### Speler object
 
-![Speler](DocAssets/speler.png)
+<img src="DocAssets/speler.png" placeholder="Speler" width="200" >
 
 De speler is in staat om zichzelf naar voor, achter, links en rechts te verplaatsen. Ook kan deze rond de X-as roteren. Zoals hierboven vermeld is er ook een interactie tussen de speler en de deuren. Deze kunnen geopend en gesloten worden. Uiteindelijk is er nog de interactie met de gevangenis. Wanneer de speler de gevangenis aanraakt, zal het spel eindigen.
+
+De Ray Perception Sensors van de speler zijn als volgt ingesteld:
+
+##### Het rechter oog
+
+| Variabele             | Waarde         |
+| --------------------- | -------------- |
+| Detectable Tags       | Wall, HideWall, **Seeker**, Door, Jail |
+| Rays Per Direction    | 3              |
+| Max Ray Degrees       | 4.3              |
+| Sphere Cast Radius    | 0.7            |
+| Ray Length            | 370             |
+| Ray Layer Mask        | Mixed          |
+| Stacked Raycasts      | 1              |
+| Start Vertical Offset | 0              |
+| End Vertical Offset   | -8            |
+| Use Child Sensors     | True           |
+
+##### Het linker oog
+
+| Variabele             | Waarde         |
+| --------------------- | -------------- |
+| Detectable Tags       | Wall, HideWall, **Seeker**, Door, Jail |
+| Rays Per Direction    | 3              |
+| Max Ray Degrees       | 4.3              |
+| Sphere Cast Radius    | 0.7            |
+| Ray Length            | 370             |
+| Ray Layer Mask        | Mixed          |
+| Stacked Raycasts      | 1              |
+| Start Vertical Offset | 0              |
+| End Vertical Offset   | -8            |
+| Use Child Sensors     | True           |
+
+Als volgende stap moet hier zeker het Decision Requester script op staan met "Take Actions Between Decisions" uitgevinkt.
 
 ### 3.5 Gedragingen van de objecten
 
 #### Zoeker
 
-![Zoeker](DocAssets/zoeker.png)
+<img src="DocAssets/zoeker.png" placeholder="Zoeker" width="200" >
 
 De zoeker is, net zoals de speler, in staat om zichzelf naar voor, achter, links en rechts te verplaatsen en deze kan ook rond de X-as roteren. Ook heeft de zoeker de mogelijkheid om deuren te openen en te sluiten.
 
 De zoeker heeft echter twee ogen met 3D Ray Perception Sensors. Deze zijn in staat om alle objecten met een tag te observeren. Wanneer de Ray Perception Sensors de speler zien, zou de zoeker (in theorie) zich richting de speler moeten verplaatsen, deze "vastnemen", en deze naar de gevangenis brengen. Het vastnemen van de speler doet de zoeker door simpelweg tegen de speler aan te lopen.
 
-Hoewel de speler in het uiteindelijke spel door een persoon zal worden gespeeld, zal deze in de trainingsfase ook worden aangedreven door een intelligente agent. Beide agents worden dus als het ware tegen elkaar opgezet en moeten beiden zo goed mogelijk hun eigen taak uitvoeren. De agent van de speler moet uit de handen van de zoeker proberen te blijven, terwijl de zoeker de speler moet vangen en deze opsluiten in de gevangenis.
+De Ray Perception Sensors van de zoeker zijn als volgt ingesteld:
+
+#### Het rechter oog
+
+| Variabele             | Waarde         |
+| --------------------- | -------------- |
+| Detectable Tags       | Wall, HideWall, **Player**, Door, Jail |
+| Rays Per Direction    | 3              |
+| Max Ray Degrees       | 4.3              |
+| Sphere Cast Radius    | 0.7            |
+| Ray Length            | 370             |
+| Ray Layer Mask        | Mixed          |
+| Stacked Raycasts      | 1              |
+| Start Vertical Offset | 0              |
+| End Vertical Offset   | -8            |
+| Use Child Sensors     | True           |
+
+#### Het linker oog
+
+| Variabele             | Waarde         |
+| --------------------- | -------------- |
+| Detectable Tags       | Wall, HideWall, **Player**, Door, Jail |
+| Rays Per Direction    | 3              |
+| Max Ray Degrees       | 4.3              |
+| Sphere Cast Radius    | 0.7            |
+| Ray Length            | 370             |
+| Ray Layer Mask        | Mixed          |
+| Stacked Raycasts      | 1              |
+| Start Vertical Offset | 0              |
+| End Vertical Offset   | -8            |
+| Use Child Sensors     | True           |
+
+![Decision Requester](https://i.imgur.com/mcNk5kO.png)
+
+Als volgende stap moet hier ook het Decision Requester script op staan met "Take Actions Between Decisions" uitgevinkt.
+
+Hoewel de speler in het uiteindelijke spel door een persoon worden gespeeld, zal deze in de trainingsfase ook worden aangedreven door een intelligente agent. Beide agents worden dus als het ware tegen elkaar opgezet en moeten beiden zo goed mogelijk hun eigen taak uitvoeren. De agent van de speler moet uit de handen van de zoeker proberen te blijven, terwijl de zoeker de speler moet vangen en deze opsluiten in de gevangenis.
 
 Het beloningssysteem achter de zoeker en de speler wordt aangedreven door code. Aangezien beiden redelijk gelijkaardig zijn in wat ze kunnen doen, erven ze alletwee over van dezelfde superklasse: MovingObject.
 
@@ -129,8 +220,8 @@ Het beloningssysteem achter de zoeker en de speler wordt aangedreven door code. 
 public abstract class MovingObject : Agent
     {
         [Header("Settings")]
-        public float movementSpeed = 2f;
-        public float rotationSpeed = 5f;
+        public float movementSpeed = 15f;
+        public float rotationSpeed = 75f;
 
         public Classroom Classroom { get; set; }
         protected Rigidbody rbody;
@@ -262,7 +353,6 @@ public class Seeker : MovingObject
 
             if (vectorAction[0] == 0f && vectorAction[1] == 0f && vectorAction[2] == 0f && vectorAction[3] == 0f && vectorAction[4] == 0f && vectorAction[5] == 0f)
             {
-                // Stilstaan & niet rondkijken samen zorgt voor afstraffing.
                 AddReward(-0.001f);
             }
         }
@@ -306,7 +396,6 @@ public class Seeker : MovingObject
                 }
                 else
                 {
-                    // Afstraffen voor tegen een Player te botsen als die er al eentje vastheeft.
                     AddReward(-0.1f);
                 }
             }
@@ -320,7 +409,6 @@ public class Seeker : MovingObject
         {
             if (PlayersCaptured == PlayerCount)
             {
-                // Eindig episode als alle players worden gevangen.
                 EndEpisode();
             }
         }
@@ -337,6 +425,7 @@ public class Seeker : MovingObject
 ```
 
 Het script dat de speler aandrijft:
+
 ```csharp
     public class Player : MovingObject
     {
@@ -384,8 +473,8 @@ Daarnaast moet ongeveer hetzelfde gebeuren voor de zoeker:
 
 Zorg ervoor dat alle instellingen zeker exact hetzelfde staan ingesteld. Anders is het zeer waarschijnlijk dat het trainen zal mislukken.
 
+Het configuratiebestand om beide agents te trainen is het volgend yml-bestand. Hierbij hebben we  met de _curiosity strength_ parameter gespeeld tot dat we aan de optimale waarden kwamen voor de training. We merkten dat het belangrijk is om hogere curiosity waarden toe te kennen wanneer er met complexe omgevingen getraind wordt. Dit zorgt ervoor dat de agent de omgeving beter gaat verkennen.
 
-Het configuratiebestand om beide agents te trainen is het volgend yml-bestand.
 ```yml
 behaviors:
   Seeker:
@@ -456,6 +545,44 @@ behaviors:
           learning_rate : 1e-3
 ```
 
+#### Deur
+
+Om de deur vlekkeloos te laten werken, wordt er gebruik gemaakt van deze scripts.
+In de update functie wordt er bekeken of het grabable handleobject niet te ver is van de deurklink zelf. Indien dit wel is, zal de deur losgelaten worden. `GrabEnd()` wordt aangeroepen wanneer de speler het object loslaat. 
+
+```csharp
+public class DoorGrabbable : OVRGrabbable
+{
+    public Transform handler;
+
+    public override void GrabEnd(Vector3 linearVelocity, Vector3 angularVelocity)
+    {
+        base.GrabEnd(Vector3.zero, Vector3.zero);
+
+        transform.position = handler.transform.position;
+        transform.rotation = handler.transform.rotation;
+
+        Rigidbody rbhandler = handler.GetComponent<Rigidbody>();
+        rbhandler.velocity = Vector3.zero;
+        rbhandler.angularVelocity = Vector3.zero;
+    }
+
+    public void Update()
+    {
+        if (Vector3.Distance(handler.position, transform.position) > 0.4f)
+        {
+            grabbedBy.ForceRelease(this);
+        }
+    }
+}
+
+```
+
+
+### Classroom
+
+Het classroom object is verantwoordelijk voor het spawnen en 
+
 ### 3.6 One-Pager
 
 #### 3.6.1 Inleiding
@@ -504,9 +631,10 @@ Wij als groep hebben een VR applicatie gemaakt voor een enkele speler die een so
 Het grootste probleem van deze opdracht was de gelimiteerde tijdsspanne. Dit zorgde ervoor dat de Agent niet de kans had om volledig te ontwikkelen. Enkele voorgestelde verbeteringen hiervoor zijn: het beloningssysteem nog verder optimaliseren, de agent nog meer tijd geven om bij te leren of een supercomputer gebruiken zodat de berekeningen sneller gaan.
 
 ## 6 Bronvermelding
-VR with Andrew (Mar 18, 2020) Moving in VR using Unity's XR Toolkit [01] and Moving in VR using Unity's XR Toolkit [02]  Opgehaald van
+
+"VR with Andrew (Mar 18, 2020): Moving in VR using Unity's XR Toolkit [01] and Moving in VR using Unity's XR Toolkit [02]" oppgehaald van
 1. https://www.youtube.com/watch?v=6N__0jeg6k0 
 
 2. https://www.youtube.com/watch?v=X2QYjhu4_G4  
 
-How to make a door in VR - Unity tutorial (Aug 21, 2019) by Valem opgehaald van https://www.youtube.com/watch?v=3cJ_uq1m-dg
+How to make a door in VR - Unity tutorial (Aug 21, 2019) by Valem opgehaald van https://www.youtube.com/watch?v=3cJ_uq1m-dg [1]
