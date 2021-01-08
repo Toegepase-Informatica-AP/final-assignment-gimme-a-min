@@ -18,8 +18,8 @@
 
 ## 2 Inleiding
 
-Het algemeen idee van VerstAPpertje is een Virtual Reality Ervaring te creëren waarin een **Speler** verstoppertje kan spelen in een 3D-wereld die gebaseerd is op de gebouwen van AP.
-De *Zoeker* is een intelligente agent welke op voorhand getraind is om de **Speler** te zoeken en vervolgens deze op te sluiten in het gevang.
+Het algemeen idee van VerstAPpertje is een Virtual Reality Ervaring te creëren waarin een *Speler* verstoppertje kan spelen in een 3D-wereld die gebaseerd is op de gebouwen van AP.
+De *Zoeker* is een intelligente agent welke op voorhand getraind is om de *Speler* te zoeken en vervolgens deze op te sluiten in het gevang.
 
 Hieronder een ruwe voorstelling van het beloningssysteem dat gebruikt wordt om de *Zoeker* te trainen.
 
@@ -48,26 +48,26 @@ Voor we kunnen starten met de ontwikkeling van het project, hebben we bepaalde s
 
 ### 3.3 Spelverloop
 
-Wanneer het spel start, zal de **Speler** op een willekeurige `PlayerSpawnLocation` (groen platform) worden gespawnd. Tegelijkertijd zal ook de *Zoeker* op een daarvoor bestemd platform (rood) worden gespawnd. De **Speler** heeft dan de mogelijkheid om rond te lopen in het klaslokaal en zich zo goed mogelijk te verstoppen. De *Zoeker* zal trachten de **Speler** te vinden. De *Zoeker* is zoals eerder vermeld een agent die op voorhand wordt getraind.
+Wanneer het spel start, zal de *Speler* op een willekeurige `PlayerSpawnLocation` (groen platform) worden gespawnd. Tegelijkertijd zal ook de *Zoeker* op een daarvoor bestemd platform (rood) worden gespawnd. De *Speler* heeft dan de mogelijkheid om rond te lopen in het klaslokaal en zich zo goed mogelijk te verstoppen. De *Zoeker* zal trachten de *Speler* te vinden. De *Zoeker* is zoals eerder vermeld een agent die op voorhand wordt getraind.
 
-Wanneer de **Speler** gevonden en gepakt wordt door de *Zoeker*, zal de *Zoeker* deze verplaatsen richting de gevangenis. Eens deze aan de gevangenis gearriveerd is, wordt de **Speler** hierin opgesloten. Dit is dan ook het einde van het spel. Het doel van de **Speler** is om zo lang mogelijk uit de handen van de *Zoeker* te blijven.
+Wanneer de *Speler* gevonden en gepakt wordt door de *Zoeker*, zal de *Zoeker* deze verplaatsen richting de gevangenis. Eens deze aan de gevangenis gearriveerd is, wordt de *Speler* hierin opgesloten. Dit is dan ook het einde van het spel. Het doel van de *Speler* is om zo lang mogelijk uit de handen van de *Zoeker* te blijven.
 
 ### 3.4 Observaties, mogelijke acties en beloningen
 
 In dit project maken wij gebruik van reinforcement learning om de ML Agents op een correcte wijze te laten leren. Dit doen wij door gebruik te maken van zowel intrinsieke- als extrinsieke beloningen. Extrinsieke beloningen zijn beloningen die door ons worden gedefinieerd. Intrinsieke beloningen bepalen dan weer de nieuwsgierigheid van de ML Agents en hoe snel hij iets moet leren.
 
-Doordat de *Zoeker* en de **Speler** gemeenschappelijke gedragingen hebben (zie hoofdstuk `'Gedragingen van de objecten'`), worden deze in een superklasse gebruikt waar beiden van zullen overerven. Zo zullen ze beiden gelijkaardige gedragen tonen, maar telkens gestraft of beloond op verschillende acties.
+Doordat de *Zoeker* en de *Speler* gemeenschappelijke gedragingen hebben (zie hoofdstuk `'Gedragingen van de objecten'`), worden deze in een superklasse gebruikt waar beiden van zullen overerven. Zo zullen ze beiden gelijkaardige gedragen tonen, maar telkens gestraft of beloond op verschillende acties.
 
 Aangezien de *Zoeker* het belangrijkst object is van dit project, zal hij ook meer worden beloond en afgestraft voor de acties die het zal ondernemen. De beloningen en afstraffingen focussen zich op het vangen van spelers en het forceren van een constante zoektocht. Deze worden hieronder beschreven.
 
 | Omschrijving | Beloning (floats) |
 |-|-|
 | Stilstaan & niet roteren | -0,001 |
-| Vangen van een **Speler** terwijl hij er op dat ogenblik één in handen heeft | - 0,1 |
-| Vangen van een **Speler** terwijl hij er op dat ogenblik geen in handen heeft | +0,5 |
-| Steken van de gevangen **Speler** in de gevangenis | +1 |
+| Vangen van een *Speler* terwijl hij er op dat ogenblik één in handen heeft | - 0,1 |
+| Vangen van een *Speler* terwijl hij er op dat ogenblik geen in handen heeft | +0,5 |
+| Steken van de gevangen *Speler* in de gevangenis | +1 |
 
-De **Speler** daarentegen zal logischerwijs afgestraft worden als het door een *Zoeker* wordt gevangen.
+De *Speler* daarentegen zal logischerwijs afgestraft worden als het door een *Zoeker* wordt gevangen.
 
 | Omschrijving | Beloning (floats) |
 |-|-|
@@ -81,19 +81,19 @@ Vooraleer we aan de effectieve ML Agents training kunnen starten, zullen er eers
 
 ![Classroom](https://i.imgur.com/CCUMPMU.png)
 
-Bovenstaande afbeelding geeft ons een top-down view van het volledige speelveld (niet-trainingsomgeving), in ons geval het klaslokaal. Zoals u kan zien, dient dit ook als het parent object voor alle objecten om in één enkel omgeving te plaatsen. Deze bevat het nodige gedrag om de spelomgeving foutloos te laten verlopen door tijdens de trainingen telkens het spel te herstarten als alle spelers in de gevangenis zitten. Ook zien we een aantal belangrijke elementen voor zowel de **Speler** als de intelligente agent die als *Zoeker* zal fungeren.
+Bovenstaande afbeelding geeft ons een top-down view van het volledige speelveld (niet-trainingsomgeving), in ons geval het klaslokaal. Zoals u kan zien, dient dit ook als het parent object voor alle objecten om in één enkel omgeving te plaatsen. Deze bevat het nodige gedrag om de spelomgeving foutloos te laten verlopen door tijdens de trainingen telkens het spel te herstarten als alle spelers in de gevangenis zitten. Ook zien we een aantal belangrijke elementen voor zowel de *Speler* als de intelligente agent die als *Zoeker* zal fungeren.
 
 Zo'n klaslokaal zal, zoals eerder vermeld, als de container dienen waarin alle objecten terecht komen en bestaat zelf uit een een SurroundingWalls parent-object die alle rode buitenste muren (Cube-object) bevat, een Floor (pane-) object die als vloer dient en een Ceiling (pane-) object die als dak zal dienen. Voor een betere zichtbaarheid kan het dak worden disabled tijdens de trainingen.
 
-Over het hele klaslokaal zien we dat er een aantal deuren zijn verspreid. De **Speler** kan van deze deuren handig gebruik maken om zich beter te verstoppen voor de *Zoeker*. De *Zoeker* zal dan de *Deur* moeten openen om de **Speler** te kunnen zien. Om ervoor te zorgen dat de **Speler** hier niet té veel voordeel uit kan halen, is er bij elke kamer die een *Deur* bevat slechts één *Deur* voorzien zodat de **Speler** niet gewoon kan wachten tot de *Deur* opengaat en dan de andere uitweg nemen. Ook zijn er heel wat muren opgezet waarachter de spelers zich kunnen verstoppen.
+Over het hele klaslokaal zien we dat er een aantal deuren zijn verspreid. De *Speler* kan van deze deuren handig gebruik maken om zich beter te verstoppen voor de *Zoeker*. De *Zoeker* zal dan de *Deur* moeten openen om de *Speler* te kunnen zien. Om ervoor te zorgen dat de *Speler* hier niet té veel voordeel uit kan halen, is er bij elke kamer die een *Deur* bevat slechts één *Deur* voorzien zodat de *Speler* niet gewoon kan wachten tot de *Deur* opengaat en dan de andere uitweg nemen. Ook zijn er heel wat muren opgezet waarachter de spelers zich kunnen verstoppen.
 
 Door meerdere klaslokalen in een scène te zetten, kan men meerdere spelomgevingen tegelijk laten draaien. Logischerwijs zal dit ervoor zorgen dat het leerproces van de ML Agents sneller zal verlopen.
 
 > Opgelet: deze verhoogde leercurve is er enkel zolang het toestel waar je de training op draait krachtig genoeg zijn om al deze omgevingen tegelijkertijd te kunnen draaien. Als hier geen rekening mee gehouden wordt, zorgt dit juist voor een vertraging van het leerproces.
 
-Bij het klaslokaal is het ook belangrijk om de klaslokaal-script component mee te geven. Hiervoor moet men aangeven hoeveel spelers en zoekers de gebruiker wenst te spawnen tijdens de trainingen of tijdens het spelverloop en de prefabs van de objecten die worden gegenereerd. In dit geval zijn dit de de **Speler** en de *Zoeker* prefabs. Ook wordt er een TextMeshPro-object gevraagd die de som van de rewards van alle zoekers samen (indien er meer dan een *Zoeker* is) zal tonen.
+Bij het klaslokaal is het ook belangrijk om de klaslokaal-script component mee te geven. Hiervoor moet men aangeven hoeveel spelers en zoekers de gebruiker wenst te spawnen tijdens de trainingen of tijdens het spelverloop en de prefabs van de objecten die worden gegenereerd. In dit geval zijn dit de de *Speler* en de *Zoeker* prefabs. Ook wordt er een TextMeshPro-object gevraagd die de som van de rewards van alle zoekers samen (indien er meer dan een *Zoeker* is) zal tonen.
 
-Om trainingen effectief sneller te laten verlopen, is het beter om trainingen door te laten gaan in een kleiner klaslokaal met minder muren om achter te kunnen verstoppen. Dit verhoogt de kans dat een *Zoeker* tegen een **Speler** kan botsen en naar de gevangenis kan brengen. 
+Om trainingen effectief sneller te laten verlopen, is het beter om trainingen door te laten gaan in een kleiner klaslokaal met minder muren om achter te kunnen verstoppen. Dit verhoogt de kans dat een *Zoeker* tegen een *Speler* kan botsen en naar de gevangenis kan brengen. 
 
 ![Voorbeeld van een trainingsomgeving](https://cdn.discordapp.com/attachments/497393423498608662/797081291979489280/Screenshot_131.png)
 
@@ -103,7 +103,7 @@ Zo is het beter om bij de bovenstaande afbeelding om met het klaslokaal linksbov
 
 ![*Deur*](https://i.imgur.com/9x1VfSv.png)
 
-Bepaalde lokalen zijn enkel toegankelijk via een *Deur*. Deze kunnen op twee manieren worden geopend. De eerste manier maakt gebruik van grabbables aan de hendels. De **Speler** kan deze hendels vastnemen en zo de *Deur* opentrekken of openduwen. De tweede manier is om ertegenaan te lopen. Hierbij zal de *Deur* op een realistische manier worden opengeduwd.
+Bepaalde lokalen zijn enkel toegankelijk via een *Deur*. Deze kunnen op twee manieren worden geopend. De eerste manier maakt gebruik van grabbables aan de hendels. De *Speler* kan deze hendels vastnemen en zo de *Deur* opentrekken of openduwen. De tweede manier is om ertegenaan te lopen. Hierbij zal de *Deur* op een realistische manier worden opengeduwd.
 
 De *Deur* maakt gebruik van fixed joints om te draaien. Dit is een component gemaakt om objecten rond een specifieke as te laten draaien. Er kan een limiet gezet worden die de draaihoek van de *Deur* beperkt. De "Door"-tag zal ook aan dit prefab worden meegegeven.
 
@@ -113,16 +113,16 @@ Uiteindelijk bestaat de *Deur* uit vier, onzichtbare, rechtoekige hendelobjecten
 
 Het eerste hendelobject zorgt er voor dat de hendel op de plaats van de visuele deurklink blijft. 
 
-Het tweede hendelobject is een grabable die de **Speler** kan vastnemenen. Wanneer de **Speler** de hendel loslaat, wordt de locatie van deze grabable terug gereset naar de locatie van het eerste hendelobject.[3]
+Het tweede hendelobject is een grabable die de *Speler* kan vastnemenen. Wanneer de *Speler* de hendel loslaat, wordt de locatie van deze grabable terug gereset naar de locatie van het eerste hendelobject.[3]
 
 
 #### Gevangenis object
 
 ![Gevangenis](https://i.imgur.com/WWgn2e4.png)
 
-Wanneer een **Speler** gevangen wordt door de *Zoeker*, wordt deze in de gevangenis opgesloten. Dit gebeurt simpelweg door de collider van de **Speler** tegen de collider van de gevangenis aan te tikken. Om de beste resultaten te halen, is het beter om de collider van de jail als een trigger in te stellen zodat botsingen daartegen niet voor ongewenst gedrag zorgen.
+Wanneer een *Speler* gevangen wordt door de *Zoeker*, wordt deze in de gevangenis opgesloten. Dit gebeurt simpelweg door de collider van de *Speler* tegen de collider van de gevangenis aan te tikken. Om de beste resultaten te halen, is het beter om de collider van de jail als een trigger in te stellen zodat botsingen daartegen niet voor ongewenst gedrag zorgen.
 
-De gevangenis bestaat uit een vloer (pane-) object, ijzeren tralies (cube-) objecten, vier muur (cube-) objecten die de traliën met elkaar verbinden en een dienblad. Ook wordt dit omringd door een nog groter kubus die uit vier cube-objecten bestaat. Dit zal nodig zijn om het glitchen van een **Speler** in de gevangenis te voorkomen.
+De gevangenis bestaat uit een vloer (pane-) object, ijzeren tralies (cube-) objecten, vier muur (cube-) objecten die de traliën met elkaar verbinden en een dienblad. Ook wordt dit omringd door een nog groter kubus die uit vier cube-objecten bestaat. Dit zal nodig zijn om het glitchen van een *Speler* in de gevangenis te voorkomen.
 
 ![Tralie met grote collider](https://i.imgur.com/lR4JUVg.png)
 
@@ -132,13 +132,13 @@ Ook wordt er aangeraden om de collider van de middelste tralie langs beide kante
 
 Hieraan wordt de Jail-script component aan toegevoegd en de "Jail"-tag aan gegeven. 
 
-#### **Speler** object
+#### *Speler* object
 
-![**Speler**](https://i.imgur.com/oRUdZGC.png)
+![*Speler*](https://i.imgur.com/oRUdZGC.png)
 
-De **Speler** kan zich naar voor, achter, links en rechts verplaatsen. Ook kan deze rond de X-as (links en rechts) roteren. Zoals hierboven vermeld is er ook een interactie tussen de **Speler** en de deuren. Deze kunnen geopend en gesloten worden. Als laatst is er nog de interactie met de gevangenis. Wanneer de *Zoeker* de gevangenis aanraakt, zal het spel eindigen.
+De *Speler* kan zich naar voor, achter, links en rechts verplaatsen. Ook kan deze rond de X-as (links en rechts) roteren. Zoals hierboven vermeld is er ook een interactie tussen de *Speler* en de deuren. Deze kunnen geopend en gesloten worden. Als laatst is er nog de interactie met de gevangenis. Wanneer de *Zoeker* de gevangenis aanraakt, zal het spel eindigen.
 
-De Ray Perception Sensors van beide ogen van de **Speler** zijn als volgt ingesteld:
+De Ray Perception Sensors van beide ogen van de *Speler* zijn als volgt ingesteld:
 
 | Variabele             | Waarde         |
 | --------------------- | -------------- |
@@ -157,19 +157,19 @@ Als volgende stap moet hier zeker het Decision Requester script op staan met "Ta
 
 ![Decision Requester](https://i.imgur.com/mcNk5kO.png)
 
-Om de zes mogelijke voor de **Speler** ook effectief mogelijk te maken, zal die de `Behavior Parameters` component moeten hebben met een branch size op zes.
+Om de zes mogelijke voor de *Speler* ook effectief mogelijk te maken, zal die de `Behavior Parameters` component moeten hebben met een branch size op zes.
 
 > ! Vergeet zeker niet om "Use Child Sensors" aan te vinken!
 
-![Behavior parameters **Speler**](https://i.imgur.com/ghIDOda.png)
+![Behavior parameters *Speler*](https://i.imgur.com/ghIDOda.png)
 
 Aan deze prefab wordt de "Player"-tag gegeven alsook de Player-script component.
 
 #### *Zoeker* object
 
-Het *Zoeker*-object is bijna volledig identiek als het **Speler**-object buiten het feit dat de RayPerceptionSensoren van de ogen **Player**s waarnemen i.p.v. **Seeker**s en dat het Seeker-script component hieraan toegevoegd moet worden.
+Het *Zoeker*-object is bijna volledig identiek als het *Speler*-object buiten het feit dat de RayPerceptionSensoren van de ogen **Player**s waarnemen i.p.v. **Seeker**s en dat het Seeker-script component hieraan toegevoegd moet worden.
 
-<img src="https://i.imgur.com/Y3ucgt3.png" placeholder="**Speler**" width="200" >
+<img src="https://i.imgur.com/Y3ucgt3.png" placeholder="*Speler*" width="200" >
 
 | Variabele             | Waarde         |
 | --------------------- | -------------- |
@@ -192,7 +192,7 @@ Dit zijn, zoals eerder vermeld, simpele cube-objecten met de collider ingesteld 
 Een spelerspawnlocatieobject zal de tag `PlayerSpawnLocation` moeten krijgt en de *Zoeker* de tag `SeekerSpawnLocation`. Deze objecten moeten ook in de overeenkomstige parent-objecten (`PlayerSpawnLocations` en `SeekerSpawnLocations`) zitten.
 
 Bij de start van elke nieuwe episode zal er over deze spawnlocaties geloopt worden om zoekers en spelers te spawnen op één van deze plaatsen.
-> Er kan maar 1 *Zoeker*/**Speler** per spawnlocatie spawnen. Meer uitleg hierover in hoofdstuk 'Spawnlocations'
+> Er kan maar 1 *Zoeker*/*Speler* per spawnlocatie spawnen. Meer uitleg hierover in hoofdstuk 'Spawnlocations'
 
 ### 3.5 Gedragingen van de objecten
 
@@ -200,13 +200,13 @@ Bij de start van elke nieuwe episode zal er over deze spawnlocaties geloopt word
 
 <img src="DocAssets/*Zoeker*.png" placeholder="*Zoeker*" width="200" >
 
-De *Zoeker* is, net zoals de **Speler**, in staat om zichzelf naar voor, achter, links en rechts te verplaatsen en deze kan ook rond de X-as roteren. Ook heeft de *Zoeker* de mogelijkheid om deuren te openen en te sluiten.
+De *Zoeker* is, net zoals de *Speler*, in staat om zichzelf naar voor, achter, links en rechts te verplaatsen en deze kan ook rond de X-as roteren. Ook heeft de *Zoeker* de mogelijkheid om deuren te openen en te sluiten.
 
-Met zijn twee ogen met 3D Ray Perception Sensors, is die in staat om alle objecten met een tag te observeren. Wanneer de Ray Perception Sensors de **Speler** zien, zou de *Zoeker* (in theorie) zich richting de **Speler** moeten verplaatsen, deze "vastnemen", en deze naar de gevangenis brengen. Het vastnemen van de **Speler** doet de *Zoeker* door simpelweg tegen de **Speler** aan te lopen.
+Met zijn twee ogen met 3D Ray Perception Sensors, is die in staat om alle objecten met een tag te observeren. Wanneer de Ray Perception Sensors de *Speler* zien, zou de *Zoeker* (in theorie) zich richting de *Speler* moeten verplaatsen, deze "vastnemen", en deze naar de gevangenis brengen. Het vastnemen van de *Speler* doet de *Zoeker* door simpelweg tegen de *Speler* aan te lopen.
 
-Hoewel de **Speler** in het uiteindelijke spel door een persoon worden gespeeld, zal deze in de trainingsfase ook worden aangedreven door een intelligente agent. Beide agents worden dus als het ware tegen elkaar opgezet en moeten beiden zo goed mogelijk hun eigen taak uitvoeren. De agent van de **Speler** moet uit de handen van de *Zoeker* proberen te blijven, terwijl de *Zoeker* de **Speler** moet vangen en deze opsluiten in de gevangenis.
+Hoewel de *Speler* in het uiteindelijke spel door een persoon worden gespeeld, zal deze in de trainingsfase ook worden aangedreven door een intelligente agent. Beide agents worden dus als het ware tegen elkaar opgezet en moeten beiden zo goed mogelijk hun eigen taak uitvoeren. De agent van de *Speler* moet uit de handen van de *Zoeker* proberen te blijven, terwijl de *Zoeker* de *Speler* moet vangen en deze opsluiten in de gevangenis.
 
-Het beloningssysteem achter de *Zoeker* en de **Speler** wordt aangedreven door code. Aangezien beiden redelijk gelijkaardig zijn in wat ze kunnen doen, erven ze alletwee over van dezelfde superklasse: MovingObject.
+Het beloningssysteem achter de *Zoeker* en de *Speler* wordt aangedreven door code. Aangezien beiden redelijk gelijkaardig zijn in wat ze kunnen doen, erven ze alletwee over van dezelfde superklasse: MovingObject.
 
 ```csharp
 public abstract class MovingObject : Agent
@@ -317,7 +317,7 @@ public class Seeker : MovingObject
         {
             base.CollectObservations(sensor);
 
-            sensor.AddObservation(HasPlayerGrabbed); // <-- Voegt de waarneming toe van dat het een **Speler** vastheeft.
+            sensor.AddObservation(HasPlayerGrabbed); // <-- Voegt de waarneming toe van dat het een *Speler* vastheeft.
         }
 
         protected override void FixedUpdate()
@@ -416,7 +416,7 @@ public class Seeker : MovingObject
     }
 ```
 
-Het script dat de **Speler** aandrijft:
+Het script dat de *Speler* aandrijft:
 
 ```csharp
     public class Player : MovingObject
@@ -455,9 +455,9 @@ Het script dat de **Speler** aandrijft:
     }
 ```
 
-Om ervoor te zorgen dat de **Speler** en de *Zoeker* nu ook effectief kunnen worden aangedreven door ML-agents, moeten volgende componenten worden ingesteld voor de **Speler** in de inspector in Unity:
+Om ervoor te zorgen dat de *Speler* en de *Zoeker* nu ook effectief kunnen worden aangedreven door ML-agents, moeten volgende componenten worden ingesteld voor de *Speler* in de inspector in Unity:
 
-![**Speler** Inspector](DocAssets/spelercomponenten.png)
+![*Speler* Inspector](DocAssets/spelercomponenten.png)
 
 Daarnaast moet ongeveer hetzelfde gebeuren voor de *Zoeker*:
 
@@ -540,7 +540,7 @@ behaviors:
 #### *Deur*
 
 Om de *Deur* vlekkeloos te laten werken, wordt er gebruik gemaakt van deze scripts.
-In de update functie wordt er bekeken of het grabable handleobject niet te ver is van de deurklink zelf. Indien dit wel is, zal de *Deur* losgelaten worden. `GrabEnd()` wordt aangeroepen wanneer de **Speler** het object loslaat. 
+In de update functie wordt er bekeken of het grabable handleobject niet te ver is van de deurklink zelf. Indien dit wel is, zal de *Deur* losgelaten worden. `GrabEnd()` wordt aangeroepen wanneer de *Speler* het object loslaat. 
 
 ```csharp
 public class DoorGrabbable : OVRGrabbable
@@ -572,7 +572,7 @@ public class DoorGrabbable : OVRGrabbable
 
 ### Classroom
 
-Het classroom object is verantwoordelijk voor het spawnen van de **Speler**-, en zoekerobjecten. De *Zoeker* en **Speler** worden bij elke episode op een willekekeurig spawnplatform gespawned. Dit wordt gedaan door gebruik te maken van de methodes `GetAvailableSpawnLocation()`, `GetRandomSpawnLocation()`, `SpawnSeekers()`, `SpawnPlayers()`
+Het classroom object is verantwoordelijk voor het spawnen van de *Speler*-, en zoekerobjecten. De *Zoeker* en *Speler* worden bij elke episode op een willekekeurig spawnplatform gespawned. Dit wordt gedaan door gebruik te maken van de methodes `GetAvailableSpawnLocation()`, `GetRandomSpawnLocation()`, `SpawnSeekers()`, `SpawnPlayers()`
 
 ```csharp
 public Vector3 GetAvailableSpawnLocation(MovingObjectTypes type)
@@ -700,7 +700,7 @@ Wanneer de property _IsUsed_ op _true_ komt te staan zal deze niet meer gebruikt
 
 #### 3.6.1 Inleiding
 
-Het algemeen idee is om een Virtual Reality Ervaring te maken waarin de gebruiker verstoppertje kan spelen in een 3D-wereld gebaseerd op de gebouwen van AP. De **Speler** zelf zal zich altijd moeten verstoppen, terwijl een intelligente agent hem zal trachten te vinden. 
+Het algemeen idee is om een Virtual Reality Ervaring te maken waarin de gebruiker verstoppertje kan spelen in een 3D-wereld gebaseerd op de gebouwen van AP. De *Speler* zelf zal zich altijd moeten verstoppen, terwijl een intelligente agent hem zal trachten te vinden. 
 
 #### 3.6.2 AI Component
 
@@ -713,12 +713,12 @@ Wij opteren hierbij voor een Single-Agent aangezien er slechts één *Zoeker* za
 
 #### 3.6.3 Interacties
 
-De “zoeker” van het spel zal gespeeld worden door een Intelligence Agent. Zoals een gewone **Speler** zal deze 
+De “zoeker” van het spel zal gespeeld worden door een Intelligence Agent. Zoals een gewone *Speler* zal deze 
 getraind worden om bepaalde geluiden en visuele aanwijzingen te gebruiken om de “verstopper” te vinden. 
 De agent zal dankzij het Ray Perception 3D component de mogelijkheid hebben om andere gameobjects met 
 op voorhand ingestelde tags te zien. 
-De enige virtueel fysieke interactie tussen de agent en de **Speler** zal zijn wanneer de **Speler** gevonden wordt. De 
-**Speler** wordt dan meegenomen naar de gevangenis door de agent, waar hij opgesloten zal worden. 
+De enige virtueel fysieke interactie tussen de agent en de *Speler* zal zijn wanneer de *Speler* gevonden wordt. De 
+*Speler* wordt dan meegenomen naar de gevangenis door de agent, waar hij opgesloten zal worden. 
 
 ## 4 Resultaten
 
@@ -726,20 +726,20 @@ De enige virtueel fysieke interactie tussen de agent en de **Speler** zal zijn w
 
 ![Resultaten](DocAssets/cumulativerewards.png)
 
-In de bovenstaande grafiek zien we dat er veel lijnen haast symmetrisch ten op zichte van de middellijn lopen. Dit komt natuurlijk door het feit dat de 2 agents concurrenten van elkaar zijn. Als de *Zoeker* punten verliest, wint de **Speler** punten en vice versa. Na verloop van tijd worden zowel de *Zoeker* als de **Speler** beter in hun taak en gaan hun scores logischerwijs veel dichter bij elkaar liggen.
+In de bovenstaande grafiek zien we dat er veel lijnen haast symmetrisch ten op zichte van de middellijn lopen. Dit komt natuurlijk door het feit dat de 2 agents concurrenten van elkaar zijn. Als de *Zoeker* punten verliest, wint de *Speler* punten en vice versa. Na verloop van tijd worden zowel de *Zoeker* als de *Speler* beter in hun taak en gaan hun scores logischerwijs veel dichter bij elkaar liggen.
 
 ### 4.2 Opvallende waarnemingen
 
-Om de *Zoeker* aan te leren dat hij naar een **Speler** moest zoeken, moest er ook een **Speler** Agent aangemaakt worden die zich zou kunnen verstoppen. Op een gegeven moment was de Agent van de **Speler** te slim geworden voor de Agent van de *Zoeker*. Dit zorgde ervoor dat de snelle vooruitgang van de Seeker werd belemmerd.
+Om de *Zoeker* aan te leren dat hij naar een *Speler* moest zoeken, moest er ook een *Speler* Agent aangemaakt worden die zich zou kunnen verstoppen. Op een gegeven moment was de Agent van de *Speler* te slim geworden voor de Agent van de *Zoeker*. Dit zorgde ervoor dat de snelle vooruitgang van de Seeker werd belemmerd.
 
-Zowel de **Speler** als de *Zoeker* had een manier gevonden om in de gevangenis te geraken zonder het beoogde spelverloop hierbij te volgen. De **Speler** kon op een onvoorspelde manier de gevangenis in. Dit zorgde ervoor dat hij veilig was van de *Zoeker*. De **Speler** daarentegen ging rechtstreeks richting de gevangenis. Hierdoor kon hij de episode eindigen alvorens hij afgestraft werd voor strafbaar gedrag. Op deze manier waren zijn scores hoger dan dat hij zou zoeken en zo punten zou verliezen.
+Zowel de *Speler* als de *Zoeker* had een manier gevonden om in de gevangenis te geraken zonder het beoogde spelverloop hierbij te volgen. De *Speler* kon op een onvoorspelde manier de gevangenis in. Dit zorgde ervoor dat hij veilig was van de *Zoeker*. De *Speler* daarentegen ging rechtstreeks richting de gevangenis. Hierdoor kon hij de episode eindigen alvorens hij afgestraft werd voor strafbaar gedrag. Op deze manier waren zijn scores hoger dan dat hij zou zoeken en zo punten zou verliezen.
 
-Elke keer dat er gedacht werd dat alle bugs uit de applicatie waren, vonden de **Speler** en *Zoeker* toch nog een manier om een bug te abusen. Dit maakte het extra moeilijk om te trainen.
+Elke keer dat er gedacht werd dat alle bugs uit de applicatie waren, vonden de *Speler* en *Zoeker* toch nog een manier om een bug te abusen. Dit maakte het extra moeilijk om te trainen.
 
 
 ## 5 Concusie
 
-Wij als groep hebben een VR applicatie gemaakt voor een enkele **Speler** die een soort "verstoppertje" nabootst, genaamd verstAPpertje.
+Wij als groep hebben een VR applicatie gemaakt voor een enkele *Speler* die een soort "verstoppertje" nabootst, genaamd verstAPpertje.
 
 Het grootste probleem van deze opdracht was de gelimiteerde tijdsspanne. Dit zorgde ervoor dat de Agent niet de kans had om volledig te ontwikkelen. Enkele voorgestelde verbeteringen hiervoor zijn: het beloningssysteem nog verder optimaliseren, de agent nog meer tijd geven om bij te leren of een supercomputer gebruiken zodat de berekeningen sneller gaan.
 
