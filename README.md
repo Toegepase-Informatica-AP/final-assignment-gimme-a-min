@@ -742,14 +742,105 @@ Het script dat het *Jail*-object aandrijft:
         }
     }
 ```
+### 3.6 VR
 
-### 3.6 One-Pager
+#### 3.6.1 MovementProvider
+De volgense script zorgt ervoor dat men aan de hand van de joysticks kan navigeren in de VR-omgeving.
+```csharp
+public class MovementProvider : LocomotionProvider
+    {
+        public float movementSpeed = 1.0f;
+        public float gravityMultiplier = 1.0f;
 
-#### 3.6.1 Inleiding
+        public List<XRController> characterControllers = null;
+        private CharacterController characterController = null;
+        private GameObject headObject = null;
+
+        protected override void Awake()
+        {
+            characterController = GetComponent<CharacterController>();
+            headObject = GetComponent<XRRig>().cameraGameObject;
+        }
+
+        private void Start()
+        {
+            PositionController();
+        }
+
+        private void Update()
+        {
+            PositionController();
+            CheckForControllerInput();
+            ApplyGravity();
+        }
+
+        private void CheckForControllerInput()
+        {
+            foreach (XRController controller in characterControllers)
+            {
+                if (controller.enableInputActions)
+                {
+                    CheckForMovement(controller.inputDevice);
+                }
+            }
+        }
+
+        private void CheckForMovement(InputDevice device)
+        {
+            if (device.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 position))
+            {
+                StartMove(position);
+            }
+        }
+
+        private void StartMove(Vector2 position)
+        {
+            Vector3 direction = new Vector3(position.x, 0, position.y);
+            Vector3 headRotation = new Vector3(0, headObject.transform.eulerAngles.y, 0);
+
+            direction = Quaternion.Euler(headRotation) * direction;
+
+            Vector3 movement = direction * movementSpeed;
+            characterController.Move(movement * Time.deltaTime);
+        }
+
+        private void PositionController()
+        {
+            float headHeight = Mathf.Clamp(headObject.transform.localPosition.y, 2, 3);
+            characterController.height = headHeight;
+
+            Vector3 newCenter = Vector3.zero;
+            newCenter.y = characterController.height / 4;
+            newCenter.y += characterController.skinWidth;
+
+            newCenter.x = headObject.transform.localPosition.x;
+            newCenter.z = headObject.transform.localPosition.z;
+
+            characterController.center = newCenter;
+        }
+
+        private void ApplyGravity()
+        {
+            Vector3 gravity = new Vector3(0f, Physics.gravity.y * gravityMultiplier, 0f);
+            gravity.y = gravity.y * Time.deltaTime;
+
+            characterController.Move(gravity * Time.deltaTime);
+        }
+    }
+```
+### 3.6.2 XR Rig implementatie
+
+Om ervoor te zorgen dat het Unity-project niet gebouwd wordt als 2D-project, maar als een échte Virtual Reality ervaring, moet de `Camera` in de scène worden vervangen door een `XR Rig`.
+
+![XR Rig](DocAssets/xr_rig.png)
+
+### 3.7 One-Pager
+
+#### 3.7.1 Inleiding
 
 Het algemeen idee is om een Virtual Reality Ervaring te maken waarin de gebruiker verstoppertje kan spelen in een 3D-wereld gebaseerd op de gebouwen van AP. De *Speler* zelf zal zich altijd moeten verstoppen, terwijl een intelligente agent hem zal trachten te vinden. 
 
-#### 3.6.2 AI Component
+#### 3.7.2 AI Component
 
 Zonder de AI-component zal het onmogelijk zijn voor de *Zoeker* om de verstopper snel te vinden. Hiervoor zal 
 de agent gebruik maken van de aanwijzingen. Ook is deze belangrijk om van ons spel een soloplayer avontuur 
@@ -758,7 +849,7 @@ Met een AI-Component zal de “zoeker” met behulp van Ray Perception Sensors s
 deuren er openstaan, welke stoelen er verplaatst zijn, etc. 
 Wij opteren hierbij voor een Single-Agent aangezien er slechts één *Zoeker* zal zijn. 
 
-#### 3.6.3 Interacties
+#### 3.7.3 Interacties
 
 De “zoeker” van het spel zal gespeeld worden door een Intelligence Agent. Zoals een gewone *Speler* zal deze 
 getraind worden om bepaalde geluiden en visuele aanwijzingen te gebruiken om de “verstopper” te vinden. 
@@ -792,7 +883,7 @@ Het grootste probleem van deze opdracht was de gelimiteerde tijdsspanne. Dit zor
 
 ## 6 Bronvermelding
 
-VR with Andrew (Mar 18, 2020): Moving in VR using Unity's XR Toolkit [1] and Moving in VR using Unity's XR Toolkit [2] :
+VR with Andrew (Mar 18, 2020): Moving in VR using Unity's XR Toolkit [3.6.1] and Moving in VR using Unity's XR Toolkit :
 1. https://www.youtube.com/watch?v=6N__0jeg6k0 
 
 2. https://www.youtube.com/watch?v=X2QYjhu4_G4  
