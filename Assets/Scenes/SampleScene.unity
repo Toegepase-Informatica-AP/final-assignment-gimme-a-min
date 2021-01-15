@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -931,6 +931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6297a5a01e0bae44a86a0625cc617b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seekerReward: {fileID: 0}
   seekerCount: 1
   playerCount: 1
   seekerPrefab: {fileID: 6047727353592269860, guid: 5e350004349bd6443866fdb563a9dd39,
@@ -2616,8 +2617,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 550434604}
   - {fileID: 1075810049}
+  - {fileID: 550434604}
   - {fileID: 1638703935}
   - {fileID: 1998718311}
   m_Father: {fileID: 138865684}
@@ -2879,7 +2880,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: c0de0f488d6eff945be0e164ebf2de84, type: 3}
 --- !u!4 &550434604 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c0de0f488d6eff945be0e164ebf2de84,
+    type: 3}
   m_PrefabInstance: {fileID: 550434603}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &550434605 stripped
@@ -4675,7 +4677,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: b6c988b937b43034eb72f3691bbe6ac4, type: 3}
 --- !u!4 &1075810049 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b6c988b937b43034eb72f3691bbe6ac4,
+    type: 3}
   m_PrefabInstance: {fileID: 1075810048}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1075810050 stripped
@@ -5819,7 +5822,7 @@ GameObject:
   - component: {fileID: 1360556025}
   m_Layer: 0
   m_Name: XR Rig
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6829,7 +6832,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 9d7d91600c5600a498ca48850a5a8867, type: 3}
 --- !u!4 &1638703935 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9d7d91600c5600a498ca48850a5a8867,
+    type: 3}
   m_PrefabInstance: {fileID: 1638703934}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1638703936 stripped
@@ -8512,7 +8516,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: b6c988b937b43034eb72f3691bbe6ac4, type: 3}
 --- !u!4 &1998718311 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b6c988b937b43034eb72f3691bbe6ac4,
+    type: 3}
   m_PrefabInstance: {fileID: 1998718310}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1998718312 stripped
@@ -9790,6 +9795,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Seeker
       objectReference: {fileID: 0}
+    - target: {fileID: 5810321180093013678, guid: 5e350004349bd6443866fdb563a9dd39,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 3edcdc60289fcd440996bb8e60c7949f,
+        type: 3}
     - target: {fileID: 7309597885023492544, guid: 5e350004349bd6443866fdb563a9dd39,
         type: 3}
       propertyPath: m_LocalPosition.x
