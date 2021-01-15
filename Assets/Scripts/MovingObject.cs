@@ -31,67 +31,48 @@ namespace Assets.Scripts
         {
             actionsOut[0] = 0f;
             actionsOut[1] = 0f;
-            actionsOut[2] = 0f;
-            actionsOut[3] = 0f;
-            actionsOut[4] = 0f;
-            actionsOut[5] = 0f;
 
             if (Input.GetKey(KeyCode.UpArrow))
             {
+                actionsOut[0] = 1f;
+            }
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
                 actionsOut[0] = 2f;
             }
-             if (Input.GetKey(KeyCode.DownArrow))
+            if (Input.GetKey(KeyCode.RightArrow))
             {
                 actionsOut[1] = 1f;
             }
-             if (Input.GetKey(KeyCode.LeftArrow))
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
-                actionsOut[2] = 1f;
-            }
-             if (Input.GetKey(KeyCode.RightArrow))
-            {
-                actionsOut[3] = 1f;
-            }
-             if (Input.GetKey(KeyCode.D))
-            {
-                actionsOut[4] = 1f;
-            }
-             if (Input.GetKey(KeyCode.A))
-            {
-                actionsOut[5] = 1f;
+                actionsOut[1] = 2f;
             }
         }
 
         public override void OnActionReceived(float[] vectorAction)
         {
-            if (vectorAction[0] > 0.5f)
+            if (vectorAction[0] == 0 & vectorAction[1] == 0)
             {
-                Vector3 rightVelocity = new Vector3(movementSpeed * vectorAction[0], 0f, 0f);
-                rbody.velocity = rightVelocity;
-            }
-            if (vectorAction[1] > 0.5f)
-            {
-                Vector3 leftVelocity = new Vector3(-movementSpeed * vectorAction[1], 0f, 0f);
-                rbody.velocity = leftVelocity;
-            }
-            if (vectorAction[2] > 0.5f)
-            {
-                Vector3 rightVelocity = new Vector3(0f, 0f, movementSpeed * vectorAction[2]);
-                rbody.velocity = rightVelocity;
-            }
-            if (vectorAction[3] > 0.5f)
-            {
-                Vector3 leftVelocity = new Vector3(0f, 0f, -movementSpeed * vectorAction[3]);
-                rbody.velocity = leftVelocity;
+                AddReward(-0.001f);
+                return;
             }
 
-            if (vectorAction[4] > 0f)
+            if (vectorAction[0] == 1f)
             {
-                transform.Rotate(0f, (vectorAction[4] * rotationSpeed) * Time.deltaTime, 0f);
+                rbody.velocity = transform.right * movementSpeed;
             }
-            else if (vectorAction[5] > 0f)
+            if (vectorAction[0] == 2f)
             {
-                transform.Rotate(0f, (vectorAction[5] * rotationSpeed) * Time.deltaTime * -1, 0f);
+                rbody.velocity = -transform.right * movementSpeed;
+            }
+            if (vectorAction[1] == 1f)
+            {
+                transform.Rotate(new Vector3(0, 1, 0) * Time.deltaTime * rotationSpeed, Space.World);
+            }
+            if (vectorAction[1] == 2f)
+            {
+                transform.Rotate(new Vector3(0, -1, 0) * Time.deltaTime * rotationSpeed, Space.World);
             }
         }
     }

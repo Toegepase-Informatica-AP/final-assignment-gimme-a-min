@@ -12,7 +12,6 @@ namespace Assets.Scripts
         public override void CollectObservations(VectorSensor sensor)
         {
             base.CollectObservations(sensor);
-
             sensor.AddObservation(IsJailed);
             sensor.AddObservation(IsGrabbed);
         }
@@ -20,6 +19,10 @@ namespace Assets.Scripts
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
+            //if (Physics.Raycast(transform.position, transform.right, out RaycastHit hit))
+            //{
+            //    Debug.Log(hit.transform.tag);
+            //}
         }
 
         public override void OnActionReceived(float[] vectorAction)
