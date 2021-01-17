@@ -93,6 +93,31 @@ namespace Assets.Scripts
             }
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            Transform collObject = other.transform;
+
+            if (collObject.CompareTag("Jail"))
+            {
+                if (HasPlayerGrabbed)
+                {
+                    if (CapturedPlayer != null && !CapturedPlayer.IsJailed && CapturedPlayer.IsGrabbed)
+                    {
+                        // Player
+                        CapturedPlayer.CapturedLogic();
+                        CapturedPlayer.transform.position = new Vector3(collObject.transform.position.x, collObject.transform.position.y + 1, collObject.transform.position.z);
+
+                        // Seeker
+                        ClearCapturedPlayer();
+                    }
+                }
+                else
+                {
+                    AddReward(-0.5f);
+                }
+            }
+        }
+
         public void EndEpisodeLogic()
         {
             if (PlayersCaptured == PlayerCount)

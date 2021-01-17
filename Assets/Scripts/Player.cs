@@ -12,8 +12,8 @@ namespace Assets.Scripts
         public override void CollectObservations(VectorSensor sensor)
         {
             base.CollectObservations(sensor);
-            sensor.AddObservation(IsJailed);
-            sensor.AddObservation(IsGrabbed);
+            //sensor.AddObservation(IsJailed);
+            //sensor.AddObservation(IsGrabbed);
         }
 
         protected override void FixedUpdate()

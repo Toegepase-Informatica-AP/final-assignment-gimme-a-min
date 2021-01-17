@@ -24,7 +24,7 @@ namespace Assets.Scripts
 
         protected virtual void FixedUpdate()
         {
-            RequestDecision();
+            // RequestDecision();
         }
 
         public override void Heuristic(float[] actionsOut)
@@ -36,7 +36,7 @@ namespace Assets.Scripts
             {
                 actionsOut[0] = 1f;
             }
-            if (Input.GetKey(KeyCode.DownArrow))
+            else if (Input.GetKey(KeyCode.DownArrow))
             {
                 actionsOut[0] = 2f;
             }
@@ -44,7 +44,7 @@ namespace Assets.Scripts
             {
                 actionsOut[1] = 1f;
             }
-            if (Input.GetKey(KeyCode.LeftArrow))
+            else if (Input.GetKey(KeyCode.LeftArrow))
             {
                 actionsOut[1] = 2f;
             }

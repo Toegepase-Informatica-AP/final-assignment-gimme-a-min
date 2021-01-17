@@ -121,13 +121,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 715232866805715476}
-  m_LocalRotation: {x: -1.3686052e-11, y: 0.69897586, z: 2.9520886e-11, w: 0.71514535}
+  m_LocalRotation: {x: -1.8782385e-11, y: 0.8164182, z: 2.6570898e-11, w: 0.5774611}
   m_LocalPosition: {x: 0.44943494, y: 0.51, z: -0.24612427}
   m_LocalScale: {x: 0.16496176, y: 0.16496176, z: 0.16496176}
   m_Children: []
   m_Father: {fileID: 7309597885023492544}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 88.69, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 109.45601, z: 0}
 --- !u!33 &4512022748101339709
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -207,8 +207,8 @@ MonoBehaviour:
   - Player
   - Door
   - Jail
-  m_RaysPerDirection: 3
-  m_MaxRayDegrees: 4.3
+  m_RaysPerDirection: 5
+  m_MaxRayDegrees: 25
   m_SphereCastRadius: 0.72
   m_RayLength: 370
   m_RayLayerMask:
@@ -355,7 +355,7 @@ MonoBehaviour:
     VectorActionSize: 0300000003000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: 3edcdc60289fcd440996bb8e60c7949f, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 1
   m_BehaviorType: 0
   m_BehaviorName: Seeker
@@ -390,9 +390,9 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
-  movementSpeed: 8
-  rotationSpeed: 250
+  MaxStep: 15000
+  movementSpeed: 10
+  rotationSpeed: 300
 --- !u!1 &7723037365744851987
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,13 +514,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8694890750489996307}
-  m_LocalRotation: {x: -4.4394023e-11, y: 0.6677087, z: -4.0821e-10, w: 0.7444227}
+  m_LocalRotation: {x: -1.3889659e-10, y: 0.4744887, z: -3.8641162e-10, w: 0.88026166}
   m_LocalPosition: {x: 0.4102249, y: 0.51, z: 0.26445517}
   m_LocalScale: {x: 0.16496176, y: 0.16496176, z: 0.16496176}
   m_Children: []
   m_Father: {fileID: 7309597885023492544}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 83.781006, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 56.652004, z: 0}
 --- !u!33 &3448032296951011143
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -600,8 +600,8 @@ MonoBehaviour:
   - Player
   - Door
   - Jail
-  m_RaysPerDirection: 3
-  m_MaxRayDegrees: 4.3
+  m_RaysPerDirection: 5
+  m_MaxRayDegrees: 25
   m_SphereCastRadius: 0.72
   m_RayLength: 370
   m_RayLayerMask:
