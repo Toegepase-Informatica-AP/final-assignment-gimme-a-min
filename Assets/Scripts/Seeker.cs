@@ -5,7 +5,7 @@ namespace Assets.Scripts
 {
     public class Seeker : MovingObject
     {
-        public Player CapturedPlayer { get; set; }
+        public PlayerXR CapturedPlayer { get; set; }
         public bool HasPlayerGrabbed { get; set; }
         public int PlayerCount { get; set; }
         public int PlayersCaptured { get; set; }
@@ -72,12 +72,11 @@ namespace Assets.Scripts
                 {
                     HasPlayerGrabbed = true;
 
-                    CapturedPlayer = collObject.gameObject.GetComponent<Player>();
+                    CapturedPlayer = collObject.gameObject.GetComponent<PlayerXR>();
                     if (CapturedPlayer != null && !CapturedPlayer.IsJailed)
                     {
                         CapturedPlayer.IsGrabbed = true;
                         CapturedPlayer.CapturedBy = this;
-                        CapturedPlayer.AddReward(-1f);
                         AddReward(0.5f);
                     }
                 }
@@ -90,6 +89,10 @@ namespace Assets.Scripts
             else if (collObject.CompareTag("JailFloor"))
             {
                 EndEpisode();
+            }
+            else if (collObject.CompareTag("HideWall"))
+            {
+                AddReward(-0.5f);
             }
         }
 

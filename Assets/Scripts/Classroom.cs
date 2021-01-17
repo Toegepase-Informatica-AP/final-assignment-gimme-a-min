@@ -19,7 +19,7 @@ namespace Assets.Scripts
         public int playerCount = 5;
 
         public Seeker seekerPrefab;
-        public Player playerPrefab;
+        public PlayerXR playerPrefab;
 
         private GameObject players;
         private GameObject playerSpawnLocations;
@@ -48,7 +48,7 @@ namespace Assets.Scripts
                 seekerRewardText += seeker.GetCumulativeReward();
             }
 
-            foreach(Player player in players.transform.GetComponentsInChildren<Player>())
+            foreach(PlayerXR player in players.transform.GetComponentsInChildren<PlayerXR>())
             {
                 if (player.transform.position.y < 0 && !player.IsJailed)
                 {
@@ -143,7 +143,7 @@ namespace Assets.Scripts
 
                 seeker.transform.localPosition = GetAvailableSpawnLocation(MovingObjectTypes.PLAYER);
                 seeker.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-                var component = seeker.GetComponent<Player>();
+                var component = seeker.GetComponent<PlayerXR>();
                 component.IsGrabbed = false;
                 component.IsJailed = false;
 
