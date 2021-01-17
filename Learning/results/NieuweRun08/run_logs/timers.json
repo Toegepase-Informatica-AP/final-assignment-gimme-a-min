@@ -1,0 +1,47 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1610911740",
+        "python_version": "3.7.9 (tags/v3.7.9:13c94747c7, Aug 17 2020, 18:58:18) [MSC v.1900 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Python37\\Scripts\\mlagents-learn Seeker-01.yml --initialize-from NieuweRun --run-id NieuweRun08",
+        "mlagents_version": "0.21.0",
+        "mlagents_envs_version": "0.21.0",
+        "communication_protocol_version": "1.2.0",
+        "tensorflow_version": "2.3.1",
+        "numpy_version": "1.18.5",
+        "end_time_seconds": "1610911747"
+    },
+    "total": 7.0345868,
+    "count": 1,
+    "self": 0.2604597000000002,
+    "children": {
+        "run_training.setup": {
+            "total": 0.013624900000000384,
+            "count": 1,
+            "self": 0.013624900000000384
+        },
+        "TrainerController.start_learning": {
+            "total": 6.7605021999999995,
+            "count": 1,
+            "self": 0.001515500000000003,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 6.7584993,
+                    "count": 1,
+                    "self": 6.7584993
+                },
+                "trainer_threads": {
+                    "total": 5.299999999763827e-06,
+                    "count": 1,
+                    "self": 5.299999999763827e-06
+                },
+                "TrainerController._save_models": {
+                    "total": 0.0004820999999992637,
+                    "count": 1,
+                    "self": 0.0004820999999992637
+                }
+            }
+        }
+    }
+}

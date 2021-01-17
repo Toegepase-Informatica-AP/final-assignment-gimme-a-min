@@ -1,0 +1,2 @@
+model_checkpoint_path: "Seeker-9728.ckpt"
+all_model_checkpoint_paths: "Seeker-9728.ckpt"

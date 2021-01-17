@@ -1,0 +1,39 @@
+{
+    "Player": {
+        "checkpoints": [
+            {
+                "steps": 9247,
+                "file_path": "results\\NieuweRun01\\Player\\Player-9247.nn",
+                "reward": -1.0005000046803616,
+                "creation_time": 1610909999.1848588
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 9247,
+            "file_path": "results\\NieuweRun01\\Player.nn",
+            "reward": -1.0005000046803616,
+            "creation_time": 1610909999.1848588
+        }
+    },
+    "Seeker": {
+        "checkpoints": [
+            {
+                "steps": 9247,
+                "file_path": "results\\NieuweRun01\\Seeker\\Seeker-9247.nn",
+                "reward": 1.139300018409267,
+                "creation_time": 1610909999.7888892
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 9247,
+            "file_path": "results\\NieuweRun01\\Seeker.nn",
+            "reward": 1.139300018409267,
+            "creation_time": 1610909999.7888892
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.1.0",
+        "mlagents_version": "0.21.0",
+        "tensorflow_version": "2.3.1"
+    }
+}

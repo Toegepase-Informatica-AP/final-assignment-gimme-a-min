@@ -1,0 +1,2 @@
+model_checkpoint_path: "Player-7192.ckpt"
+all_model_checkpoint_paths: "Player-7192.ckpt"
